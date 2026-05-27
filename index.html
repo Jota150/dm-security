@@ -778,7 +778,8 @@ function renderTudoAtual(){
 }
 
 // Inicia conexão Firebase — chamado no final do script
-(turnos){
+
+function gerarAbril(turnos){
   const t0=turnos[0].id,t1=turnos[1].id;
   const esc=[[1,t0,'diogo','michael'],[1,t1,'diogo','michael'],[2,t0,'renato-c','roberton'],[2,t1,'renato-c','roberton'],[3,t0,'renato-c','roberton'],[3,t1,'renato-c','roberton'],[4,t0,'diogo','willian'],[4,t1,'diogo','willian'],[5,t0,'jose-f','roberton'],[5,t1,'jose-f','roberton'],[6,t0,'renato-c','roberton'],[6,t1,'renato-c','roberton'],[7,t0,'diogo','willian'],[7,t1,'diogo','willian'],[8,t0,'renato-c','roberton'],[8,t1,'renato-c','roberton'],[9,t0,'renato-c','jose-f'],[9,t1,'jose-f','michael'],[10,t0,'renato-c','michael'],[10,t1,'renato-c','michael'],[11,t0,'jose-f','roberton'],[11,t1,'jose-f','roberton'],[12,t0,'jose-f','roberton'],[12,t1,'jose-f','roberton'],[13,t0,'renato-c','roberton'],[13,t1,'renato-c','roberton'],[14,t0,'renato-c','jose-f'],[14,t1,'renato-c','jose-f'],[15,t0,'renato-c','roberton'],[15,t1,'renato-c','roberton'],[16,t0,'diogo','willian'],[16,t1,'diogo','willian'],[17,t0,'renato-c','roberton'],[17,t1,'renato-c','roberton'],[18,t0,'renato-c','michael'],[18,t1,'renato-c','michael'],[19,t0,'jose-f','roberton'],[19,t1,'jose-f','roberton'],[20,t0,'diogo','michael'],[20,t1,'diogo','michael'],[21,t0,'renato-c','roberton'],[21,t1,'renato-c','roberton'],[22,t0,'renato-c','roberton'],[22,t1,'renato-c','roberton'],[23,t0,'renato-c','jose-f'],[23,t1,'renato-c','jose-f'],[24,t0,'renato-c','michael'],[24,t1,'renato-c','michael'],[25,t0,'jose-f','roberton'],[25,t1,'jose-f','roberton'],[26,t0,'diogo','michael'],[26,t1,'diogo','michael'],[27,t0,'diogo','michael'],[27,t1,'diogo','michael'],[28,t0,'renato-c','roberton'],[28,t1,'renato-c','roberton'],[29,t0,'diogo','willian'],[29,t1,'diogo','willian'],[30,t0,'renato-c','roberton'],[30,t1,'renato-c','roberton']];
   return esc.map(([d,tid,...cs],i)=>({id:'p'+i,data:`2026-04-${String(d).padStart(2,'0')}`,empresaId:'picinin',turnoId:tid,colaboradorIds:cs}));
@@ -1367,22 +1368,52 @@ function atualizarRelogio(){
 atualizarRelogio();
 setInterval(atualizarRelogio,1000);
 
-// ══ Expor funções globais (necessário com type=module) ══
-Object.assign(window,{
-  showPage,navMes,openPlantaoModal,confirmarPlantao,forcarPlantao,delP,
-  openLancamentoMultiplo,miniNavMes,atualizarMiniCal,toggleDia,confirmarMultiplo,
-  filtrarColabsMultiplo,atualizarPreviewValor,
-  renderEmpresas,openEmpresaModal,salvarEmpresa,toggleEmpresa,delEmpresa,selectColor,
-  renderTurnos,openTurnoModal,salvarTurno,delTurno,addPreset,limparTurnos,
-  renderColabs,openColabModal,salvarColab,toggleAtivo,delColab,
-  renderRelatorio,populateRelSelects,
-  openSubModal,onSubTipoChange,populateSubTurnos,salvarSub,renderSubstituicoes,
-  populateSubFilters,delSub,exportarExcel,
-  closeModal,
-});
-
 // Inicia Firebase por último
 iniciarSync();
+
+// ══ Expor funções globais (necessário com type=module) ══
+window.showPage=showPage;
+window.navMes=navMes;
+window.openPlantaoModal=openPlantaoModal;
+window.confirmarPlantao=confirmarPlantao;
+window.forcarPlantao=forcarPlantao;
+window.delP=delP;
+window.openLancamentoMultiplo=openLancamentoMultiplo;
+window.miniNavMes=miniNavMes;
+window.atualizarMiniCal=atualizarMiniCal;
+window.toggleDia=toggleDia;
+window.confirmarMultiplo=confirmarMultiplo;
+window.filtrarColabsMultiplo=filtrarColabsMultiplo;
+window.atualizarPreviewValor=atualizarPreviewValor;
+window.renderEmpresas=renderEmpresas;
+window.openEmpresaModal=openEmpresaModal;
+window.salvarEmpresa=salvarEmpresa;
+window.toggleEmpresa=toggleEmpresa;
+window.delEmpresa=delEmpresa;
+window.selectColor=selectColor;
+window.renderTurnos=renderTurnos;
+window.openTurnoModal=openTurnoModal;
+window.salvarTurno=salvarTurno;
+window.delTurno=delTurno;
+window.addPreset=addPreset;
+window.limparTurnos=limparTurnos;
+window.renderColabs=renderColabs;
+window.openColabModal=openColabModal;
+window.salvarColab=salvarColab;
+window.toggleAtivo=toggleAtivo;
+window.delColab=delColab;
+window.renderRelatorio=renderRelatorio;
+window.populateRelSelects=populateRelSelects;
+window.openSubModal=openSubModal;
+window.onSubTipoChange=onSubTipoChange;
+window.populateSubTurnos=populateSubTurnos;
+window.salvarSub=salvarSub;
+window.salvarSubstituicao=salvarSubstituicao;
+window.renderSubstituicoes=renderSubstituicoes;
+window.populateSubFilters=populateSubFilters;
+window.delSub=delSub;
+window.exportarExcel=exportarExcel;
+window.closeModal=closeModal;
 </script>
 
 <footer style="background:var(--bg);border-top:1px solid var(--border);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
