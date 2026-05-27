@@ -677,7 +677,11 @@ tr:hover td{background:var(--bg2)}
   </div>
 </div>
 
-<script type="module">
+<!-- Firebase via CDN (compatível com GitHub Pages) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script>
 const MESES=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 const TC=['tc0','tc1','tc2','tc3','tc4','tc5','tc6','tc7'];
 const CORES=['#185FA5','#1D9E75','#D85A30','#7F77DD','#3B6D11','#D4537E','#854F0B','#A32D2D','#0F6E56','#5F5E5A'];
@@ -685,22 +689,18 @@ const CORES=['#185FA5','#1D9E75','#D85A30','#7F77DD','#3B6D11','#D4537E','#854F0
 // ══════════════════════════════════════════════
 // FIREBASE CONFIG
 // ══════════════════════════════════════════════
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
 const firebaseConfig = {
   apiKey: "AIzaSyCZmusVgs-X8OAq1wtBBcn6As5Szhv7Wp4",
   authDomain: "dm-security-7ae14.firebaseapp.com",
   projectId: "dm-security-7ae14",
   storageBucket: "dm-security-7ae14.firebasestorage.app",
   messagingSenderId: "200653426174",
-  appId: "1:200653426174:web:08c6fdcdca08febaf444af",
-  measurementId: "G-QHCQBSBMFX"
+  appId: "1:200653426174:web:08c6fdcdca08febaf444af"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const DOC_REF = doc(db, "dm_security", "dados");
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const DOC_REF = db.collection("dm_security").doc("dados");
 
 let S = null;
 let calMes=new Date().getMonth(), calAno=new Date().getFullYear();
@@ -711,10 +711,10 @@ let _saving=false;
 
 // Mostra loading enquanto carrega
 document.body.insertAdjacentHTML('afterbegin',`
-  <div id="fb-loading" style="position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px">
+  <div id="fb-loading" style="position:fixed;inset:0;background:#fff;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px">
     <div style="font-size:40px">🔒</div>
-    <div style="font-family:sans-serif;font-size:16px;color:var(--text2)">Conectando ao banco de dados...</div>
-    <div style="width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite"></div>
+    <div style="font-family:sans-serif;font-size:16px;color:#555">Conectando ao banco de dados...</div>
+    <div style="width:40px;height:40px;border:3px solid #eee;border-top-color:#185FA5;border-radius:50%;animation:spin .8s linear infinite"></div>
   </div>
   <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
 `);
@@ -736,15 +736,14 @@ function initS(){
 async function saveS(){
   if(_saving)return;
   _saving=true;
-  try{ await setDoc(DOC_REF, S); }
+  try{ await DOC_REF.set(S); }
   catch(e){ console.error('Erro ao salvar:',e); }
   _saving=false;
 }
 
-// Escuta mudanças em TEMPO REAL — qualquer pessoa que salvar, todos veem na hora
 function iniciarSync(){
-  onSnapshot(DOC_REF, (snap) => {
-    const dados = snap.exists() ? snap.data() : null;
+  DOC_REF.onSnapshot((snap) => {
+    const dados = snap.exists ? snap.data() : null;
     if(!dados){
       S = initS();
       saveS();
@@ -753,11 +752,13 @@ function iniciarSync(){
       if(S.empresas) S.empresas.forEach(e=>{ if(e.valorPlantao===undefined) e.valorPlantao=S.valorPlantao||160; });
       if(!S.substituicoes) S.substituicoes=[];
     }
-    // Remove loading na primeira carga
     const loading = document.getElementById('fb-loading');
     if(loading) loading.remove();
-    // Atualiza telas
     renderTudoAtual();
+  }, (err) => {
+    console.error('Firebase erro:', err);
+    const loading = document.getElementById('fb-loading');
+    if(loading) loading.innerHTML='<div style="color:red;padding:20px;text-align:center">❌ Erro ao conectar ao banco.<br>Verifique as regras do Firestore.</div>';
   });
 }
 
@@ -774,10 +775,8 @@ function renderTudoAtual(){
       if(id==='page-relatorio'){ populateRelSelects(); renderRelatorio(); }
       if(id==='page-substituicoes') renderSubstituicoes();
     }
-  }catch(e){}
+  }catch(e){ console.error(e); }
 }
-
-// Inicia conexão Firebase — chamado no final do script
 
 function gerarAbril(turnos){
   const t0=turnos[0].id,t1=turnos[1].id;
@@ -1368,52 +1367,9 @@ function atualizarRelogio(){
 atualizarRelogio();
 setInterval(atualizarRelogio,1000);
 
-// Inicia Firebase por último
+// Inicia Firebase
 iniciarSync();
 
-// ══ Expor funções globais (necessário com type=module) ══
-window.showPage=showPage;
-window.navMes=navMes;
-window.openPlantaoModal=openPlantaoModal;
-window.confirmarPlantao=confirmarPlantao;
-window.forcarPlantao=forcarPlantao;
-window.delP=delP;
-window.openLancamentoMultiplo=openLancamentoMultiplo;
-window.miniNavMes=miniNavMes;
-window.atualizarMiniCal=atualizarMiniCal;
-window.toggleDia=toggleDia;
-window.confirmarMultiplo=confirmarMultiplo;
-window.filtrarColabsMultiplo=filtrarColabsMultiplo;
-window.atualizarPreviewValor=atualizarPreviewValor;
-window.renderEmpresas=renderEmpresas;
-window.openEmpresaModal=openEmpresaModal;
-window.salvarEmpresa=salvarEmpresa;
-window.toggleEmpresa=toggleEmpresa;
-window.delEmpresa=delEmpresa;
-window.selectColor=selectColor;
-window.renderTurnos=renderTurnos;
-window.openTurnoModal=openTurnoModal;
-window.salvarTurno=salvarTurno;
-window.delTurno=delTurno;
-window.addPreset=addPreset;
-window.limparTurnos=limparTurnos;
-window.renderColabs=renderColabs;
-window.openColabModal=openColabModal;
-window.salvarColab=salvarColab;
-window.toggleAtivo=toggleAtivo;
-window.delColab=delColab;
-window.renderRelatorio=renderRelatorio;
-window.populateRelSelects=populateRelSelects;
-window.openSubModal=openSubModal;
-window.onSubTipoChange=onSubTipoChange;
-window.populateSubTurnos=populateSubTurnos;
-window.salvarSub=salvarSub;
-window.salvarSubstituicao=salvarSubstituicao;
-window.renderSubstituicoes=renderSubstituicoes;
-window.populateSubFilters=populateSubFilters;
-window.delSub=delSub;
-window.exportarExcel=exportarExcel;
-window.closeModal=closeModal;
 </script>
 
 <footer style="background:var(--bg);border-top:1px solid var(--border);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
