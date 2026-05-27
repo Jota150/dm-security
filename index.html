@@ -763,6 +763,7 @@ function iniciarSync(){
 }
 
 function renderTudoAtual(){
+  if(!S) return;
   try{
     populateEmpresaSelect();
     renderCal();
@@ -775,7 +776,7 @@ function renderTudoAtual(){
       if(id==='page-relatorio'){ populateRelSelects(); renderRelatorio(); }
       if(id==='page-substituicoes') renderSubstituicoes();
     }
-  }catch(e){ console.error(e); }
+  }catch(e){ console.error('renderTudoAtual erro:',e); }
 }
 
 function gerarAbril(turnos){
@@ -785,6 +786,7 @@ function gerarAbril(turnos){
 }
 
 function showPage(name,btn){
+  if(!S){setTimeout(()=>showPage(name,btn),300);return;}
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
@@ -800,6 +802,7 @@ const fmtData=(ano,mes,dia)=>`${ano}-${String(mes+1).padStart(2,'0')}-${String(d
 
 /* ══════════════════ CALENDÁRIO PRINCIPAL ══════════════════ */
 function populateEmpresaSelect(){
+  if(!S) return;
   const sel=document.getElementById('empresa-select'),cur=sel.value;
   sel.innerHTML='<option value="">Selecione uma empresa</option>'+S.empresas.filter(e=>e.ativo).map(e=>`<option value="${e.id}">${e.nome}</option>`).join('');
   if(cur&&S.empresas.find(e=>e.id===cur))sel.value=cur;
