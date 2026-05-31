@@ -24,8 +24,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
   --green-bg:#0f2008;--red-bg:#2a0a0a;--red-text:#F09595;
   --warn-bg:#2a1800;--warn-text:#FAC775;
 }}
-/* LOGIN */
-.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f2c52 0%,#185FA5 100%)}
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f2c52,#185FA5)}
 .login-box{background:#fff;border-radius:16px;padding:40px 36px;width:100%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
 .login-logo{display:flex;align-items:center;gap:12px;margin-bottom:28px}
 .login-icon{width:48px;height:48px;background:#185FA5;border-radius:10px;display:flex;align-items:center;justify-content:center}
@@ -39,7 +38,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .login-btn{width:100%;padding:12px;background:#185FA5;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;margin-top:4px}
 .login-btn:hover{background:#0f4a87}
 .login-err{background:#FCEBEB;color:#A32D2D;border-radius:6px;padding:9px 12px;font-size:13px;margin-bottom:14px;display:none}
-/* APP */
 .app{display:flex;flex-direction:column;min-height:100vh}
 .header{background:var(--bg);border-bottom:1px solid var(--border);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:50;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .logo{display:flex;align-items:center;gap:10px}
@@ -52,14 +50,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .nav-btn:hover{background:var(--bg2);color:var(--text)}
 .nav-btn.active{background:var(--blue-bg);color:var(--blue);font-weight:700}
 .user-info{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2)}
+.sync-dot{width:10px;height:10px;border-radius:50%;background:#22c55e;opacity:0;transition:opacity .5s;flex-shrink:0}
 .logout-btn{padding:5px 12px;border-radius:var(--radius);border:1px solid var(--border);background:transparent;cursor:pointer;font-size:12px;color:var(--text2)}
-.logout-btn:hover{background:var(--red-bg);color:var(--red);border-color:var(--red)}
+.logout-btn:hover{background:var(--red-bg);color:var(--red)}
 .content{padding:18px;flex:1;max-width:1280px;margin:0 auto;width:100%}
 .page{display:none}.page.active{display:block}
-/* CALENDÁRIO */
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+.section-title{font-size:18px;font-weight:700}.section-sub{font-size:12px;color:var(--text2);margin-top:2px}
+/* CAL */
 .cal-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:10px}
 .cal-nav{display:flex;align-items:center;gap:8px}
-.cal-month{font-size:17px;font-weight:700;color:var(--text);min-width:155px;text-align:center}
+.cal-month{font-size:17px;font-weight:700;min-width:155px;text-align:center}
 .btn-icon{width:32px;height:32px;border:1px solid var(--border2);border-radius:var(--radius);background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text2);font-size:17px}
 .btn-icon:hover{background:var(--bg2)}
 .empresa-select{padding:7px 10px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg);font-size:13px;color:var(--text);min-width:180px}
@@ -67,89 +68,75 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .cal-grid{border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;background:var(--bg)}
 .cal-weekdays{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));background:var(--bg2)}
 .cal-wd{padding:8px 4px;text-align:center;font-size:11px;font-weight:600;color:var(--text2);border-right:1px solid var(--border)}
-.cal-wd:last-child{border-right:none}.cal-wd.we{color:var(--blue)}
+.cal-wd.we{color:var(--blue)}
 .cal-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
 .cal-day{min-height:110px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:5px;background:var(--bg)}
 .cal-day:nth-child(7n){border-right:none}
 .cal-day.empty{background:var(--bg2)}.cal-day.we-day{background:#f0f6fd}
 .cal-day-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
-.cal-day-num{font-size:14px;font-weight:700;color:var(--text)}
+.cal-day-num{font-size:14px;font-weight:700}
 .add-btn{width:22px;height:22px;border:none;background:transparent;cursor:pointer;color:var(--text3);font-size:20px;line-height:1;border-radius:3px;display:flex;align-items:center;justify-content:center}
 .add-btn:hover{background:var(--blue-bg);color:var(--blue)}
-.shift{border-radius:6px;padding:4px 7px;margin-bottom:3px;display:flex;align-items:center;gap:5px;position:relative;line-height:1.35}
-.shift-icon{font-size:14px;flex-shrink:0}.shift-nomes{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;font-weight:700;font-size:12px}
+.shift{border-radius:6px;padding:4px 7px;margin-bottom:3px;display:flex;align-items:center;gap:5px;position:relative;line-height:1.35;cursor:pointer}
+.shift-icon{font-size:14px;flex-shrink:0}
+.shift-nomes{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;font-weight:700;font-size:12px}
 .shift-del{display:none;position:absolute;right:3px;top:50%;transform:translateY(-50%);background:var(--red);color:white;border:none;border-radius:3px;width:16px;height:16px;cursor:pointer;font-size:10px;align-items:center;justify-content:center}
-.shift:hover .shift-del{display:flex}.shift:hover .shift-nomes{padding-right:20px}
+.shift:hover .shift-del{display:flex}
 .tc0{background:#FAEEDA;color:#633806}.tc1{background:#EEEDFE;color:#26215C}.tc2{background:#E1F5EE;color:#04342C}
 .tc3{background:#FAECE7;color:#4A1B0C}.tc4{background:#EAF3DE;color:#173404}.tc5{background:#FBEAF0;color:#4B1528}
 .tc6{background:#E6F1FB;color:#042C53}.tc7{background:#F1EFE8;color:#2C2C2A}
-.legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;font-size:12px;color:var(--text2)}
-.leg-item{display:flex;align-items:center;gap:5px}.leg-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
 /* MODAIS */
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;align-items:center;justify-content:center;padding:16px}
 .modal-bg.open{display:flex}
 .modal{background:var(--bg);border-radius:var(--radius-lg);border:1px solid var(--border);padding:22px;width:460px;max-width:100%;max-height:92vh;overflow-y:auto}
-.modal h3{font-size:16px;font-weight:700;margin-bottom:4px;color:var(--text)}
+.modal h3{font-size:16px;font-weight:700;margin-bottom:4px}
 .modal-sub{font-size:12px;color:var(--text2);margin-bottom:16px}
-.form-row{margin-bottom:12px}.form-label{font-size:12px;font-weight:600;color:var(--text2);margin-bottom:4px;display:block}
+.form-row{margin-bottom:12px}
+.form-label{font-size:12px;font-weight:600;color:var(--text2);margin-bottom:4px;display:block}
 .form-select,.form-input,.form-textarea{width:100%;padding:9px 11px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg);font-size:13px;color:var(--text);font-family:inherit}
 .form-select:focus,.form-input:focus{outline:none;border-color:var(--blue)}
 .form-textarea{resize:vertical;min-height:70px}
 .colab-checks{display:flex;flex-direction:column;gap:4px;max-height:180px;overflow-y:auto;border:1px solid var(--border);border-radius:var(--radius);padding:8px}
-.colab-check{display:flex;align-items:center;gap:8px;padding:5px 6px;border-radius:4px;cursor:pointer;font-size:13px;color:var(--text)}
-.colab-check:hover{background:var(--bg2)}.colab-check input{cursor:pointer;width:15px;height:15px}
+.colab-check{display:flex;align-items:center;gap:8px;padding:5px 6px;border-radius:4px;cursor:pointer;font-size:13px}
+.colab-check:hover{background:var(--bg2)}
+.colab-check input{cursor:pointer;width:15px;height:15px}
 .modal-footer{display:flex;justify-content:flex-end;gap:8px;margin-top:16px;border-top:1px solid var(--border);padding-top:14px}
 .btn{padding:8px 16px;border-radius:var(--radius);font-size:13px;cursor:pointer;border:1px solid var(--border2);background:var(--bg);color:var(--text);font-weight:500}
-.btn:hover{background:var(--bg2)}.btn-primary{background:var(--blue);color:white;border-color:var(--blue)}
-.btn-primary:hover{background:#0f4a87;border-color:#0f4a87}.btn-danger{background:var(--red);color:white;border-color:var(--red)}
-/* EMPRESAS */
-.empresas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:16px}
-.empresa-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px;position:relative}
-.empresa-color-bar{height:5px;border-radius:3px;margin-bottom:12px}
-.empresa-nome{font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px}
-.empresa-info{font-size:12px;color:var(--text2);margin-bottom:3px}
-.empresa-actions{display:flex;gap:6px;margin-top:12px}
+.btn:hover{background:var(--bg2)}
+.btn-primary{background:var(--blue);color:white;border-color:var(--blue)}
+.btn-primary:hover{background:#0f4a87}
+.btn-danger{background:var(--red);color:white;border-color:var(--red)}
+.btn-sm{padding:5px 10px;font-size:12px}
+/* CARDS */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:16px}
+.card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px}
+.card-color-bar{height:5px;border-radius:3px;margin-bottom:12px}
 .color-picker{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 .color-dot{width:24px;height:24px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:.15s}
 .color-dot.selected{border-color:#333;transform:scale(1.2)}
-/* TURNOS */
-.turnos-list{margin-top:16px;display:flex;flex-direction:column;gap:8px}
-.turno-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
-.turno-nome{font-weight:600;font-size:14px}.turno-horario{font-size:12px;color:var(--text2);margin-top:2px}
-.preset-btns{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
-.preset-btn{padding:6px 12px;font-size:12px;border-radius:var(--radius);border:1px solid var(--border);background:var(--bg2);cursor:pointer;color:var(--text2)}
-.preset-btn:hover{background:var(--blue-bg);color:var(--blue)}.preset-btn.danger{border-color:var(--red);color:var(--red)}
-.preset-btn.danger:hover{background:var(--red-bg)}
-/* COLABS */
-.colabs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:16px}
-.colab-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px}
-.colab-avatar{width:40px;height:40px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:14px;margin-bottom:10px}
-.colab-nome{font-weight:700;font-size:14px;margin-bottom:4px}.colab-info{font-size:12px;color:var(--text2);margin-bottom:2px}
-/* RELATÓRIO */
-.config-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:16px;display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap}
+/* TABELA */
+.table-wrap{overflow-x:auto}
+table.data-table{width:100%;border-collapse:collapse;font-size:13px}
+table.data-table th{padding:10px 12px;text-align:left;background:var(--bg2);border-bottom:2px solid var(--border);font-weight:600;font-size:11px;color:var(--text2);text-transform:uppercase;white-space:nowrap;cursor:pointer;user-select:none}
+table.data-table th:hover{color:var(--blue)}
+table.data-table td{padding:11px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+table.data-table tr:hover td{background:var(--bg2)}
+/* STATUS */
+.status-pill{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap}
+.s-andamento{background:#d4edda;color:#155724}
+.s-finalizado{background:#e2e3e5;color:#383d41}
+.s-futuro{background:#d1ecf1;color:#0c5460}
+.seq-ok{font-weight:600}
+.seq-warn{color:#856404;font-weight:700;background:#fff3cd;padding:2px 8px;border-radius:12px}
+.seq-alert{color:#721c24;font-weight:700;background:#f8d7da;padding:2px 8px;border-radius:12px}
+/* KPIs */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:16px}
+.kpi{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px}
+.kpi-val{font-size:26px;font-weight:800;line-height:1}
+.kpi-lbl{font-size:11px;color:var(--text2);margin-top:4px}
+/* FILTROS */
+.filtros{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;align-items:end}
 .config-lbl{font-size:11px;font-weight:600;color:var(--text2);margin-bottom:4px}
-.sum-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
-.sum-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px}
-.sum-val{font-size:24px;font-weight:700;color:var(--blue)}.sum-lbl{font-size:11px;color:var(--text2);margin-top:2px}
-.rel-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px;margin-bottom:12px}
-.rel-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
-.rel-name{font-size:16px;font-weight:700;margin-bottom:4px}.rel-total{font-size:20px;font-weight:700;color:var(--green);white-space:nowrap}
-.rel-empresas{display:flex;flex-wrap:wrap;gap:4px}
-.rel-emp-badge{font-size:11px;padding:2px 8px;border-radius:12px;font-weight:600}
-.rel-details{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;border-top:1px solid var(--border);padding-top:12px}
-.rel-m{text-align:center}.rel-mv{font-size:16px;font-weight:700;color:var(--text)}.rel-ml{font-size:10px;color:var(--text3);margin-top:2px}
-/* SUBSTITUIÇÕES */
-.sub-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px}
-.sub-filters{display:flex;gap:8px;flex-wrap:wrap;background:var(--bg);padding:12px;border-radius:var(--radius);border:1px solid var(--border);margin-bottom:14px}
-.sub-table-wrap{overflow-x:auto}
-.sub-table{width:100%;border-collapse:collapse;font-size:13px}
-.sub-table th{padding:9px 12px;text-align:left;background:var(--bg2);border-bottom:2px solid var(--border);font-weight:600;font-size:11px;color:var(--text2);text-transform:uppercase;white-space:nowrap}
-.sub-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
-.sub-table tr:hover td{background:var(--bg2)}
-.sub-imp{background:#FAEEDA;color:#633806;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600}
-.sub-troca{background:#EEEDFE;color:#26215C;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600}
-.sub-empty{text-align:center;padding:48px;color:var(--text2);font-size:13px}
-.export-btn{display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:var(--radius);border:1px solid var(--green);background:var(--green-bg);color:var(--green);font-size:13px;font-weight:600;cursor:pointer}
 /* MINI CAL */
 .mini-cal-wrap{background:var(--bg2);border-radius:var(--radius);padding:12px}
 .mini-cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
@@ -160,61 +147,51 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .mini-days{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
 .mini-day{text-align:center;padding:5px 2px;font-size:12px;border-radius:4px;cursor:pointer;border:1px solid transparent;user-select:none}
 .mini-day:hover:not(.empty):not(.blocked){background:var(--blue-bg)}
-.mini-day.empty{visibility:hidden}.mini-day.selected{background:var(--blue);color:white;font-weight:700}
-.mini-day.blocked{background:var(--red-bg);color:var(--red);cursor:not-allowed;font-size:10px}
+.mini-day.empty{visibility:hidden}
+.mini-day.selected{background:var(--blue);color:white;font-weight:700}
+.mini-day.blocked{background:var(--red-bg);color:var(--red);cursor:not-allowed}
 .mini-day.has-shift{border-color:var(--blue);background:var(--blue-bg)}
-.mini-legend{display:flex;gap:10px;margin-top:8px;flex-wrap:wrap}
-.mini-leg{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text2)}
-.mini-leg-dot{width:10px;height:10px;border-radius:2px}
 .mini-sel-count{text-align:center;font-size:12px;font-weight:600;color:var(--blue);margin-top:6px}
-.alert-ok{background:var(--green-bg);border:1px solid var(--green);border-radius:var(--radius);padding:10px 14px;font-size:13px;color:var(--green)}
-.alert-err{background:var(--red-bg);border:1px solid var(--red);border-radius:var(--radius);padding:10px 14px;font-size:13px;color:var(--red)}
-.alert-warn{background:var(--warn-bg);border:1px solid var(--warn-border);border-radius:var(--radius);padding:10px 14px;font-size:13px;color:var(--warn-text)}
+.alert-ok{background:var(--green-bg);border:1px solid var(--green);border-radius:var(--radius);padding:10px 14px;font-size:13px;color:var(--green);margin-top:8px}
+.alert-err{background:var(--red-bg);border:1px solid var(--red);border-radius:var(--radius);padding:10px 14px;font-size:13px;color:var(--red);margin-top:8px}
 .alert-t{font-weight:700;margin-bottom:2px}
-.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-.section-title{font-size:18px;font-weight:700}.section-sub{font-size:12px;color:var(--text2);margin-top:2px}
-@media(max-width:640px){.cal-day{min-height:80px}.rel-details{grid-template-columns:repeat(2,1fr)}.content{padding:10px}.nav-btn{padding:5px 7px;font-size:11px}.empresas-grid{grid-template-columns:1fr}}
-/* MONITORAMENTO */
-.mon-th{padding:10px 12px;text-align:left;font-weight:600;font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.04em;cursor:pointer;white-space:nowrap;border-bottom:2px solid var(--border);user-select:none}
-.mon-th:hover{background:var(--bg3);color:var(--blue)}
-.mon-td{padding:11px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
-.mon-tr:hover td{background:var(--bg2)}
-.status-pill{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap}
-.status-andamento{background:#d4edda;color:#155724}
-.status-finalizado{background:#e2e3e5;color:#383d41}
-.status-futuro{background:#d1ecf1;color:#0c5460}
-.seq-ok{color:var(--text);font-weight:600}
-.seq-warn{color:#856404;font-weight:700;background:#fff3cd;padding:2px 8px;border-radius:12px}
-.seq-alert{color:#721c24;font-weight:700;background:#f8d7da;padding:2px 8px;border-radius:12px}
-.kpi-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px}
-.kpi-val{font-size:26px;font-weight:800;line-height:1}
-.kpi-lbl{font-size:11px;color:var(--text2);margin-top:4px}
-.dia-atual-ativo{background:var(--blue)!important;color:#fff!important;border-color:var(--blue)!important}
 /* LOADING */
 #loading-screen{position:fixed;inset:0;background:#f4f5f7;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
 .spin{width:40px;height:40px;border:3px solid #ddd;border-top-color:#185FA5;border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
+.dia-atual-ativo{background:var(--blue)!important;color:#fff!important;border-color:var(--blue)!important}
+/* COLABS */
+.colab-avatar{width:40px;height:40px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:14px;margin-bottom:10px}
+/* SUM */
+.sum-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
+.sum-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px}
+.sum-val{font-size:24px;font-weight:700;color:var(--blue)}
+.sum-lbl{font-size:11px;color:var(--text2);margin-top:2px}
+.rel-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px;margin-bottom:12px}
+.rel-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
+.rel-name{font-size:16px;font-weight:700;margin-bottom:4px}
+.rel-total{font-size:20px;font-weight:700;color:var(--green);white-space:nowrap}
+.rel-details{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;border-top:1px solid var(--border);padding-top:12px}
+.rel-m{text-align:center}
+.rel-mv{font-size:16px;font-weight:700}
+.rel-ml{font-size:10px;color:var(--text3);margin-top:2px}
+@media(max-width:640px){.cal-day{min-height:80px}.rel-details{grid-template-columns:repeat(2,1fr)}.content{padding:10px}.nav-btn{padding:5px 7px;font-size:11px}}
 </style>
 </head>
 <body>
 
-<!-- LOADING -->
 <div id="loading-screen">
   <div style="font-size:40px">🔒</div>
-  <div style="font-size:15px;color:#555;font-weight:500">Carregando sistema...</div>
+  <div style="font-size:15px;color:#555;font-weight:500">Carregando...</div>
   <div class="spin"></div>
 </div>
 
-<!-- LOGIN -->
 <div id="login-screen" style="display:none">
   <div class="login-wrap">
     <div class="login-box">
       <div class="login-logo">
         <div class="login-icon"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg></div>
-        <div>
-          <div class="login-title">D&M Security</div>
-          <div class="login-sub">Gestão de Plantões</div>
-        </div>
+        <div><div class="login-title">D&M Security</div><div class="login-sub">Gestão de Plantões</div></div>
       </div>
       <div id="login-err" class="login-err"></div>
       <div class="login-field">
@@ -230,31 +207,30 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
   </div>
 </div>
 
-<!-- APP -->
 <div id="app-screen" style="display:none">
 <div class="app">
   <div class="header">
     <div class="logo">
       <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg></div>
-      <div><div class="logo-title">D&M Security</div><div class="logo-sub">Gestão de Plantões</div></div>
+      <div><div class="logo-title">D&M Security</div><div class="logo-sub" id="user-email-label"></div></div>
     </div>
     <div class="nav">
       <button class="nav-btn active" onclick="showPage('calendario',this)">📅 Calendário</button>
       <button class="nav-btn" onclick="showPage('empresas',this)">🏢 Empresas</button>
       <button class="nav-btn" onclick="showPage('turnos',this)">🕐 Turnos</button>
       <button class="nav-btn" onclick="showPage('colaboradores',this)">👥 Colaboradores</button>
-      <button class="nav-btn" onclick="showPage('relatorio',this)">💰 Pagamentos</button>
+      <button class="nav-btn" onclick="showPage('pagamentos',this)">💰 Pagamentos</button>
       <button class="nav-btn" onclick="showPage('substituicoes',this)">🔄 Substituições</button>
-      <button class="nav-btn" onclick="showPage('monitoramento',this)" style="background:linear-gradient(135deg,#0f2c52,#185FA5);color:#fff;font-weight:700">👁 Monitoramento</button>
+      <button class="nav-btn" onclick="showPage('monitoramento',this)" style="font-weight:700;color:var(--blue)">👁 Monitoramento</button>
     </div>
     <div class="user-info">
-      <div id="sync-indicator" title="Sincronizado" style="width:10px;height:10px;border-radius:50%;background:#22c55e;opacity:0;transition:opacity .5s;flex-shrink:0"></div>
-      <span id="user-email-label"></span>
+      <div id="sync-dot" class="sync-dot" title="Sincronizado"></div>
       <button class="logout-btn" onclick="fazerLogout()">Sair</button>
     </div>
   </div>
 
   <div class="content">
+
     <!-- CALENDÁRIO -->
     <div id="page-calendario" class="page active">
       <div class="cal-toolbar">
@@ -267,10 +243,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
           <select class="empresa-select" id="empresa-select" onchange="renderCal()">
             <option value="">Selecione uma empresa</option>
           </select>
-          <button class="btn btn-primary" onclick="openLancamentoMultiplo()" style="white-space:nowrap">+ Lançar vários dias</button>
+          <button class="btn btn-primary" onclick="openLancamentoMultiplo()">+ Lançar vários dias</button>
         </div>
       </div>
-      <div class="cal-banner" id="cal-banner" style="background:#666">Selecione uma empresa para ver a escala</div>
+      <div class="cal-banner" id="cal-banner" style="background:#666">Selecione uma empresa</div>
       <div class="cal-grid">
         <div class="cal-weekdays">
           <div class="cal-wd we">DOM</div><div class="cal-wd">SEG</div><div class="cal-wd">TER</div>
@@ -278,223 +254,183 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
         </div>
         <div class="cal-days" id="cal-days"></div>
       </div>
-      <div class="legend" id="cal-legend"></div>
+      <div id="cal-legend" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;font-size:12px;color:var(--text2)"></div>
     </div>
 
     <!-- EMPRESAS -->
     <div id="page-empresas" class="page">
       <div class="section-header">
-        <div><div class="section-title">🏢 Empresas</div><div class="section-sub">Gerencie os postos de trabalho</div></div>
+        <div><div class="section-title">🏢 Empresas</div><div class="section-sub">Postos de trabalho</div></div>
         <button class="btn btn-primary" onclick="openEmpresaModal(null)">+ Nova Empresa</button>
       </div>
-      <div class="empresas-grid" id="empresas-grid"></div>
+      <div class="cards-grid" id="empresas-grid"></div>
     </div>
 
     <!-- TURNOS -->
     <div id="page-turnos" class="page">
       <div class="section-header">
-        <div><div class="section-title">🕐 Turnos</div><div class="section-sub">Configure os horários de trabalho</div></div>
+        <div><div class="section-title">🕐 Turnos</div></div>
         <button class="btn btn-primary" onclick="openTurnoModal(null)">+ Novo Turno</button>
       </div>
-      <div style="margin-bottom:10px">
-        <div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px">Adicionar predefinição:</div>
-        <div class="preset-btns">
-          <button class="preset-btn" onclick="addPreset([['07:00','19:00'],['19:00','07:00']],['Diurno','Noturno'])">2 turnos 12h (07–19)</button>
-          <button class="preset-btn" onclick="addPreset([['06:00','18:00'],['18:00','06:00']],['Diurno','Noturno'])">2 turnos 12h (06–18)</button>
-          <button class="preset-btn" onclick="addPreset([['06:00','12:00'],['12:00','18:00'],['18:00','00:00'],['00:00','06:00']],['Manhã','Tarde','Noite','Madrugada'])">4 turnos 6h</button>
-          <button class="preset-btn danger" onclick="limparTurnos()">🗑 Limpar todos</button>
-        </div>
+      <div style="margin-bottom:12px;display:flex;flex-wrap:wrap;gap:6px">
+        <button class="btn btn-sm" onclick="addPreset([['07:00','19:00'],['19:00','07:00']],['Diurno','Noturno'])">+ 2 turnos 12h (07–19)</button>
+        <button class="btn btn-sm" onclick="addPreset([['06:00','18:00'],['18:00','06:00']],['Diurno','Noturno'])">+ 2 turnos 12h (06–18)</button>
+        <button class="btn btn-sm" style="border-color:var(--red);color:var(--red)" onclick="limparTurnos()">🗑 Limpar todos</button>
       </div>
-      <div class="turnos-list" id="turnos-list"></div>
+      <div id="turnos-list" style="display:flex;flex-direction:column;gap:8px"></div>
     </div>
 
     <!-- COLABORADORES -->
     <div id="page-colaboradores" class="page">
       <div class="section-header">
-        <div><div class="section-title">👥 Colaboradores</div><div class="section-sub">Equipe de segurança</div></div>
+        <div><div class="section-title">👥 Colaboradores</div></div>
         <button class="btn btn-primary" onclick="openColabModal(null)">+ Novo</button>
       </div>
-      <div class="colabs-grid" id="colabs-grid"></div>
+      <div class="cards-grid" id="colabs-grid"></div>
     </div>
 
-    <!-- RELATÓRIO -->
-    <div id="page-relatorio" class="page">
+    <!-- PAGAMENTOS -->
+    <div id="page-pagamentos" class="page">
       <div class="section-header" style="margin-bottom:14px">
-        <div><div class="section-title">💰 Pagamentos</div><div class="section-sub">Valor por plantão definido por empresa — ajuda de custo incluída quando aplicável</div></div>
+        <div><div class="section-title">💰 Pagamentos</div><div class="section-sub">Cálculo automático por empresa e duração do turno</div></div>
       </div>
-      <div class="config-card">
-        <div>
-          <div class="config-lbl">Mês</div>
-          <select id="rel-mes" class="form-select" style="width:170px" onchange="renderRelatorio()"></select>
-        </div>
-        <div>
-          <div class="config-lbl">Empresa</div>
-          <select id="rel-empresa" class="form-select" style="width:180px" onchange="renderRelatorio()">
-            <option value="">Todas as empresas</option>
-          </select>
-        </div>
-        <div>
-          <div class="config-lbl">Buscar colaborador</div>
-          <input type="text" id="rel-busca" class="form-input" style="width:180px" placeholder="🔍 Nome..." oninput="renderRelatorio()">
-        </div>
-        <button class="btn btn-primary" onclick="renderRelatorio()">Atualizar</button>
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:16px;display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap">
+        <div><div class="config-lbl">Mês</div><select id="rel-mes" class="form-select" style="width:170px" onchange="renderPagamentos()"></select></div>
+        <div><div class="config-lbl">Empresa</div><select id="rel-empresa" class="form-select" style="width:180px" onchange="renderPagamentos()"><option value="">Todas</option></select></div>
+        <div><div class="config-lbl">Buscar</div><input type="text" id="rel-busca" class="form-input" style="width:180px" placeholder="🔍 Nome..." oninput="renderPagamentos()"></div>
+        <button class="btn btn-primary" onclick="renderPagamentos()">Atualizar</button>
+        <button class="btn" onclick="exportPagCSV()" style="border-color:var(--green);color:var(--green)">⬇ CSV</button>
       </div>
-      <div class="sum-cards" id="rel-summary"></div>
-      <div id="rel-list"></div>
+      <div class="sum-cards" id="pag-summary"></div>
+      <div id="pag-list"></div>
     </div>
 
     <!-- SUBSTITUIÇÕES -->
     <div id="page-substituicoes" class="page">
       <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px">
-        <div class="sub-toolbar">
-          <div><div class="section-title">🔄 Substituições</div><div class="section-sub">Histórico de trocas e imprevistos</div></div>
+        <div class="section-header">
+          <div><div class="section-title">🔄 Substituições</div></div>
           <div style="display:flex;gap:8px">
-            <button class="export-btn" onclick="exportarExcel()">⬇ Exportar CSV</button>
-            <button class="btn btn-primary" onclick="openSubModal(null)">+ Registrar</button>
+            <button class="btn" onclick="exportSubCSV()" style="border-color:var(--green);color:var(--green)">⬇ CSV</button>
+            <button class="btn btn-primary" onclick="openSubModal()">+ Registrar</button>
           </div>
         </div>
-        <div class="sub-filters">
-          <div>
-            <div class="config-lbl">Empresa</div>
-            <select id="sub-fil-empresa" class="form-select" style="width:160px" onchange="renderSubstituicoes()"><option value="">Todas</option></select>
-          </div>
-          <div>
-            <div class="config-lbl">Tipo</div>
-            <select id="sub-fil-tipo" class="form-select" style="width:140px" onchange="renderSubstituicoes()">
-              <option value="">Todos</option><option value="imprevisto">Imprevisto</option><option value="troca">Troca</option>
-            </select>
-          </div>
-          <div>
-            <div class="config-lbl">Mês</div>
-            <select id="sub-fil-mes" class="form-select" style="width:150px" onchange="renderSubstituicoes()"></select>
-          </div>
-          <div>
-            <div class="config-lbl">Buscar colaborador</div>
-            <input type="text" id="sub-fil-busca" class="form-input" style="width:160px" placeholder="🔍 Nome..." oninput="renderSubstituicoes()">
-          </div>
+        <div class="filtros">
+          <div><div class="config-lbl">Empresa</div><select id="sub-f-emp" class="form-select" onchange="renderSubstituicoes()"><option value="">Todas</option></select></div>
+          <div><div class="config-lbl">Tipo</div><select id="sub-f-tipo" class="form-select" onchange="renderSubstituicoes()"><option value="">Todos</option><option value="imprevisto">Imprevisto</option><option value="troca">Troca</option></select></div>
+          <div><div class="config-lbl">Mês</div><select id="sub-f-mes" class="form-select" onchange="renderSubstituicoes()"></select></div>
+          <div><div class="config-lbl">Colaborador</div><input type="text" id="sub-f-busca" class="form-input" placeholder="🔍 Nome..." oninput="renderSubstituicoes()"></div>
         </div>
-        <div class="sub-table-wrap">
-          <table class="sub-table">
-            <thead><tr>
-              <th>Empresa</th><th>Data</th><th>Turno</th><th>Original</th><th>Substituto</th>
-              <th>Tipo</th><th>Motivo</th><th>Registrado</th><th></th>
-            </tr></thead>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Empresa</th><th>Data</th><th>Turno</th><th>Original</th><th>Substituto</th><th>Tipo</th><th>Motivo</th><th></th></tr></thead>
             <tbody id="sub-tbody"></tbody>
           </table>
         </div>
-        <div id="sub-empty" class="sub-empty" style="display:none">Nenhuma substituição registrada.</div>
+        <div id="sub-empty" style="text-align:center;padding:40px;color:var(--text2);display:none">Nenhuma substituição.</div>
       </div>
     </div>
-    <!-- MONITORAMENTO VIGILANTE -->
+
+    <!-- MONITORAMENTO -->
     <div id="page-monitoramento" class="page">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">
         <div>
-          <div class="section-title" style="display:flex;align-items:center;gap:8px">
-            <span style="font-size:22px">👁</span> Monitoramento Vigilante
-          </div>
-          <div class="section-sub">Tempo real — sincronizado com o Calendário</div>
+          <div class="section-title">👁 Monitoramento Vigilante</div>
+          <div class="section-sub" id="mon-att">Sincronizado com o Calendário</div>
         </div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-          <div id="mon-ultima-att" style="font-size:11px;color:var(--text3)"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
           <button id="btn-dia-atual" class="btn" onclick="toggleDiaAtual()" style="border-color:var(--blue);color:var(--blue);font-weight:600">📍 Dia Atual</button>
-          <button class="btn" onclick="exportarMonitoramento()" style="border-color:var(--green);color:var(--green);font-weight:600">⬇ Excel (.xlsx)</button>
+          <button class="btn" onclick="exportMonCSV()" style="border-color:var(--green);color:var(--green)">⬇ CSV</button>
         </div>
       </div>
-
-      <!-- KPIs -->
-      <div id="mon-kpis" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:16px"></div>
-
-      <!-- FILTROS -->
-      <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:14px">
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;align-items:end">
-          <div>
-            <div class="config-lbl">🔍 Colaborador</div>
-            <input type="text" id="mon-f-colab" class="form-input" placeholder="Nome..." oninput="renderMonitoramento()">
-          </div>
-          <div>
-            <div class="config-lbl">🏢 Empresa</div>
-            <select id="mon-f-empresa" class="form-select" onchange="renderMonitoramento()">
-              <option value="">Todas</option>
-            </select>
-          </div>
-          <div>
-            <div class="config-lbl">📅 Data Inicial</div>
-            <input type="date" id="mon-f-di" class="form-input" onchange="renderMonitoramento()">
-          </div>
-          <div>
-            <div class="config-lbl">📅 Data Final</div>
-            <input type="date" id="mon-f-df" class="form-input" onchange="renderMonitoramento()">
-          </div>
-          <div>
-            <div class="config-lbl">📊 Status</div>
-            <select id="mon-f-status" class="form-select" onchange="renderMonitoramento()">
-              <option value="">Todos</option>
-              <option value="andamento">Em Andamento</option>
-              <option value="finalizado">Finalizado</option>
-              <option value="futuro">Futuro</option>
-            </select>
-          </div>
-          <div style="display:flex;align-items:flex-end">
-            <button class="btn" onclick="limparFiltrosMon()" style="width:100%">✕ Limpar</button>
-          </div>
-        </div>
+      <div class="kpis" id="mon-kpis"></div>
+      <div class="filtros">
+        <div><div class="config-lbl">🔍 Colaborador</div><input type="text" id="mon-f-colab" class="form-input" placeholder="Nome..." oninput="renderMon()"></div>
+        <div><div class="config-lbl">🏢 Empresa</div><select id="mon-f-emp" class="form-select" onchange="renderMon()"><option value="">Todas</option></select></div>
+        <div><div class="config-lbl">📅 Data Inicial</div><input type="date" id="mon-f-di" class="form-input" onchange="renderMon()"></div>
+        <div><div class="config-lbl">📅 Data Final</div><input type="date" id="mon-f-df" class="form-input" onchange="renderMon()"></div>
+        <div><div class="config-lbl">📊 Status</div><select id="mon-f-status" class="form-select" onchange="renderMon()"><option value="">Todos</option><option value="andamento">Em Andamento</option><option value="finalizado">Finalizado</option><option value="futuro">Futuro</option></select></div>
+        <div style="display:flex;align-items:flex-end"><button class="btn" onclick="limparMonFiltros()" style="width:100%">✕ Limpar</button></div>
       </div>
-
-      <!-- TABELA -->
       <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden">
-        <div style="overflow-x:auto">
-          <table style="width:100%;border-collapse:collapse;font-size:13px" id="mon-table">
-            <thead>
-              <tr style="background:var(--bg2)">
-                <th onclick="sortMon('inicio')" class="mon-th">Início ↕</th>
-                <th onclick="sortMon('fim')" class="mon-th">Fim ↕</th>
-                <th onclick="sortMon('colab')" class="mon-th">Colaborador ↕</th>
-                <th onclick="sortMon('empresa')" class="mon-th">Empresa ↕</th>
-                <th onclick="sortMon('turno')" class="mon-th">Turno</th>
-                <th onclick="sortMon('sequencia')" class="mon-th">Dias Consecutivos ↕</th>
-                <th onclick="sortMon('status')" class="mon-th">Status ↕</th>
-              </tr>
-            </thead>
+        <div class="table-wrap">
+          <table class="data-table" id="mon-table">
+            <thead><tr>
+              <th onclick="sortMon('inicio')">Início ↕</th>
+              <th onclick="sortMon('fim')">Fim ↕</th>
+              <th onclick="sortMon('colab')">Colaborador ↕</th>
+              <th onclick="sortMon('empresa')">Empresa ↕</th>
+              <th onclick="sortMon('turno')">Turno</th>
+              <th onclick="sortMon('seq')">Dias Consecutivos ↕</th>
+              <th onclick="sortMon('status')">Status ↕</th>
+            </tr></thead>
             <tbody id="mon-tbody"></tbody>
           </table>
         </div>
-        <div id="mon-empty" style="text-align:center;padding:48px;color:var(--text2);font-size:13px;display:none">
-          Nenhum plantão encontrado com os filtros aplicados.
-        </div>
+        <div id="mon-empty" style="text-align:center;padding:40px;color:var(--text2);display:none">Nenhum plantão encontrado.</div>
         <div id="mon-rodape" style="padding:10px 14px;font-size:12px;color:var(--text2);border-top:1px solid var(--border)"></div>
       </div>
     </div>
 
+  </div>
 
-    <div style="font-size:12px;color:var(--text2)">D&M Security Operation — Gestão de Plantões</div>
+  <footer style="background:var(--bg);border-top:1px solid var(--border);padding:10px 18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px">
+    <div style="font-size:12px;color:var(--text2)">D&M Security Operation</div>
     <div id="relogio" style="font-size:13px;color:var(--text2)"></div>
   </footer>
 </div>
 </div>
 
-<!-- MODAL LANÇAMENTO MÚLTIPLO -->
+<!-- MODAL PLANTÃO -->
+<div class="modal-bg" id="modal-plantao">
+  <div class="modal">
+    <h3>➕ Novo Plantão</h3>
+    <div class="modal-sub" id="plantao-sub"></div>
+    <div class="form-row"><label class="form-label">Turno *</label><select class="form-select" id="plantao-turno"><option value="">Selecione</option></select></div>
+    <div class="form-row"><label class="form-label">Colaboradores *</label><div class="colab-checks" id="plantao-colabs"></div></div>
+    <div id="plantao-alert"></div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('modal-plantao')">Cancelar</button>
+      <button class="btn btn-primary" onclick="confirmarPlantao()">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 24H -->
+<div class="modal-bg" id="modal-24h">
+  <div class="modal">
+    <h3>⚠️ Jornada de 24h</h3>
+    <div style="padding:12px 0;font-size:13px" id="msg-24h"></div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('modal-24h')">Cancelar</button>
+      <button class="btn btn-danger" onclick="forcarPlantao()">Confirmar mesmo assim</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL MULTIPLO -->
 <div class="modal-bg" id="modal-multiplo">
   <div class="modal" style="width:520px">
     <h3>📅 Lançar vários dias</h3>
     <div class="modal-sub">Selecione turno, colaboradores e marque os dias</div>
     <div style="background:var(--bg2);border-radius:var(--radius);padding:12px;margin-bottom:12px">
-      <div style="font-size:11px;font-weight:700;color:var(--text2);margin-bottom:8px;text-transform:uppercase">Passo 1 — Turno e colaboradores</div>
+      <div style="font-size:11px;font-weight:700;color:var(--text2);margin-bottom:8px;text-transform:uppercase">Passo 1</div>
       <div class="form-row" style="margin-bottom:8px">
         <label class="form-label">Turno *</label>
-        <select class="form-select" id="mult-turno" onchange="atualizarMiniCal();atualizarPreviewValor()"><option value="">Selecione</option></select>
+        <select class="form-select" id="mult-turno" onchange="atualizarMiniCal();atualizarPreview()"><option value="">Selecione</option></select>
       </div>
       <div class="form-row" style="margin-bottom:8px">
         <label class="form-label">💰 Ajuda de Custo (opcional)</label>
         <div style="display:flex;align-items:center;gap:6px">
-          <span style="font-size:14px;color:var(--text2);font-weight:700">R$</span>
-          <input type="number" class="form-input" id="mult-ajuda" placeholder="Deixe vazio para usar valor da empresa" min="0" step="0.01" style="font-weight:600" oninput="atualizarPreviewValor()">
+          <span style="color:var(--text2);font-weight:700">R$</span>
+          <input type="number" class="form-input" id="mult-ajuda" placeholder="Deixe vazio = valor da empresa" min="0" step="0.01" oninput="atualizarPreview()">
         </div>
-        <div id="mult-valor-preview" style="margin-top:5px;font-size:11px;color:var(--text2)"></div>
+        <div id="mult-preview" style="margin-top:4px;font-size:11px;color:var(--text2)"></div>
       </div>
       <div class="form-row" style="margin-bottom:0">
         <label class="form-label">Colaboradores *</label>
-        <input type="text" class="form-input" id="mult-busca-colab" placeholder="🔍 Buscar por nome..." oninput="filtrarColabsMultiplo()" style="margin-bottom:6px">
-        <div class="colab-checks" id="mult-colab-checks" style="max-height:130px"></div>
+        <input type="text" class="form-input" id="mult-busca" placeholder="🔍 Buscar..." oninput="filtrarColabsMult()" style="margin-bottom:6px">
+        <div class="colab-checks" id="mult-colabs" style="max-height:130px"></div>
       </div>
     </div>
     <div style="background:var(--bg2);border-radius:var(--radius);padding:12px">
@@ -510,50 +446,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
           <div class="mini-wd">Q</div><div class="mini-wd">Q</div><div class="mini-wd">S</div><div class="mini-wd" style="color:#c0392b">S</div>
         </div>
         <div class="mini-days" id="mini-days"></div>
-        <div class="mini-legend">
-          <div class="mini-leg"><div class="mini-leg-dot" style="background:var(--blue)"></div>Selecionado</div>
-          <div class="mini-leg"><div class="mini-leg-dot" style="background:var(--red-bg);border:1px solid var(--red)"></div>Conflito</div>
-        </div>
         <div class="mini-sel-count" id="mini-sel-count">Nenhum dia selecionado</div>
       </div>
     </div>
-    <div id="mult-alert" style="margin-top:10px"></div>
+    <div id="mult-alert"></div>
     <div class="modal-footer">
       <button class="btn" onclick="closeModal('modal-multiplo')">Cancelar</button>
-      <button class="btn btn-primary" onclick="confirmarMultiplo()">Lançar dias selecionados</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL PLANTÃO -->
-<div class="modal-bg" id="modal-plantao">
-  <div class="modal">
-    <h3>➕ Adicionar Plantão</h3>
-    <div class="modal-sub" id="plantao-modal-sub"></div>
-    <div class="form-row">
-      <label class="form-label">Turno *</label>
-      <select class="form-select" id="plantao-turno"><option value="">Selecione</option></select>
-    </div>
-    <div class="form-row">
-      <label class="form-label">Colaboradores *</label>
-      <div class="colab-checks" id="plantao-colab-checks"></div>
-    </div>
-    <div id="plantao-alert"></div>
-    <div class="modal-footer">
-      <button class="btn" onclick="closeModal('modal-plantao')">Cancelar</button>
-      <button class="btn btn-primary" onclick="confirmarPlantao()">Adicionar</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL 24H -->
-<div class="modal-bg" id="modal-24h">
-  <div class="modal">
-    <h3>⚠️ Jornada de 24h</h3>
-    <div style="padding:12px 0;font-size:13px;color:var(--text)" id="msg-24h"></div>
-    <div class="modal-footer">
-      <button class="btn" onclick="closeModal('modal-24h')">Não, cancelar</button>
-      <button class="btn btn-danger" onclick="forcarPlantao()">Sim, lançar mesmo assim</button>
+      <button class="btn btn-primary" onclick="confirmarMultiplo()">Lançar dias</button>
     </div>
   </div>
 </div>
@@ -561,19 +460,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 <!-- MODAL EMPRESA -->
 <div class="modal-bg" id="modal-empresa">
   <div class="modal">
-    <h3 id="empresa-modal-title">Nova Empresa</h3>
-    <div style="height:12px"></div>
-    <div class="form-row"><label class="form-label">Nome *</label><input type="text" class="form-input" id="empresa-nome" placeholder="Nome da empresa/posto"></div>
-    <div class="form-row"><label class="form-label">Endereço</label><input type="text" class="form-input" id="empresa-end" placeholder="Endereço completo"></div>
-    <div class="form-row"><label class="form-label">Responsável</label><input type="text" class="form-input" id="empresa-resp" placeholder="Nome do responsável"></div>
-    <div class="form-row"><label class="form-label">Telefone</label><input type="text" class="form-input" id="empresa-tel" placeholder="(00) 00000-0000"></div>
-    <div class="form-row"><label class="form-label">Observações</label><textarea class="form-textarea" id="empresa-obs" placeholder="Instruções especiais..."></textarea></div>
+    <h3 id="emp-modal-title">Nova Empresa</h3><div style="height:12px"></div>
+    <div class="form-row"><label class="form-label">Nome *</label><input class="form-input" id="emp-nome" placeholder="Nome da empresa/posto"></div>
+    <div class="form-row"><label class="form-label">Endereço</label><input class="form-input" id="emp-end" placeholder="Endereço"></div>
+    <div class="form-row"><label class="form-label">Responsável</label><input class="form-input" id="emp-resp" placeholder="Nome do responsável"></div>
+    <div class="form-row"><label class="form-label">Telefone</label><input class="form-input" id="emp-tel"></div>
+    <div class="form-row"><label class="form-label">Observações</label><textarea class="form-textarea" id="emp-obs"></textarea></div>
     <div class="form-row">
       <label class="form-label">💰 Valor por Plantão (R$) *</label>
-      <input type="number" class="form-input" id="empresa-valor-plantao" placeholder="Ex: 160.00" min="0" step="0.01" style="font-size:15px;font-weight:700">
-      <div style="margin-top:4px;font-size:11px;color:var(--text2)">Cada empresa pode ter um valor diferente</div>
+      <input type="number" class="form-input" id="emp-valor" placeholder="160.00" min="0" step="0.01" style="font-weight:700;font-size:15px">
+      <div style="font-size:11px;color:var(--text2);margin-top:4px">12h = valor cheio · 6h = metade automático</div>
     </div>
-    <div class="form-row"><label class="form-label">Cor de identificação</label><div class="color-picker" id="color-picker"></div></div>
+    <div class="form-row"><label class="form-label">Cor</label><div class="color-picker" id="color-picker"></div></div>
     <div class="modal-footer">
       <button class="btn" onclick="closeModal('modal-empresa')">Cancelar</button>
       <button class="btn btn-primary" onclick="salvarEmpresa()">Salvar</button>
@@ -582,17 +480,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 </div>
 
 <!-- MODAL TURNO -->
-<div class="modal-bg" id="modal-turno-cfg">
+<div class="modal-bg" id="modal-turno">
   <div class="modal">
-    <h3 id="turno-modal-title">Novo Turno</h3>
-    <div style="height:12px"></div>
-    <div class="form-row"><label class="form-label">Nome *</label><input type="text" class="form-input" id="turno-nome" placeholder="Ex: Diurno, Noturno..."></div>
+    <h3 id="turno-modal-title">Novo Turno</h3><div style="height:12px"></div>
+    <div class="form-row"><label class="form-label">Nome *</label><input class="form-input" id="turno-nome" placeholder="Ex: Diurno"></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
       <div class="form-row"><label class="form-label">Início *</label><input type="time" class="form-input" id="turno-inicio"></div>
       <div class="form-row"><label class="form-label">Fim *</label><input type="time" class="form-input" id="turno-fim"></div>
     </div>
     <div class="modal-footer">
-      <button class="btn" onclick="closeModal('modal-turno-cfg')">Cancelar</button>
+      <button class="btn" onclick="closeModal('modal-turno')">Cancelar</button>
       <button class="btn btn-primary" onclick="salvarTurno()">Salvar</button>
     </div>
   </div>
@@ -601,11 +498,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 <!-- MODAL COLABORADOR -->
 <div class="modal-bg" id="modal-colab">
   <div class="modal">
-    <h3 id="colab-modal-title">Novo Colaborador</h3>
-    <div style="height:12px"></div>
-    <div class="form-row"><label class="form-label">Nome *</label><input type="text" class="form-input" id="colab-nome" placeholder="Nome completo"></div>
-    <div class="form-row"><label class="form-label">Telefone</label><input type="text" class="form-input" id="colab-tel" placeholder="(00) 00000-0000"></div>
-    <div class="form-row"><label class="form-label">CPF</label><input type="text" class="form-input" id="colab-cpf" placeholder="000.000.000-00"></div>
+    <h3 id="colab-modal-title">Novo Colaborador</h3><div style="height:12px"></div>
+    <div class="form-row"><label class="form-label">Nome *</label><input class="form-input" id="colab-nome" placeholder="Nome completo"></div>
+    <div class="form-row"><label class="form-label">Telefone</label><input class="form-input" id="colab-tel"></div>
+    <div class="form-row"><label class="form-label">CPF</label><input class="form-input" id="colab-cpf" placeholder="000.000.000-00"></div>
     <div class="modal-footer">
       <button class="btn" onclick="closeModal('modal-colab')">Cancelar</button>
       <button class="btn btn-primary" onclick="salvarColab()">Salvar</button>
@@ -617,24 +513,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 <div class="modal-bg" id="modal-sub">
   <div class="modal" style="width:500px">
     <h3>🔄 Registrar Substituição</h3>
-    <div class="modal-sub">Registre imprevistos ou trocas entre colaboradores</div>
-    <div class="form-row">
-      <label class="form-label">Empresa *</label>
-      <select class="form-select" id="sub-empresa" onchange="populateSubColabs()"><option value="">Selecione</option></select>
-    </div>
-    <div class="form-row">
-      <label class="form-label">Tipo *</label>
-      <select class="form-select" id="sub-tipo" onchange="onSubTipoChange()">
+    <div class="modal-sub">Registre imprevistos ou trocas</div>
+    <div class="form-row"><label class="form-label">Empresa *</label><select class="form-select" id="sub-empresa" onchange="populateSubColabs()"><option value="">Selecione</option></select></div>
+    <div class="form-row"><label class="form-label">Tipo *</label>
+      <select class="form-select" id="sub-tipo" onchange="onSubTipo()">
         <option value="">Selecione</option>
-        <option value="imprevisto">Imprevisto (substituição emergencial)</option>
-        <option value="troca">Troca de plantão combinada</option>
+        <option value="imprevisto">Imprevisto (emergencial)</option>
+        <option value="troca">Troca combinada</option>
       </select>
     </div>
-    <div id="sub-bloco-imprevisto" style="display:none">
-      <div class="form-row"><label class="form-label">Data do plantão *</label><input type="date" class="form-input" id="sub-data1"></div>
+    <div id="sub-bloco-imp" style="display:none">
+      <div class="form-row"><label class="form-label">Data *</label><input type="date" class="form-input" id="sub-data1"></div>
       <div class="form-row"><label class="form-label">Turno *</label><select class="form-select" id="sub-turno1"><option value="">Selecione</option></select></div>
-      <div class="form-row"><label class="form-label">Colaborador original (quem saiu) *</label><select class="form-select" id="sub-original"><option value="">Selecione</option></select></div>
-      <div class="form-row"><label class="form-label">Substituto (quem entrou) *</label><select class="form-select" id="sub-substituto"><option value="">Selecione</option></select></div>
+      <div class="form-row"><label class="form-label">Colaborador original *</label><select class="form-select" id="sub-orig"><option value="">Selecione</option></select></div>
+      <div class="form-row"><label class="form-label">Substituto *</label><select class="form-select" id="sub-subst"><option value="">Selecione</option></select></div>
     </div>
     <div id="sub-bloco-troca" style="display:none">
       <div style="background:var(--bg2);border-radius:var(--radius);padding:12px;margin-bottom:8px">
@@ -651,386 +543,351 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
         <div class="form-row"><label class="form-label">Colaborador 2 *</label><select class="form-select" id="troca-colab2"><option value="">Selecione</option></select></div>
       </div>
     </div>
-    <div class="form-row"><label class="form-label">Motivo / Observação</label><textarea class="form-textarea" id="sub-motivo" placeholder="Ex: faltou sem aviso, problema de saúde..."></textarea></div>
+    <div class="form-row"><label class="form-label">Motivo</label><textarea class="form-textarea" id="sub-motivo" placeholder="Observações..."></textarea></div>
     <div id="sub-alert"></div>
     <div class="modal-footer">
       <button class="btn" onclick="closeModal('modal-sub')">Cancelar</button>
-      <button class="btn btn-primary" onclick="salvarSubstituicao()">Registrar</button>
+      <button class="btn btn-primary" onclick="salvarSub()">Registrar</button>
     </div>
   </div>
 </div>
 
 <script>
 // ══════════════════════════════════════════════
-// SUPABASE CONFIG
+// CONFIG SUPABASE
 // ══════════════════════════════════════════════
-const SUPA_URL = 'https://fhsyrimjoyiwdyltzghe.supabase.co';
-const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZoc3lyaW1qb3lpd2R5bHR6Z2hlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4NDU2NDMsImV4cCI6MjA5NTQyMTY0M30.oiF-bazqH_X7LtxEuZeKEPhIuJEZj--EM0_4Il1tGmY';
-const supa = supabase.createClient(SUPA_URL, SUPA_KEY);
+const SUPA_URL='https://fhsyrimjoyiwdyltzghe.supabase.co';
+const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZoc3lyaW1qb3lpd2R5bHR6Z2hlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4NDU2NDMsImV4cCI6MjA5NTQyMTY0M30.oiF-bazqH_X7LtxEuZeKEPhIuJEZj--EM0_4Il1tGmY';
+const db=supabase.createClient(SUPA_URL,SUPA_KEY);
 
 const MESES=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-const TC=['tc0','tc1','tc2','tc3','tc4','tc5','tc6','tc7'];
 const CORES=['#185FA5','#1D9E75','#D85A30','#7F77DD','#3B6D11','#D4537E','#854F0B','#A32D2D','#0F6E56','#5F5E5A'];
-const SUPA_DOC = 'dados_v1';
+const TC=['tc0','tc1','tc2','tc3','tc4','tc5','tc6','tc7'];
 
-let S = null;
-let calMes=new Date().getMonth(), calAno=new Date().getFullYear();
-let miniMes=new Date().getMonth(), miniAno=new Date().getFullYear();
-let diasSelecionados=new Set();
-let modalDia=null, pendingP=null, editTurnoId=null, editColabId=null, editEmpresaId=null, selectedColor=CORES[0];
+// Cache local (carregado do Supabase)
+let DB={empresas:[],colaboradores:[],turnos:[],plantoes:[],plantaoColabs:[],substituicoes:[]};
 let currentUser=null;
-let _saving=false;
-let _channel=null;
+let calMes=new Date().getMonth(),calAno=new Date().getFullYear();
+let miniMes=new Date().getMonth(),miniAno=new Date().getFullYear();
+let diasSel=new Set();
+let modalDia=null,pendingP=null,editEmpId=null,editTurnoId=null,editColabId=null,selColor=CORES[0];
+let monSortCol='inicio',monSortAsc=true,monDiaAtual=false;
 
-function initS(){
-  return{
-    empresas:[{id:'picinin',nome:'PICININ',endereco:'',responsavel:'',telefone:'',obs:'',cor:CORES[0],ativo:true,valorPlantao:160}],
-    colaboradores:[
-      {id:'jose-f',nome:'JOSE F.',telefone:'',documento:'',ativo:true},
-      {id:'renato-c',nome:'RENATO C.',telefone:'',documento:'',ativo:true},
-      {id:'diogo',nome:'DIOGO',telefone:'',documento:'',ativo:true},
-      {id:'michael',nome:'MICHAEL',telefone:'',documento:'',ativo:true},
-      {id:'roberton',nome:'ROBERTON',telefone:'',documento:'',ativo:true},
-      {id:'willian',nome:'WILLIAN',telefone:'',documento:'',ativo:true},
-    ],
-    turnos:[
-      {id:'t0',nome:'Diurno',inicio:'07:00',fim:'19:00'},
-      {id:'t1',nome:'Noturno',inicio:'19:00',fim:'07:00'}
-    ],
-    plantoes:[],substituicoes:[],valorPlantao:160
-  };
+// ── HELPERS ──
+const closeModal=id=>document.getElementById(id).classList.remove('open');
+const uid=()=>'id-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);
+const fmtData=(ano,mes,dia)=>`${ano}-${String(mes+1).padStart(2,'0')}-${String(dia).padStart(2,'0')}`;
+const getEmp=id=>DB.empresas.find(e=>e.id===id);
+const getTurno=id=>DB.turnos.find(t=>t.id===id);
+const getColab=id=>DB.colaboradores.find(c=>c.id===id);
+const getNome=id=>getColab(id)?.nome||id;
+const initials=n=>n.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+
+function calcDur(inicio,fim){
+  if(!inicio||!fim)return 12;
+  const [hi,mi]=inicio.split(':').map(Number);
+  const [hf,mf]=fim.split(':').map(Number);
+  let mins=(hf*60+mf)-(hi*60+mi);
+  if(mins<=0)mins+=24*60;
+  return mins/60;
+}
+function calcFator(turnoId){
+  const t=getTurno(turnoId);if(!t)return 1;
+  const d=calcDur(t.inicio,t.fim);
+  if(d<=6)return 0.5;if(d<12)return 0.75;return 1;
+}
+function calcValorPlantao(p){
+  if(p.valor_custom!=null&&p.valor_custom>0)return p.valor_custom;
+  const e=getEmp(p.empresa_id);
+  return(e?.valor_plantao||160)*calcFator(p.turno_id);
+}
+function getColabsPlantao(plantaoId){
+  return DB.plantaoColabs.filter(pc=>pc.plantao_id===plantaoId).map(pc=>pc.colaborador_id);
 }
 
-// ── SUPABASE: salvar dados ──
-async function saveS(){
-  // Mostra indicador de salvando
-  const el=document.getElementById('sync-indicator');
-  if(el){el.style.opacity='1';el.style.background='#f59e0b';}
-  try{
-    const {error}=await supa.from('dm_config').upsert(
-      {id:SUPA_DOC, dados:S, atualizado_em:new Date().toISOString()},
-      {onConflict:'id'}
-    );
-    if(error){
-      console.error('Erro saveS:',error);
-      if(el){el.style.background='#ef4444';}
-    } else {
-      if(el){el.style.background='#22c55e';}
-    }
-  }catch(e){
-    console.error('Erro saveS:',e);
-    if(el){el.style.background='#ef4444';}
-  }
-  setTimeout(()=>{if(el)el.style.opacity='0';},2000);
-  atualizarTelas();
+function syncIndicator(ok){
+  const el=document.getElementById('sync-dot');
+  if(!el)return;
+  el.style.opacity='1';
+  el.style.background=ok?'#22c55e':'#ef4444';
+  setTimeout(()=>el.style.opacity='0',2000);
 }
 
-// ── SUPABASE: carregar dados ──
-async function loadS(){
-  try{
-    const {data,error}=await supa.from('dm_config').select('dados').eq('id',SUPA_DOC).single();
-    if(error||!data)return initS();
-    const d=data.dados;
-    if(d.empresas)d.empresas.forEach(e=>{if(e.valorPlantao===undefined)e.valorPlantao=160;});
-    if(!d.substituicoes)d.substituicoes=[];
-    return d;
-  }catch(e){return initS();}
+// ── CARREGAR DADOS DO SUPABASE ──
+async function carregarTudo(){
+  const [e,c,t,p,pc,s]=await Promise.all([
+    db.from('dm_empresas').select('*').order('nome'),
+    db.from('dm_colaboradores').select('*').order('nome'),
+    db.from('dm_turnos').select('*').order('nome'),
+    db.from('dm_plantoes').select('*').order('data'),
+    db.from('dm_plantao_colabs').select('*'),
+    db.from('dm_substituicoes').select('*').order('criado_em',{ascending:false}),
+  ]);
+  DB.empresas=e.data||[];
+  DB.colaboradores=c.data||[];
+  DB.turnos=t.data||[];
+  DB.plantoes=p.data||[];
+  DB.plantaoColabs=pc.data||[];
+  DB.substituicoes=s.data||[];
 }
 
-// ── SUPABASE: escuta mudanças em tempo real ──
-function iniciarRealtimeSync(){
-  if(_channel)supa.removeChannel(_channel);
-  _channel=supa.channel('dm_realtime')
-    .on('postgres_changes',{event:'*',schema:'public',table:'dm_config',filter:`id=eq.${SUPA_DOC}`},async (payload)=>{
-      if(!payload.new?.dados)return;
-      S=payload.new.dados;
-      if(S.empresas)S.empresas.forEach(e=>{if(e.valorPlantao===undefined)e.valorPlantao=160;});
-      if(!S.substituicoes)S.substituicoes=[];
-      atualizarTelas();
-      mostrarIndicadorSync();
-    })
+// ── REALTIME ──
+function iniciarRealtime(){
+  db.channel('dm_changes')
+    .on('postgres_changes',{event:'*',schema:'public',table:'dm_empresas'},async()=>{const{data}=await db.from('dm_empresas').select('*').order('nome');DB.empresas=data||[];atualizarTelas();syncIndicator(true);})
+    .on('postgres_changes',{event:'*',schema:'public',table:'dm_colaboradores'},async()=>{const{data}=await db.from('dm_colaboradores').select('*').order('nome');DB.colaboradores=data||[];atualizarTelas();syncIndicator(true);})
+    .on('postgres_changes',{event:'*',schema:'public',table:'dm_turnos'},async()=>{const{data}=await db.from('dm_turnos').select('*').order('nome');DB.turnos=data||[];atualizarTelas();syncIndicator(true);})
+    .on('postgres_changes',{event:'*',schema:'public',table:'dm_plantoes'},async()=>{const[p,pc]=await Promise.all([db.from('dm_plantoes').select('*').order('data'),db.from('dm_plantao_colabs').select('*')]);DB.plantoes=p.data||[];DB.plantaoColabs=pc.data||[];atualizarTelas();syncIndicator(true);})
+    .on('postgres_changes',{event:'*',schema:'public',table:'dm_plantao_colabs'},async()=>{const{data}=await db.from('dm_plantao_colabs').select('*');DB.plantaoColabs=data||[];atualizarTelas();syncIndicator(true);})
+    .on('postgres_changes',{event:'*',schema:'public',table:'dm_substituicoes'},async()=>{const{data}=await db.from('dm_substituicoes').select('*').order('criado_em',{ascending:false});DB.substituicoes=data||[];atualizarTelas();syncIndicator(true);})
     .subscribe();
 }
 
-function mostrarIndicadorSync(){
-  const el=document.getElementById('sync-indicator');
-  if(!el)return;
-  el.style.opacity='1';el.style.background='#22c55e';
-  setTimeout(()=>{el.style.opacity='0';},1500);
-}
-
 function atualizarTelas(){
-  try{
-    populateEmpresaSelect();
-    const paginaAtiva=document.querySelector('.page.active');
-    if(!paginaAtiva)return;
-    const id=paginaAtiva.id;
-    if(id==='page-calendario')renderCal();
-    if(id==='page-empresas')renderEmpresas();
-    if(id==='page-turnos')renderTurnos();
-    if(id==='page-colaboradores')renderColabs();
-    if(id==='page-relatorio'){populateRelSelects();renderRelatorio();}
-    if(id==='page-substituicoes')renderSubstituicoes();
-    if(id==='page-monitoramento')renderMonitoramento();
-  }catch(e){console.error(e);}
+  popularEmpresaSelect();
+  const pg=document.querySelector('.page.active');
+  if(!pg)return;
+  const id=pg.id;
+  if(id==='page-calendario')renderCal();
+  if(id==='page-empresas')renderEmpresas();
+  if(id==='page-turnos')renderTurnos();
+  if(id==='page-colaboradores')renderColabs();
+  if(id==='page-pagamentos')renderPagamentos();
+  if(id==='page-substituicoes')renderSubstituicoes();
+  if(id==='page-monitoramento')renderMon();
 }
 
-// ── AUTH SUPABASE ──
+// ── AUTH ──
 async function fazerLogin(){
   const email=document.getElementById('login-email').value.trim();
   const senha=document.getElementById('login-senha').value;
   const err=document.getElementById('login-err');
   err.style.display='none';
   if(!email||!senha){err.textContent='Preencha e-mail e senha.';err.style.display='block';return;}
-  const {data,error}=await supa.auth.signInWithPassword({email,password:senha});
+  const{data,error}=await db.auth.signInWithPassword({email,password:senha});
   if(error){err.textContent='E-mail ou senha incorretos.';err.style.display='block';return;}
   currentUser=data.user;
-  mostrarApp();
+  await iniciarApp();
 }
 
 async function fazerLogout(){
-  await supa.auth.signOut();
+  await db.auth.signOut();
   currentUser=null;
   document.getElementById('app-screen').style.display='none';
   document.getElementById('login-screen').style.display='block';
 }
 
-async function mostrarApp(){
+async function iniciarApp(){
   document.getElementById('login-screen').style.display='none';
   document.getElementById('app-screen').style.display='block';
   document.getElementById('user-email-label').textContent=currentUser?.email||'';
-
-  // Primeiro cria tabela se não existir
-  await garantirTabela();
-
-  // Carrega dados do Supabase
-  S=await loadS();
-  populateEmpresaSelect();
+  await carregarTudo();
+  popularEmpresaSelect();
   renderCal();
+  iniciarRealtime();
   atualizarRelogio();
   setInterval(atualizarRelogio,1000);
-
-  // Inicia sincronização em tempo real
-  iniciarRealtimeSync();
 }
 
-async function garantirTabela(){
-  // Cria o registro inicial se não existir
-  const {data}=await supa.from('dm_config').select('id').eq('id',SUPA_DOC);
-  if(!data||data.length===0){
-    await supa.from('dm_config').insert({id:SUPA_DOC,dados:initS(),atualizado_em:new Date().toISOString()});
-  }
-}
-
-// Verifica sessão ao carregar — sempre exige login
 async function iniciar(){
-  // Encerra qualquer sessão anterior para garantir tela de login
-  await supa.auth.signOut();
+  await db.auth.signOut(); // Força login sempre ao abrir
   document.getElementById('loading-screen').style.display='none';
   document.getElementById('login-screen').style.display='block';
 }
 iniciar();
 
-// ── HELPERS ──
-const getNome=id=>S.colaboradores.find(c=>c.id===id)?.nome||id;
-const getEmpresa=id=>S.empresas.find(e=>e.id===id);
-const initials=n=>n.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
-const closeModal=id=>document.getElementById(id).classList.remove('open');
-const fmtData=(ano,mes,dia)=>`${ano}-${String(mes+1).padStart(2,'0')}-${String(dia).padStart(2,'0')}`;
-
-function calcDuracao(inicio,fim){
-  if(!inicio||!fim)return 12;
-  const [hi,mi]=inicio.split(':').map(Number);
-  const [hf,mf]=fim.split(':').map(Number);
-  let mins=(hf*60+mf)-(hi*60+mi);
-  if(mins<=0)mins+=24*60; // virada de dia
-  return mins/60;
+// ── NAVEGAÇÃO ──
+function showPage(name,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  btn.classList.add('active');
+  if(name==='calendario'){popularEmpresaSelect();renderCal();}
+  if(name==='empresas')renderEmpresas();
+  if(name==='turnos')renderTurnos();
+  if(name==='colaboradores')renderColabs();
+  if(name==='pagamentos'){popularPagSelects();renderPagamentos();}
+  if(name==='substituicoes')renderSubstituicoes();
+  if(name==='monitoramento')renderMon();
 }
 
-function calcFatorTurno(turnoId){
-  const t=S.turnos.find(t=>t.id===turnoId);
-  if(!t)return 1;
-  const dur=calcDuracao(t.inicio,t.fim);
-  if(dur<=6)return 0.5;
-  if(dur<12)return 0.75;
-  return 1;
-}
-
-function descFatorTurno(turnoId){
-  const f=calcFatorTurno(turnoId);
-  if(f===0.5)return '½ plantão (6h)';
-  if(f===0.75)return '¾ plantão';
-  return 'plantão completo (12h)';
-}
-
-// showPage está definida no bloco Monitoramento
-function populateEmpresaSelect(){
-  if(!S)return;
+// ── CALENDÁRIO ──
+function popularEmpresaSelect(){
   const sel=document.getElementById('empresa-select'),cur=sel.value;
-  sel.innerHTML='<option value="">Selecione uma empresa</option>'+S.empresas.filter(e=>e.ativo).map(e=>`<option value="${e.id}">${e.nome}</option>`).join('');
-  if(cur&&S.empresas.find(e=>e.id===cur))sel.value=cur;
+  sel.innerHTML='<option value="">Selecione uma empresa</option>'+DB.empresas.filter(e=>e.ativo).map(e=>`<option value="${e.id}">${e.nome}</option>`).join('');
+  if(cur&&DB.empresas.find(e=>e.id===cur))sel.value=cur;
 }
 
-function navMes(d){calMes+=d;if(calMes>11){calMes=0;calAno++;}if(calMes<0){calMes=11;calAno--;}renderCal();}
+function navMes(d){
+  calMes+=d;
+  if(calMes>11){calMes=0;calAno++;}
+  if(calMes<0){calMes=11;calAno--;}
+  renderCal();
+}
 
 function renderCal(){
-  if(!S)return;
-  const lbl=document.getElementById('cal-month-label'),banner=document.getElementById('cal-banner'),container=document.getElementById('cal-days');
-  const empresaId=document.getElementById('empresa-select').value,empresa=getEmpresa(empresaId);
+  const lbl=document.getElementById('cal-month-label');
+  const banner=document.getElementById('cal-banner');
+  const container=document.getElementById('cal-days');
+  const empId=document.getElementById('empresa-select').value;
+  const emp=getEmp(empId);
   lbl.textContent=MESES[calMes]+' '+calAno;
-  if(!empresa){banner.style.background='#666';banner.textContent='Selecione uma empresa para ver a escala';container.innerHTML='';document.getElementById('cal-legend').innerHTML='';return;}
-  banner.style.background=empresa.cor||'#185FA5';
-  banner.textContent='D&M SECURITY — '+empresa.nome+' — '+MESES[calMes].toUpperCase()+' / '+calAno;
-  const primeiro=new Date(calAno,calMes,1),ultimo=new Date(calAno,calMes+1,0);
+  if(!emp){banner.style.background='#666';banner.textContent='Selecione uma empresa';container.innerHTML='';document.getElementById('cal-legend').innerHTML='';return;}
+  banner.style.background=emp.cor||'#185FA5';
+  banner.textContent='D&M SECURITY — '+emp.nome+' — '+MESES[calMes].toUpperCase()+' / '+calAno;
+  const primeiro=new Date(calAno,calMes,1);
+  const ultimo=new Date(calAno,calMes+1,0);
   let html='';
   for(let i=0;i<primeiro.getDay();i++)html+='<div class="cal-day empty"></div>';
   for(let d=1;d<=ultimo.getDate();d++){
-    const ds=fmtData(calAno,calMes,d),dow=new Date(calAno,calMes,d).getDay(),we=dow===0||dow===6;
-    const plants=S.plantoes.filter(p=>p.data===ds&&p.empresaId===empresaId);
+    const ds=fmtData(calAno,calMes,d);
+    const dow=new Date(calAno,calMes,d).getDay();
+    const we=dow===0||dow===6;
+    const plants=DB.plantoes.filter(p=>p.data===ds&&p.empresa_id===empId);
     let shifts='';
     plants.forEach((p,i)=>{
-      const t=S.turnos.find(x=>x.id===p.turnoId);
-      const dur=t?calcDuracao(t.inicio,t.fim):12;
-      const icone=t?((parseInt(t.inicio)<12?'☀️':(parseInt(t.inicio)<18?'🌤️':'🌙'))):'📋';
-      const fator=calcFatorTurno(p.turnoId);
-      const empresa=getEmpresa(p.empresaId);
-      const valorBase=p.valorCustom||(empresa?.valorPlantao||160);
-      const valorFinal=p.valorCustom?p.valorCustom:valorBase*fator;
-      const duracaoTag=dur<=6?` <span style="font-size:9px;background:#FAEEDA;color:#633806;border-radius:3px;padding:1px 3px">${dur}h</span>`:'';
-      const title=`${t?.nome||'?'} ${t?.inicio||''}–${t?.fim||''} (${dur}h): ${p.colaboradorIds.map(getNome).join(', ')} | R$ ${valorFinal.toFixed(2)}`;
-      shifts+=`<div class="shift ${TC[i%8]}" title="${title}"><span class="shift-icon">${icone}</span><span class="shift-nomes">${p.colaboradorIds.map(getNome).join(' · ')}${duracaoTag}</span><button class="shift-del" onclick="delP('${p.id}',event)">✕</button></div>`;
+      const t=getTurno(p.turno_id);
+      const dur=t?calcDur(t.inicio,t.fim):12;
+      const icone=t?(parseInt(t.inicio)<12?'☀️':parseInt(t.inicio)<18?'🌤️':'🌙'):'📋';
+      const nomes=getColabsPlantao(p.id).map(getNome).join(' · ');
+      const durTag=dur<=6?` <span style="font-size:9px;background:#FAEEDA;color:#633806;border-radius:3px;padding:1px 3px">${dur}h</span>`:'';
+      shifts+=`<div class="shift ${TC[i%8]}" title="${t?.nome||'?'} ${t?.inicio||''}–${t?.fim||''}: ${nomes}"><span class="shift-icon">${icone}</span><span class="shift-nomes">${nomes}${durTag}</span><button class="shift-del" onclick="delPlantao('${p.id}',event)">✕</button></div>`;
     });
     html+=`<div class="cal-day${we?' we-day':''}"><div class="cal-day-top"><span class="cal-day-num">${d}</span><button class="add-btn" onclick="openPlantaoModal('${ds}')">+</button></div>${shifts}</div>`;
   }
   container.innerHTML=html;
-  const turnos=S.plantoes.filter(p=>p.empresaId===empresaId).reduce((acc,p)=>{if(!acc.includes(p.turnoId))acc.push(p.turnoId);return acc;},[]);
-  document.getElementById('cal-legend').innerHTML=turnos.map((tid,i)=>{const t=S.turnos.find(x=>x.id===tid);return`<div class="leg-item"><div class="leg-dot ${TC[i%8]}"></div>${t?.nome||'?'} (${t?.inicio||''}–${t?.fim||''})</div>`;}).join('');
+  // Legenda
+  const turnosUsados=[...new Set(DB.plantoes.filter(p=>p.empresa_id===empId).map(p=>p.turno_id))];
+  document.getElementById('cal-legend').innerHTML=turnosUsados.map((tid,i)=>{const t=getTurno(tid);return`<div style="display:flex;align-items:center;gap:5px"><div style="width:12px;height:12px;border-radius:3px" class="${TC[i%8]}"></div>${t?.nome||'?'} (${t?.inicio||''}–${t?.fim||''})</div>`;}).join('');
 }
 
-function delP(id,ev){
+async function delPlantao(id,ev){
   ev.stopPropagation();
   if(!confirm('Remover este plantão?'))return;
-  S.plantoes=S.plantoes.filter(p=>p.id!==id);
-  saveS();renderCal();
+  await db.from('dm_plantao_colabs').delete().eq('plantao_id',id);
+  await db.from('dm_plantoes').delete().eq('id',id);
+  DB.plantoes=DB.plantoes.filter(p=>p.id!==id);
+  DB.plantaoColabs=DB.plantaoColabs.filter(pc=>pc.plantao_id!==id);
+  renderCal();
 }
 
-/* ══ MODAL PLANTÃO ══ */
+// ── MODAL PLANTÃO ──
 function openPlantaoModal(data){
-  if(!S)return;
   modalDia=data;pendingP=null;
-  const [ano,mes,dia]=data.split('-');
-  document.getElementById('plantao-modal-sub').textContent=`${dia}/${mes}/${ano}`;
+  const[ano,mes,dia]=data.split('-');
+  document.getElementById('plantao-sub').textContent=`${dia}/${mes}/${ano}`;
   const st=document.getElementById('plantao-turno');
-  st.innerHTML='<option value="">Selecione</option>'+S.turnos.map(t=>`<option value="${t.id}">${t.nome} (${t.inicio}–${t.fim})</option>`).join('');
+  st.innerHTML='<option value="">Selecione</option>'+DB.turnos.map(t=>`<option value="${t.id}">${t.nome} (${t.inicio}–${t.fim})</option>`).join('');
   st.value='';
-  const empresaId=document.getElementById('empresa-select').value;
-  document.getElementById('plantao-colab-checks').innerHTML=S.colaboradores.filter(c=>c.ativo).map(c=>`<label class="colab-check"><input type="checkbox" value="${c.id}"><span>${c.nome}</span></label>`).join('');
+  document.getElementById('plantao-colabs').innerHTML=DB.colaboradores.filter(c=>c.ativo).map(c=>`<label class="colab-check"><input type="checkbox" value="${c.id}"><span>${c.nome}</span></label>`).join('');
   document.getElementById('plantao-alert').innerHTML='';
   document.getElementById('modal-plantao').classList.add('open');
 }
 
 function confirmarPlantao(){
-  const empresaId=document.getElementById('empresa-select').value;
+  const empId=document.getElementById('empresa-select').value;
   const turnoId=document.getElementById('plantao-turno').value;
-  const colabs=[...document.querySelectorAll('#plantao-colab-checks input:checked')].map(i=>i.value);
-  const alert=document.getElementById('plantao-alert');
-  if(!turnoId){alert.innerHTML='<div class="alert-err"><div class="alert-t">Selecione um turno.</div></div>';return;}
-  if(!colabs.length){alert.innerHTML='<div class="alert-err"><div class="alert-t">Selecione colaboradores.</div></div>';return;}
-  const conflitos=colabs.filter(cId=>S.plantoes.find(p=>p.data===modalDia&&p.colaboradorIds.includes(cId)&&p.empresaId!==empresaId));
-  if(conflitos.length){alert.innerHTML=`<div class="alert-err"><div class="alert-t">Conflito: ${conflitos.map(getNome).join(', ')} já escalado(s) nesta data.</div></div>`;return;}
-  const jornada24=colabs.filter(cId=>S.plantoes.filter(p=>p.data===modalDia&&p.colaboradorIds.includes(cId)).length>0);
+  const colabs=[...document.querySelectorAll('#plantao-colabs input:checked')].map(i=>i.value);
+  const alertEl=document.getElementById('plantao-alert');
+  if(!turnoId){alertEl.innerHTML='<div class="alert-err"><div class="alert-t">Selecione um turno.</div></div>';return;}
+  if(!colabs.length){alertEl.innerHTML='<div class="alert-err"><div class="alert-t">Selecione colaboradores.</div></div>';return;}
+  // Conflito: colab em outra empresa no mesmo dia
+  const conflitos=colabs.filter(cId=>DB.plantoes.some(p=>p.data===modalDia&&p.empresa_id!==empId&&getColabsPlantao(p.id).includes(cId)));
+  if(conflitos.length){alertEl.innerHTML=`<div class="alert-err"><div class="alert-t">Conflito: ${conflitos.map(getNome).join(', ')} já escalado(s) nesta data.</div></div>`;return;}
+  // 24h
+  const jornada24=colabs.filter(cId=>DB.plantoes.some(p=>p.data===modalDia&&p.empresa_id===empId&&getColabsPlantao(p.id).includes(cId)));
   if(jornada24.length){
-    pendingP={empresaId,turnoId,colabs};
+    pendingP={empId,turnoId,colabs,valorCustom:null};
     document.getElementById('msg-24h').innerHTML=`<strong>${jornada24.map(getNome).join(', ')}</strong> ficará em jornada de 24h. Deseja continuar?`;
     closeModal('modal-plantao');
-    document.getElementById('modal-24h').classList.add('open');return;
+    document.getElementById('modal-24h').classList.add('open');
+    return;
   }
-  salvarPlantao(empresaId,turnoId,colabs,null);
+  salvarPlantao(empId,turnoId,colabs,null);
   closeModal('modal-plantao');
 }
 
 function forcarPlantao(){
   if(!pendingP)return;
-  salvarPlantao(pendingP.empresaId,pendingP.turnoId,pendingP.colabs,null);
+  salvarPlantao(pendingP.empId,pendingP.turnoId,pendingP.colabs,pendingP.valorCustom);
   closeModal('modal-24h');pendingP=null;
 }
 
-function salvarPlantao(empresaId,turnoId,colabs,valorCustom){
-  const p={id:'p'+Date.now(),data:modalDia,empresaId,turnoId,colaboradorIds:colabs};
-  if(valorCustom!=null)p.valorCustom=valorCustom;
-  S.plantoes.push(p);saveS();renderCal();
+async function salvarPlantao(empId,turnoId,colabs,valorCustom){
+  const id=uid();
+  const{error}=await db.from('dm_plantoes').insert({id,data:modalDia,empresa_id:empId,turno_id:turnoId,valor_custom:valorCustom,criado_por:currentUser?.email||''});
+  if(error){console.error(error);return;}
+  const pcs=colabs.map(cId=>({id:uid(),plantao_id:id,colaborador_id:cId}));
+  await db.from('dm_plantao_colabs').insert(pcs);
+  DB.plantoes.push({id,data:modalDia,empresa_id:empId,turno_id:turnoId,valor_custom:valorCustom});
+  DB.plantaoColabs.push(...pcs);
+  renderCal();
 }
 
-/* ══ LANÇAMENTO MÚLTIPLO ══ */
+// ── LANÇAMENTO MÚLTIPLO ──
 function openLancamentoMultiplo(){
-  const empresaId=document.getElementById('empresa-select').value;
-  if(!empresaId){alert('Selecione uma empresa primeiro.');return;}
-  diasSelecionados=new Set();miniMes=calMes;miniAno=calAno;
+  const empId=document.getElementById('empresa-select').value;
+  if(!empId){alert('Selecione uma empresa primeiro.');return;}
+  diasSel=new Set();miniMes=calMes;miniAno=calAno;
   const st=document.getElementById('mult-turno');
-  st.innerHTML='<option value="">Selecione</option>'+S.turnos.map(t=>`<option value="${t.id}">${t.nome} (${t.inicio}–${t.fim})</option>`).join('');
+  st.innerHTML='<option value="">Selecione</option>'+DB.turnos.map(t=>`<option value="${t.id}">${t.nome} (${t.inicio}–${t.fim})</option>`).join('');
   st.value='';
   document.getElementById('mult-ajuda').value='';
-  document.getElementById('mult-busca-colab').value='';
-  atualizarPreviewValor();
-  renderColabsMultiplo('');
+  document.getElementById('mult-busca').value='';
+  atualizarPreview();
+  renderColabsMult('');
   document.getElementById('mult-alert').innerHTML='';
   renderMiniCal();
   document.getElementById('modal-multiplo').classList.add('open');
 }
 
-function renderColabsMultiplo(filtro){
-  const f=(filtro||'').toLowerCase().trim();
-  const colabs=S.colaboradores.filter(c=>c.ativo&&(!f||c.nome.toLowerCase().includes(f)));
-  document.getElementById('mult-colab-checks').innerHTML=colabs.length
-    ?colabs.map(c=>`<label class="colab-check"><input type="checkbox" value="${c.id}" onchange="atualizarMiniCal()"><span>${c.nome}</span></label>`).join('')
+function renderColabsMult(filtro){
+  const f=(filtro||'').toLowerCase();
+  const lista=DB.colaboradores.filter(c=>c.ativo&&(!f||c.nome.toLowerCase().includes(f)));
+  document.getElementById('mult-colabs').innerHTML=lista.length
+    ?lista.map(c=>`<label class="colab-check"><input type="checkbox" value="${c.id}" onchange="atualizarMiniCal()"><span>${c.nome}</span></label>`).join('')
     :'<div style="padding:8px;font-size:12px;color:var(--text2)">Nenhum encontrado.</div>';
 }
+function filtrarColabsMult(){renderColabsMult(document.getElementById('mult-busca').value);atualizarMiniCal();}
 
-function filtrarColabsMultiplo(){renderColabsMultiplo(document.getElementById('mult-busca-colab').value);atualizarMiniCal();}
-
-function atualizarPreviewValor(){
-  const empresaId=document.getElementById('empresa-select').value;
-  const empresa=getEmpresa(empresaId);
+function atualizarPreview(){
+  const empId=document.getElementById('empresa-select').value;
+  const emp=getEmp(empId);
   const ajuda=document.getElementById('mult-ajuda').value;
   const turnoId=document.getElementById('mult-turno').value;
-  const preview=document.getElementById('mult-valor-preview');
-  if(!empresa){preview.textContent='';return;}
-  const vEmp=empresa.valorPlantao||160;
-  const fator=turnoId?calcFatorTurno(turnoId):1;
-  const t=S.turnos.find(t=>t.id===turnoId);
-  const dur=t?calcDuracao(t.inicio,t.fim):12;
-  const vCalculado=vEmp*fator;
-
+  const prev=document.getElementById('mult-preview');
+  if(!emp){prev.textContent='';return;}
+  const vEmp=emp.valor_plantao||160;
+  const fator=turnoId?calcFator(turnoId):1;
+  const t=getTurno(turnoId);
+  const dur=t?calcDur(t.inicio,t.fim):12;
   if(ajuda&&parseFloat(ajuda)>0){
-    const v=parseFloat(ajuda);
-    preview.innerHTML=`<span style="color:#1D9E75;font-weight:600">✓ Usando R$ ${v.toFixed(2).replace('.',',')} (valor manual)</span>`;
+    prev.innerHTML=`<span style="color:#1D9E75;font-weight:600">✓ R$ ${parseFloat(ajuda).toFixed(2).replace('.',',')} (manual)</span>`;
   } else {
-    let info=`Valor padrão: <strong>R$ ${vEmp.toFixed(2).replace('.',',')}</strong>`;
-    if(fator<1){
-      info+=` × ${fator===0.5?'½':'¾'} = <strong style="color:#D85A30">R$ ${vCalculado.toFixed(2).replace('.',',')}</strong>`;
-      info+=` <span style="font-size:10px;background:#FAEEDA;color:#633806;border-radius:3px;padding:1px 5px">${dur}h = meio plantão</span>`;
-    } else {
-      info+=` <span style="font-size:10px;background:#EAF3DE;color:#3B6D11;border-radius:3px;padding:1px 5px">${dur}h = plantão completo</span>`;
-    }
-    preview.innerHTML=info;
+    const vCalc=vEmp*fator;
+    let info=`Valor: <strong>R$ ${vCalc.toFixed(2).replace('.',',')}</strong>`;
+    if(fator<1)info+=` <span style="font-size:10px;background:#FAEEDA;color:#633806;border-radius:3px;padding:1px 5px">${dur}h = metade</span>`;
+    prev.innerHTML=info;
   }
 }
 
 function miniNavMes(d){miniMes+=d;if(miniMes>11){miniMes=0;miniAno++;}if(miniMes<0){miniMes=11;miniAno--;}renderMiniCal();}
+function atualizarMiniCal(){renderMiniCal();}
 
 function renderMiniCal(){
   document.getElementById('mini-month-label').textContent=MESES[miniMes]+' '+miniAno;
-  const empresaId=document.getElementById('empresa-select').value;
-  const colabs=[...document.querySelectorAll('#mult-colab-checks input:checked')].map(i=>i.value);
+  const empId=document.getElementById('empresa-select').value;
+  const colabs=[...document.querySelectorAll('#mult-colabs input:checked')].map(i=>i.value);
   const turnoId=document.getElementById('mult-turno').value;
-  const primeiro=new Date(miniAno,miniMes,1),ultimo=new Date(miniAno,miniMes+1,0);
+  const primeiro=new Date(miniAno,miniMes,1);
+  const ultimo=new Date(miniAno,miniMes+1,0);
   let html='';
   for(let i=0;i<primeiro.getDay();i++)html+='<div class="mini-day empty"></div>';
   for(let d=1;d<=ultimo.getDate();d++){
     const ds=`${miniAno}-${String(miniMes+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-    const sel=diasSelecionados.has(ds);
-    const conflito=colabs.length>0&&colabs.some(cId=>S.plantoes.find(p=>p.data===ds&&p.empresaId!==empresaId&&p.colaboradorIds.includes(cId)));
-    const temShift=S.plantoes.find(p=>p.data===ds&&p.empresaId===empresaId&&p.turnoId===turnoId&&colabs.length>0&&colabs.some(c=>p.colaboradorIds.includes(c)));
+    const sel=diasSel.has(ds);
+    const conflito=colabs.length>0&&colabs.some(cId=>DB.plantoes.some(p=>p.data===ds&&p.empresa_id!==empId&&getColabsPlantao(p.id).includes(cId)));
+    const temShift=DB.plantoes.some(p=>p.data===ds&&p.empresa_id===empId&&p.turno_id===turnoId);
     let cls='mini-day';
     if(conflito)cls+=' blocked';
     else if(sel)cls+=' selected';
@@ -1038,147 +895,174 @@ function renderMiniCal(){
     html+=`<div class="${cls}" onclick="toggleDia('${ds}','${conflito}')">${d}</div>`;
   }
   document.getElementById('mini-days').innerHTML=html;
-  const n=diasSelecionados.size;
+  const n=diasSel.size;
   document.getElementById('mini-sel-count').textContent=n?`${n} dia${n>1?'s':''} selecionado${n>1?'s':''}`:'Nenhum dia selecionado';
 }
 
-function toggleDia(ds,bloqueado){
-  if(bloqueado==='true')return;
-  if(diasSelecionados.has(ds))diasSelecionados.delete(ds);else diasSelecionados.add(ds);
-  renderMiniCal();
-}
+function toggleDia(ds,bloq){if(bloq==='true')return;if(diasSel.has(ds))diasSel.delete(ds);else diasSel.add(ds);renderMiniCal();}
 
-function atualizarMiniCal(){renderMiniCal();}
-
-function confirmarMultiplo(){
-  const empresaId=document.getElementById('empresa-select').value;
+async function confirmarMultiplo(){
+  const empId=document.getElementById('empresa-select').value;
   const turnoId=document.getElementById('mult-turno').value;
-  const colabs=[...document.querySelectorAll('#mult-colab-checks input:checked')].map(i=>i.value);
-  const alerta=document.getElementById('mult-alert');
+  const colabs=[...document.querySelectorAll('#mult-colabs input:checked')].map(i=>i.value);
+  const alertEl=document.getElementById('mult-alert');
   const ajudaRaw=document.getElementById('mult-ajuda').value;
   const valorCustom=(ajudaRaw&&parseFloat(ajudaRaw)>0)?parseFloat(ajudaRaw):null;
-  if(!turnoId){alerta.innerHTML='<div class="alert-err"><div class="alert-t">Selecione um turno.</div></div>';return;}
-  if(!colabs.length){alerta.innerHTML='<div class="alert-err"><div class="alert-t">Selecione colaboradores.</div></div>';return;}
-  if(!diasSelecionados.size){alerta.innerHTML='<div class="alert-err"><div class="alert-t">Selecione ao menos um dia.</div></div>';return;}
-  const dias=[...diasSelecionados].sort();
-  let lancados=0,pulados=[];
-  dias.forEach(ds=>{
-    const colabsLivres=colabs.filter(cId=>!S.plantoes.find(p=>p.data===ds&&p.empresaId!==empresaId&&p.colaboradorIds.includes(cId)));
-    if(!colabsLivres.length){pulados.push(ds);return;}
-    const jaExiste=S.plantoes.find(p=>p.data===ds&&p.empresaId===empresaId&&p.turnoId===turnoId&&colabsLivres.every(c=>p.colaboradorIds.includes(c)));
-    if(jaExiste){pulados.push(ds);return;}
-    const p={id:'p'+Date.now()+Math.random(),data:ds,empresaId,turnoId,colaboradorIds:colabsLivres};
-    if(valorCustom!==null)p.valorCustom=valorCustom;
-    S.plantoes.push(p);lancados++;
-  });
-  saveS();diasSelecionados=new Set();
-  document.getElementById('mult-ajuda').value='';atualizarPreviewValor();
+  if(!turnoId){alertEl.innerHTML='<div class="alert-err"><div class="alert-t">Selecione um turno.</div></div>';return;}
+  if(!colabs.length){alertEl.innerHTML='<div class="alert-err"><div class="alert-t">Selecione colaboradores.</div></div>';return;}
+  if(!diasSel.size){alertEl.innerHTML='<div class="alert-err"><div class="alert-t">Selecione ao menos um dia.</div></div>';return;}
+  const dias=[...diasSel].sort();
+  let lancados=0,pulados=0;
+  for(const ds of dias){
+    const colabsLivres=colabs.filter(cId=>!DB.plantoes.some(p=>p.data===ds&&p.empresa_id!==empId&&getColabsPlantao(p.id).includes(cId)));
+    if(!colabsLivres.length){pulados++;continue;}
+    const jaExiste=DB.plantoes.some(p=>p.data===ds&&p.empresa_id===empId&&p.turno_id===turnoId);
+    if(jaExiste){pulados++;continue;}
+    const id=uid();
+    await db.from('dm_plantoes').insert({id,data:ds,empresa_id:empId,turno_id:turnoId,valor_custom:valorCustom,criado_por:currentUser?.email||''});
+    const pcs=colabsLivres.map(cId=>({id:uid(),plantao_id:id,colaborador_id:cId}));
+    await db.from('dm_plantao_colabs').insert(pcs);
+    DB.plantoes.push({id,data:ds,empresa_id:empId,turno_id:turnoId,valor_custom:valorCustom});
+    DB.plantaoColabs.push(...pcs);
+    lancados++;
+  }
+  diasSel=new Set();
+  document.getElementById('mult-ajuda').value='';atualizarPreview();
   renderMiniCal();renderCal();
-  const empresa=getEmpresa(empresaId);
-  const vUsado=valorCustom!==null?valorCustom:(empresa?.valorPlantao||160);
-  let msg=`<div class="alert-ok"><div class="alert-t">✅ ${lancados} plantão${lancados!==1?'s':''} lançado${lancados!==1?'s':''}!</div>`;
-  msg+=`<div>Valor: <strong>R$ ${vUsado.toFixed(2).replace('.',',')}${valorCustom!==null?' (manual)':' (empresa)'}</strong></div>`;
-  if(pulados.length)msg+=`<div>${pulados.length} dia${pulados.length>1?'s':''} pulado${pulados.length>1?'s':''} (conflito/duplicata).</div>`;
-  msg+='</div>';
-  alerta.innerHTML=msg;
+  const emp=getEmp(empId);
+  const vUsado=valorCustom!==null?valorCustom:(emp?.valor_plantao||160)*calcFator(turnoId);
+  alertEl.innerHTML=`<div class="alert-ok"><div class="alert-t">✅ ${lancados} plantão${lancados!==1?'s':''} lançado${lancados!==1?'s':''}!</div><div>Valor: R$ ${vUsado.toFixed(2).replace('.',',')}${valorCustom?'(manual)':''}</div>${pulados?`<div>${pulados} pulados (conflito/duplicata)</div>`:''}</div>`;
 }
 
-/* ══ EMPRESAS ══ */
-function renderColorPicker(){
-  document.getElementById('color-picker').innerHTML=CORES.map(c=>`<div class="color-dot${c===selectedColor?' selected':''}" style="background:${c}" onclick="selectColor('${c}')"></div>`).join('');
-}
-function selectColor(c){selectedColor=c;renderColorPicker();}
+// ── EMPRESAS ──
+function renderColorPicker(){document.getElementById('color-picker').innerHTML=CORES.map(c=>`<div class="color-dot${c===selColor?' selected':''}" style="background:${c}" onclick="selecionarCor('${c}')"></div>`).join('');}
+function selecionarCor(c){selColor=c;renderColorPicker();}
 
 function openEmpresaModal(id){
-  editEmpresaId=id;const e=id?S.empresas.find(e=>e.id===id):null;
-  document.getElementById('empresa-modal-title').textContent=e?'Editar Empresa':'Nova Empresa';
-  document.getElementById('empresa-nome').value=e?.nome||'';
-  document.getElementById('empresa-end').value=e?.endereco||'';
-  document.getElementById('empresa-resp').value=e?.responsavel||'';
-  document.getElementById('empresa-tel').value=e?.telefone||'';
-  document.getElementById('empresa-obs').value=e?.obs||'';
-  document.getElementById('empresa-valor-plantao').value=e?.valorPlantao!==undefined?e.valorPlantao:160;
-  selectedColor=e?.cor||CORES[0];renderColorPicker();
+  editEmpId=id;const e=id?getEmp(id):null;
+  document.getElementById('emp-modal-title').textContent=e?'Editar Empresa':'Nova Empresa';
+  document.getElementById('emp-nome').value=e?.nome||'';
+  document.getElementById('emp-end').value=e?.endereco||'';
+  document.getElementById('emp-resp').value=e?.responsavel||'';
+  document.getElementById('emp-tel').value=e?.telefone||'';
+  document.getElementById('emp-obs').value=e?.obs||'';
+  document.getElementById('emp-valor').value=e?.valor_plantao||160;
+  selColor=e?.cor||CORES[0];renderColorPicker();
   document.getElementById('modal-empresa').classList.add('open');
 }
 
-function salvarEmpresa(){
-  const nome=document.getElementById('empresa-nome').value.trim();if(!nome)return;
-  const valorPlantao=parseFloat(document.getElementById('empresa-valor-plantao').value)||160;
-  const d={nome,endereco:document.getElementById('empresa-end').value,responsavel:document.getElementById('empresa-resp').value,telefone:document.getElementById('empresa-tel').value,obs:document.getElementById('empresa-obs').value,valorPlantao,cor:selectedColor,ativo:true};
-  if(editEmpresaId){const e=S.empresas.find(e=>e.id===editEmpresaId);if(e)Object.assign(e,d);}
-  else S.empresas.push({id:'emp'+Date.now(),...d});
-  saveS();closeModal('modal-empresa');renderEmpresas();populateEmpresaSelect();
+async function salvarEmpresa(){
+  const nome=document.getElementById('emp-nome').value.trim();if(!nome)return;
+  const d={nome,endereco:document.getElementById('emp-end').value,responsavel:document.getElementById('emp-resp').value,telefone:document.getElementById('emp-tel').value,obs:document.getElementById('emp-obs').value,valor_plantao:parseFloat(document.getElementById('emp-valor').value)||160,cor:selColor,ativo:true};
+  if(editEmpId){
+    await db.from('dm_empresas').update({...d,atualizado_em:new Date().toISOString()}).eq('id',editEmpId);
+    const idx=DB.empresas.findIndex(e=>e.id===editEmpId);if(idx>=0)DB.empresas[idx]={...DB.empresas[idx],...d};
+  } else {
+    const id=uid();
+    await db.from('dm_empresas').insert({id,...d});
+    DB.empresas.push({id,...d});
+  }
+  closeModal('modal-empresa');renderEmpresas();popularEmpresaSelect();
 }
 
-function toggleEmpresa(id){const e=S.empresas.find(e=>e.id===id);if(e){e.ativo=!e.ativo;saveS();renderEmpresas();populateEmpresaSelect();}}
-function delEmpresa(id){if(!confirm('Excluir esta empresa?'))return;S.empresas=S.empresas.filter(e=>e.id!==id);saveS();renderEmpresas();populateEmpresaSelect();}
+async function delEmpresa(id){
+  if(!confirm('Excluir esta empresa?'))return;
+  await db.from('dm_empresas').delete().eq('id',id);
+  DB.empresas=DB.empresas.filter(e=>e.id!==id);
+  renderEmpresas();popularEmpresaSelect();
+}
+
+async function toggleEmpresa(id){
+  const e=getEmp(id);if(!e)return;
+  e.ativo=!e.ativo;
+  await db.from('dm_empresas').update({ativo:e.ativo}).eq('id',id);
+  renderEmpresas();popularEmpresaSelect();
+}
 
 function renderEmpresas(){
-  const grid=document.getElementById('empresas-grid');
-  grid.innerHTML=S.empresas.map(e=>{
-    const qtd=S.plantoes.filter(p=>p.empresaId===e.id).length;
-    return`<div class="empresa-card">
-      <div class="empresa-color-bar" style="background:${e.cor||'#ccc'}"></div>
-      <div class="empresa-nome">${e.nome}${!e.ativo?' <span style="font-size:11px;color:var(--text3)">(inativa)</span>':''}</div>
-      ${e.endereco?`<div class="empresa-info">📍 ${e.endereco}</div>`:''}
-      ${e.responsavel?`<div class="empresa-info">👤 ${e.responsavel}</div>`:''}
-      ${e.telefone?`<div class="empresa-info">📞 ${e.telefone}</div>`:''}
-      <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap">
+  document.getElementById('empresas-grid').innerHTML=DB.empresas.map(e=>{
+    const qtd=DB.plantoes.filter(p=>p.empresa_id===e.id).length;
+    return`<div class="card"><div class="card-color-bar" style="background:${e.cor}"></div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:4px">${e.nome}${!e.ativo?' <span style="font-size:11px;color:var(--text3)">(inativa)</span>':''}</div>
+      ${e.endereco?`<div style="font-size:12px;color:var(--text2)">📍 ${e.endereco}</div>`:''}
+      ${e.responsavel?`<div style="font-size:12px;color:var(--text2)">👤 ${e.responsavel}</div>`:''}
+      <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
         <span style="color:var(--blue);font-weight:600;font-size:12px">📋 ${qtd} plantões</span>
-        <span style="color:var(--green);font-weight:700;font-size:12px">💰 R$ ${(e.valorPlantao||160).toLocaleString('pt-BR',{minimumFractionDigits:2})}</span>
+        <span style="color:var(--green);font-weight:700;font-size:12px">💰 R$ ${(e.valor_plantao||160).toLocaleString('pt-BR',{minimumFractionDigits:2})}</span>
       </div>
-      <div class="empresa-actions">
-        <button class="btn" style="font-size:12px;padding:5px 10px" onclick="openEmpresaModal('${e.id}')">Editar</button>
-        <button class="btn" style="font-size:12px;padding:5px 10px" onclick="toggleEmpresa('${e.id}')">${e.ativo?'Pausar':'Ativar'}</button>
-        <button class="btn btn-danger" style="font-size:12px;padding:5px 10px" onclick="delEmpresa('${e.id}')">✕</button>
-      </div>
-    </div>`;
+      <div style="display:flex;gap:6px;margin-top:10px">
+        <button class="btn btn-sm" onclick="openEmpresaModal('${e.id}')">Editar</button>
+        <button class="btn btn-sm" onclick="toggleEmpresa('${e.id}')">${e.ativo?'Pausar':'Ativar'}</button>
+        <button class="btn btn-sm btn-danger" onclick="delEmpresa('${e.id}')">✕</button>
+      </div></div>`;
   }).join('');
 }
 
-/* ══ TURNOS ══ */
+// ── TURNOS ──
 function openTurnoModal(id){
-  editTurnoId=id;const t=id?S.turnos.find(t=>t.id===id):null;
+  editTurnoId=id;const t=id?getTurno(id):null;
   document.getElementById('turno-modal-title').textContent=t?'Editar Turno':'Novo Turno';
   document.getElementById('turno-nome').value=t?.nome||'';
-  document.getElementById('turno-inicio').value=t?.inicio||'';
-  document.getElementById('turno-fim').value=t?.fim||'';
-  document.getElementById('modal-turno-cfg').classList.add('open');
+  document.getElementById('turno-inicio').value=t?.inicio?.slice(0,5)||'';
+  document.getElementById('turno-fim').value=t?.fim?.slice(0,5)||'';
+  document.getElementById('modal-turno').classList.add('open');
 }
 
-function salvarTurno(){
-  const nome=document.getElementById('turno-nome').value.trim(),inicio=document.getElementById('turno-inicio').value,fim=document.getElementById('turno-fim').value;
+async function salvarTurno(){
+  const nome=document.getElementById('turno-nome').value.trim();
+  const inicio=document.getElementById('turno-inicio').value;
+  const fim=document.getElementById('turno-fim').value;
   if(!nome||!inicio||!fim)return;
-  if(editTurnoId){const t=S.turnos.find(t=>t.id===editTurnoId);if(t)Object.assign(t,{nome,inicio,fim});}
-  else S.turnos.push({id:'t'+Date.now(),nome,inicio,fim});
-  saveS();closeModal('modal-turno-cfg');renderTurnos();
+  if(editTurnoId){
+    await db.from('dm_turnos').update({nome,inicio,fim}).eq('id',editTurnoId);
+    const t=getTurno(editTurnoId);if(t)Object.assign(t,{nome,inicio,fim});
+  } else {
+    const id=uid();
+    await db.from('dm_turnos').insert({id,nome,inicio,fim});
+    DB.turnos.push({id,nome,inicio,fim});
+  }
+  closeModal('modal-turno');renderTurnos();
 }
 
-function delTurno(id){if(!confirm('Excluir turno?'))return;S.turnos=S.turnos.filter(t=>t.id!==id);saveS();renderTurnos();}
-
-function addPreset(horarios,nomes){
-  horarios.forEach(([i,f],idx)=>{
-    if(!S.turnos.find(t=>t.inicio===i&&t.fim===f))S.turnos.push({id:'t'+Date.now()+idx,nome:nomes[idx],inicio:i,fim:f});
-  });saveS();renderTurnos();
+async function delTurno(id){
+  if(!confirm('Excluir turno?'))return;
+  await db.from('dm_turnos').delete().eq('id',id);
+  DB.turnos=DB.turnos.filter(t=>t.id!==id);renderTurnos();
 }
 
-function limparTurnos(){if(!confirm('Limpar todos os turnos?'))return;S.turnos=[];saveS();renderTurnos();}
+async function addPreset(horarios,nomes){
+  for(let i=0;i<horarios.length;i++){
+    const[inicio,fim]=horarios[i];
+    if(!DB.turnos.find(t=>t.inicio===inicio&&t.fim===fim)){
+      const id=uid();
+      await db.from('dm_turnos').insert({id,nome:nomes[i],inicio,fim});
+      DB.turnos.push({id,nome:nomes[i],inicio,fim});
+    }
+  }
+  renderTurnos();
+}
+
+async function limparTurnos(){
+  if(!confirm('Limpar todos os turnos?'))return;
+  for(const t of DB.turnos)await db.from('dm_turnos').delete().eq('id',t.id);
+  DB.turnos=[];renderTurnos();
+}
 
 function renderTurnos(){
-  document.getElementById('turnos-list').innerHTML=S.turnos.map(t=>`
-    <div class="turno-card">
-      <div><div class="turno-nome">${t.nome}</div><div class="turno-horario">⏰ ${t.inicio} → ${t.fim}</div></div>
+  document.getElementById('turnos-list').innerHTML=DB.turnos.map(t=>{
+    const dur=calcDur(t.inicio,t.fim);
+    return`<div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;display:flex;align-items:center;justify-content:space-between">
+      <div><div style="font-weight:600;font-size:14px">${t.nome}</div><div style="font-size:12px;color:var(--text2)">⏰ ${t.inicio?.slice(0,5)} → ${t.fim?.slice(0,5)} · ${dur}h${dur<=6?' <span style="background:#FAEEDA;color:#633806;border-radius:3px;padding:1px 5px;font-size:10px">= meio plantão</span>':''}</div></div>
       <div style="display:flex;gap:6px">
-        <button class="btn" style="font-size:12px;padding:5px 10px" onclick="openTurnoModal('${t.id}')">Editar</button>
-        <button class="btn btn-danger" style="font-size:12px;padding:5px 10px" onclick="delTurno('${t.id}')">✕</button>
-      </div>
-    </div>`).join('')||'<div style="text-align:center;padding:24px;color:var(--text2)">Nenhum turno cadastrado.</div>';
+        <button class="btn btn-sm" onclick="openTurnoModal('${t.id}')">Editar</button>
+        <button class="btn btn-sm btn-danger" onclick="delTurno('${t.id}')">✕</button>
+      </div></div>`;
+  }).join('')||'<div style="text-align:center;padding:24px;color:var(--text2)">Nenhum turno cadastrado.</div>';
 }
 
-/* ══ COLABORADORES ══ */
+// ── COLABORADORES ──
 function openColabModal(id){
-  editColabId=id;const c=id?S.colaboradores.find(c=>c.id===id):null;
+  editColabId=id;const c=id?getColab(id):null;
   document.getElementById('colab-modal-title').textContent=c?'Editar Colaborador':'Novo Colaborador';
   document.getElementById('colab-nome').value=c?.nome||'';
   document.getElementById('colab-tel').value=c?.telefone||'';
@@ -1186,475 +1070,342 @@ function openColabModal(id){
   document.getElementById('modal-colab').classList.add('open');
 }
 
-function salvarColab(){
+async function salvarColab(){
   const nome=document.getElementById('colab-nome').value.trim();if(!nome)return;
   const d={nome,telefone:document.getElementById('colab-tel').value,documento:document.getElementById('colab-cpf').value,ativo:true};
-  if(editColabId){const c=S.colaboradores.find(c=>c.id===editColabId);if(c)Object.assign(c,d);}
-  else S.colaboradores.push({id:'c'+Date.now(),...d});
-  saveS();closeModal('modal-colab');renderColabs();
+  if(editColabId){
+    await db.from('dm_colaboradores').update({...d,atualizado_em:new Date().toISOString()}).eq('id',editColabId);
+    const c=getColab(editColabId);if(c)Object.assign(c,d);
+  } else {
+    const id=uid();await db.from('dm_colaboradores').insert({id,...d});DB.colaboradores.push({id,...d});
+  }
+  closeModal('modal-colab');renderColabs();
 }
 
-function toggleAtivo(id){const c=S.colaboradores.find(c=>c.id===id);if(c){c.ativo=!c.ativo;saveS();renderColabs();}}
-function delColab(id){if(!confirm('Excluir colaborador?'))return;S.colaboradores=S.colaboradores.filter(c=>c.id!==id);saveS();renderColabs();}
+async function toggleAtivo(id){const c=getColab(id);if(!c)return;c.ativo=!c.ativo;await db.from('dm_colaboradores').update({ativo:c.ativo}).eq('id',id);renderColabs();}
+async function delColab(id){if(!confirm('Excluir colaborador?'))return;await db.from('dm_colaboradores').delete().eq('id',id);DB.colaboradores=DB.colaboradores.filter(c=>c.id!==id);renderColabs();}
 
 function renderColabs(){
-  document.getElementById('colabs-grid').innerHTML=S.colaboradores.map(c=>{
-    const qtd=S.plantoes.filter(p=>p.colaboradorIds.includes(c.id)).length;
-    return`<div class="colab-card" style="opacity:${c.ativo?1:.55}">
+  document.getElementById('colabs-grid').innerHTML=DB.colaboradores.map(c=>{
+    const qtd=DB.plantaoColabs.filter(pc=>pc.colaborador_id===c.id).length;
+    return`<div class="card" style="opacity:${c.ativo?1:.55}">
       <div class="colab-avatar">${initials(c.nome)}</div>
-      <div class="colab-nome">${c.nome}</div>
-      ${c.telefone?`<div class="colab-info">📞 ${c.telefone}</div>`:''}
-      ${c.documento?`<div class="colab-info">📄 ${c.documento}</div>`:''}
-      <div class="colab-info" style="color:var(--blue);font-weight:600;margin-top:4px">📋 ${qtd} plantões</div>
+      <div style="font-weight:700;font-size:14px;margin-bottom:4px">${c.nome}</div>
+      ${c.telefone?`<div style="font-size:12px;color:var(--text2)">📞 ${c.telefone}</div>`:''}
+      ${c.documento?`<div style="font-size:12px;color:var(--text2)">📄 ${c.documento}</div>`:''}
+      <div style="font-size:12px;color:var(--blue);font-weight:600;margin-top:6px">📋 ${qtd} plantões</div>
       <div style="display:flex;gap:4px;margin-top:8px">
-        <button class="btn" style="font-size:11px;padding:4px 8px" onclick="openColabModal('${c.id}')">Editar</button>
-        <button class="btn" style="font-size:11px;padding:4px 8px" onclick="toggleAtivo('${c.id}')">${c.ativo?'Pausar':'Ativar'}</button>
-        <button class="btn btn-danger" style="font-size:11px;padding:4px 8px" onclick="delColab('${c.id}')">✕</button>
-      </div>
-    </div>`;
+        <button class="btn btn-sm" onclick="openColabModal('${c.id}')">Editar</button>
+        <button class="btn btn-sm" onclick="toggleAtivo('${c.id}')">${c.ativo?'Pausar':'Ativar'}</button>
+        <button class="btn btn-sm btn-danger" onclick="delColab('${c.id}')">✕</button>
+      </div></div>`;
   }).join('');
 }
 
-/* ══ RELATÓRIO ══ */
-function populateRelSelects(){
-  const mes=document.getElementById('rel-mes'),cur=mes.value;
+// ── PAGAMENTOS ──
+function popularPagSelects(){
+  const mes=document.getElementById('rel-mes');
   const meses=[];for(let a=2025;a<=2027;a++)for(let m=0;m<12;m++)meses.push({val:`${a}-${String(m+1).padStart(2,'0')}`,lbl:MESES[m]+' '+a});
-  mes.innerHTML=meses.map(m=>`<option value="${m.val}"${m.val===`${new Date().getFullYear()}-${String(new Date().getMonth()+1).padStart(2,'0')}`?' selected':''}>${m.lbl}</option>`).join('');
-  if(cur)mes.value=cur;
-  const emp=document.getElementById('rel-empresa'),curE=emp.value;
-  emp.innerHTML='<option value="">Todas as empresas</option>'+S.empresas.map(e=>`<option value="${e.id}">${e.nome}</option>`).join('');
-  if(curE)emp.value=curE;
+  const hoje=new Date(),curMes=`${hoje.getFullYear()}-${String(hoje.getMonth()+1).padStart(2,'0')}`;
+  mes.innerHTML=meses.map(m=>`<option value="${m.val}"${m.val===curMes?' selected':''}>${m.lbl}</option>`).join('');
+  const emp=document.getElementById('rel-empresa');
+  emp.innerHTML='<option value="">Todas</option>'+DB.empresas.map(e=>`<option value="${e.id}">${e.nome}</option>`).join('');
 }
 
-function renderRelatorio(){
+function renderPagamentos(){
   const mes=document.getElementById('rel-mes').value;
   const empF=document.getElementById('rel-empresa').value;
-  const busca=(document.getElementById('rel-busca')?.value||'').toLowerCase().trim();
-  const getVal=p=>{
-    if(p.valorCustom!=null&&p.valorCustom>0)return p.valorCustom;
-    const e=S.empresas.find(e=>e.id===p.empresaId);
-    const valorBase=e?.valorPlantao||160;
-    const fator=calcFatorTurno(p.turnoId);
-    return valorBase*fator;
-  };
-  let plants=S.plantoes.filter(p=>p.data.startsWith(mes));
-  if(empF)plants=plants.filter(p=>p.empresaId===empF);
-  const stats=S.colaboradores.filter(c=>!busca||c.nome.toLowerCase().includes(busca)).map(c=>{
-    const meus=plants.filter(p=>p.colaboradorIds.includes(c.id));
-    const porE={};let totalVal=0;
-    meus.forEach(p=>{const v=getVal(p);if(!porE[p.empresaId])porE[p.empresaId]={qtd:0,total:0,temCustom:false};porE[p.empresaId].qtd++;porE[p.empresaId].total+=v;if(p.valorCustom!=null)porE[p.empresaId].temCustom=true;totalVal+=v;});
-    return{...c,qtd:meus.length,total:totalVal,porE};
+  const busca=(document.getElementById('rel-busca')?.value||'').toLowerCase();
+  let plants=DB.plantoes.filter(p=>p.data.startsWith(mes));
+  if(empF)plants=plants.filter(p=>p.empresa_id===empF);
+  const stats=DB.colaboradores.filter(c=>!busca||c.nome.toLowerCase().includes(busca)).map(c=>{
+    const meus=plants.filter(p=>getColabsPlantao(p.id).includes(c.id));
+    const porE={};let total=0;
+    meus.forEach(p=>{
+      const v=calcValorPlantao(p);
+      if(!porE[p.empresa_id])porE[p.empresa_id]={qtd:0,total:0};
+      porE[p.empresa_id].qtd++;porE[p.empresa_id].total+=v;total+=v;
+    });
+    const horas=meus.reduce((s,p)=>{const t=getTurno(p.turno_id);return s+(t?calcDur(t.inicio,t.fim):12);},0);
+    return{...c,qtd:meus.length,total,porE,horas};
   }).filter(c=>c.qtd>0).sort((a,b)=>b.qtd-a.qtd);
   const totP=stats.reduce((s,c)=>s+c.qtd,0),totR=stats.reduce((s,c)=>s+c.total,0);
-  document.getElementById('rel-summary').innerHTML=`
+  document.getElementById('pag-summary').innerHTML=`
     <div class="sum-card"><div class="sum-val">${totP}</div><div class="sum-lbl">Total Plantões</div></div>
     <div class="sum-card"><div class="sum-val">${stats.length}</div><div class="sum-lbl">Colaboradores</div></div>
     <div class="sum-card"><div class="sum-val" style="color:var(--green)">R$${totR.toLocaleString('pt-BR',{minimumFractionDigits:2})}</div><div class="sum-lbl">Total a Pagar</div></div>
-    <div class="sum-card"><div class="sum-val" style="font-size:14px;color:var(--text2)">Por empresa</div><div class="sum-lbl">Valor variável</div></div>`;
-  document.getElementById('rel-list').innerHTML=stats.map(c=>{
+    <div class="sum-card"><div class="sum-val" style="font-size:14px">Por empresa</div><div class="sum-lbl">Valor variável</div></div>`;
+  document.getElementById('pag-list').innerHTML=stats.map(c=>{
     const badges=Object.entries(c.porE).map(([eid,info])=>{
-      const emp=getEmpresa(eid);
-      const custom=info.temCustom?` <span style="font-size:9px;background:var(--warn-bg);color:var(--warn-text);border-radius:3px;padding:1px 4px">+ajuda</span>`:'';
-      return`<span class="rel-emp-badge" style="background:${emp?.cor||'#ccc'}22;color:${emp?.cor||'#555'};border:1px solid ${emp?.cor||'#ccc'}44">${emp?.nome||eid}: ${info.qtd}× · R$${info.total.toLocaleString('pt-BR',{minimumFractionDigits:2})}${custom}</span>`;
+      const e=getEmp(eid);
+      return`<span style="background:${e?.cor||'#ccc'}22;color:${e?.cor||'#555'};border:1px solid ${e?.cor||'#ccc'}44;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600">${e?.nome||eid}: ${info.qtd}× · R$${info.total.toLocaleString('pt-BR',{minimumFractionDigits:2})}</span>`;
     }).join('');
-    // Calcula horas reais
-    const horasReais=plants.filter(p=>p.colaboradorIds.includes(c.id)).reduce((s,p)=>{
-      const t=S.turnos.find(t=>t.id===p.turnoId);
-      return s+(t?calcDuracao(t.inicio,t.fim):12);
-    },0);
-    const meiosPlantoes=plants.filter(p=>p.colaboradorIds.includes(c.id)&&calcFatorTurno(p.turnoId)<1).length;
-    return`<div class="rel-card"><div class="rel-head"><div><div class="rel-name">${c.nome}</div><div class="rel-empresas" style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px">${badges}</div></div><div class="rel-total">R$${c.total.toLocaleString('pt-BR',{minimumFractionDigits:2})}</div></div>
+    return`<div class="rel-card"><div class="rel-head"><div><div class="rel-name">${c.nome}</div><div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px">${badges}</div></div><div class="rel-total">R$${c.total.toLocaleString('pt-BR',{minimumFractionDigits:2})}</div></div>
       <div class="rel-details">
         <div class="rel-m"><div class="rel-mv">${c.qtd}</div><div class="rel-ml">Plantões</div></div>
-        <div class="rel-m"><div class="rel-mv">${horasReais}h</div><div class="rel-ml">Horas reais</div></div>
-        <div class="rel-m"><div class="rel-mv" style="font-size:${meiosPlantoes>0?'11':'13'}px;color:${meiosPlantoes>0?'#D85A30':'var(--text)'}">${meiosPlantoes>0?meiosPlantoes+'× ½ plantão':'—'}</div><div class="rel-ml">Meio plantão</div></div>
+        <div class="rel-m"><div class="rel-mv">${c.horas}h</div><div class="rel-ml">Horas reais</div></div>
+        <div class="rel-m"><div class="rel-mv" style="font-size:12px">${c.qtd>0?'R$'+(c.total/c.qtd).toLocaleString('pt-BR',{minimumFractionDigits:2}):'—'}</div><div class="rel-ml">Média</div></div>
         <div class="rel-m"><div class="rel-mv" style="color:var(--blue)">R$${c.total.toLocaleString('pt-BR',{minimumFractionDigits:2})}</div><div class="rel-ml">Total</div></div>
       </div></div>`;
-  }).join('')||`<div style="text-align:center;padding:32px;color:var(--text2)">Nenhum plantão no período.</div>`;
+  }).join('')||'<div style="text-align:center;padding:32px;color:var(--text2)">Nenhum plantão no período.</div>';
 }
 
-/* ══ SUBSTITUIÇÕES ══ */
+function exportPagCSV(){
+  const mes=document.getElementById('rel-mes').value;
+  const busca=(document.getElementById('rel-busca')?.value||'').toLowerCase();
+  let plants=DB.plantoes.filter(p=>p.data.startsWith(mes));
+  const stats=DB.colaboradores.filter(c=>!busca||c.nome.toLowerCase().includes(busca)).map(c=>{
+    const meus=plants.filter(p=>getColabsPlantao(p.id).includes(c.id));
+    const total=meus.reduce((s,p)=>s+calcValorPlantao(p),0);
+    const horas=meus.reduce((s,p)=>{const t=getTurno(p.turno_id);return s+(t?calcDur(t.inicio,t.fim):12);},0);
+    return{nome:c.nome,qtd:meus.length,total,horas};
+  }).filter(c=>c.qtd>0);
+  const csv=[['Colaborador','Plantões','Horas','Total (R$)'],...stats.map(c=>[c.nome,c.qtd,c.horas,c.total.toFixed(2)])].map(r=>r.join(';')).join('\n');
+  const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`pagamentos_${mes}.csv`;a.click();
+}
+
+// ── SUBSTITUIÇÕES ──
 function openSubModal(){
-  document.getElementById('sub-empresa').innerHTML='<option value="">Selecione</option>'+S.empresas.map(e=>`<option value="${e.id}">${e.nome}</option>`).join('');
+  document.getElementById('sub-empresa').innerHTML='<option value="">Selecione</option>'+DB.empresas.map(e=>`<option value="${e.id}">${e.nome}</option>`).join('');
   document.getElementById('sub-tipo').value='';
-  document.getElementById('sub-bloco-imprevisto').style.display='none';
+  document.getElementById('sub-bloco-imp').style.display='none';
   document.getElementById('sub-bloco-troca').style.display='none';
   document.getElementById('sub-motivo').value='';
   document.getElementById('sub-alert').innerHTML='';
   document.getElementById('modal-sub').classList.add('open');
 }
 
-function onSubTipoChange(){
+function onSubTipo(){
   const tipo=document.getElementById('sub-tipo').value;
-  document.getElementById('sub-bloco-imprevisto').style.display=tipo==='imprevisto'?'block':'none';
+  document.getElementById('sub-bloco-imp').style.display=tipo==='imprevisto'?'block':'none';
   document.getElementById('sub-bloco-troca').style.display=tipo==='troca'?'block':'none';
   populateSubColabs();
 }
 
 function populateSubColabs(){
-  const opts='<option value="">Selecione</option>'+S.colaboradores.filter(c=>c.ativo).map(c=>`<option value="${c.id}">${c.nome}</option>`).join('');
-  const turnOpts='<option value="">Selecione</option>'+S.turnos.map(t=>`<option value="${t.id}">${t.nome} (${t.inicio}–${t.fim})</option>`).join('');
-  ['sub-original','sub-substituto','troca-colab1','troca-colab2'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=opts;});
-  ['sub-turno1','troca-turno1','troca-turno2'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=turnOpts;});
+  const opts='<option value="">Selecione</option>'+DB.colaboradores.filter(c=>c.ativo).map(c=>`<option value="${c.id}">${c.nome}</option>`).join('');
+  const tornOpts='<option value="">Selecione</option>'+DB.turnos.map(t=>`<option value="${t.id}">${t.nome} (${t.inicio?.slice(0,5)}–${t.fim?.slice(0,5)})</option>`).join('');
+  ['sub-orig','sub-subst','troca-colab1','troca-colab2'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=opts;});
+  ['sub-turno1','troca-turno1','troca-turno2'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=tornOpts;});
 }
 
-function salvarSubstituicao(){
+async function salvarSub(){
   const tipo=document.getElementById('sub-tipo').value;
-  const empresaId=document.getElementById('sub-empresa').value;
+  const empId=document.getElementById('sub-empresa').value;
   const motivo=document.getElementById('sub-motivo').value;
-  const alert=document.getElementById('sub-alert');
-  if(!empresaId||!tipo){alert.innerHTML='<div class="alert-err"><div class="alert-t">Preencha empresa e tipo.</div></div>';return;}
-  const reg={id:'s'+Date.now(),empresaId,tipo,motivo,criadoEm:new Date().toISOString()};
+  const alertEl=document.getElementById('sub-alert');
+  if(!empId||!tipo){alertEl.innerHTML='<div class="alert-err"><div class="alert-t">Preencha empresa e tipo.</div></div>';return;}
+  const reg={id:uid(),empresa_id:empId,tipo,motivo,criado_por:currentUser?.email||''};
   if(tipo==='imprevisto'){
-    reg.data=document.getElementById('sub-data1').value;
-    reg.turnoId=document.getElementById('sub-turno1').value;
-    reg.originalId=document.getElementById('sub-original').value;
-    reg.substitutoId=document.getElementById('sub-substituto').value;
-    if(!reg.data||!reg.turnoId||!reg.originalId||!reg.substitutoId){alert.innerHTML='<div class="alert-err"><div class="alert-t">Preencha todos os campos.</div></div>';return;}
+    reg.data1=document.getElementById('sub-data1').value;
+    reg.turno_id1=document.getElementById('sub-turno1').value;
+    reg.original_id=document.getElementById('sub-orig').value;
+    reg.substituto_id=document.getElementById('sub-subst').value;
+    if(!reg.data1||!reg.turno_id1||!reg.original_id||!reg.substituto_id){alertEl.innerHTML='<div class="alert-err"><div class="alert-t">Preencha todos os campos.</div></div>';return;}
   } else {
-    reg.data1=document.getElementById('troca-data1').value;reg.turno1=document.getElementById('troca-turno1').value;reg.colab1=document.getElementById('troca-colab1').value;
-    reg.data2=document.getElementById('troca-data2').value;reg.turno2=document.getElementById('troca-turno2').value;reg.colab2=document.getElementById('troca-colab2').value;
-    if(!reg.data1||!reg.turno1||!reg.colab1||!reg.data2||!reg.turno2||!reg.colab2){alert.innerHTML='<div class="alert-err"><div class="alert-t">Preencha todos os campos.</div></div>';return;}
+    reg.data1=document.getElementById('troca-data1').value;reg.turno_id1=document.getElementById('troca-turno1').value;reg.original_id=document.getElementById('troca-colab1').value;
+    reg.data2=document.getElementById('troca-data2').value;reg.turno_id2=document.getElementById('troca-turno2').value;reg.colab2_id=document.getElementById('troca-colab2').value;
+    if(!reg.data1||!reg.turno_id1||!reg.original_id||!reg.data2||!reg.turno_id2||!reg.colab2_id){alertEl.innerHTML='<div class="alert-err"><div class="alert-t">Preencha todos os campos.</div></div>';return;}
   }
-  S.substituicoes.push(reg);saveS();closeModal('modal-sub');renderSubstituicoes();
+  await db.from('dm_substituicoes').insert(reg);
+  DB.substituicoes.unshift(reg);
+  closeModal('modal-sub');renderSubstituicoes();
 }
 
-function delSub(id){if(!confirm('Remover este registro?'))return;S.substituicoes=S.substituicoes.filter(s=>s.id!==id);saveS();renderSubstituicoes();}
-
-function populateSubFilters(){
-  const emp=document.getElementById('sub-fil-empresa'),curE=emp.value;
-  emp.innerHTML='<option value="">Todas</option>'+S.empresas.map(e=>`<option value="${e.id}">${e.nome}</option>`).join('');
-  if(curE)emp.value=curE;
-  const mes=document.getElementById('sub-fil-mes'),curM=mes.value;
-  const meses=[];for(let a=2025;a<=2027;a++)for(let m=0;m<12;m++)meses.push({val:`${a}-${String(m+1).padStart(2,'0')}`,lbl:MESES[m]+' '+a});
-  mes.innerHTML='<option value="">Todos os meses</option>'+meses.map(m=>`<option value="${m.val}">${m.lbl}</option>`).join('');
-  if(curM)mes.value=curM;
+async function delSub(id){
+  if(!confirm('Remover?'))return;
+  await db.from('dm_substituicoes').delete().eq('id',id);
+  DB.substituicoes=DB.substituicoes.filter(s=>s.id!==id);renderSubstituicoes();
 }
 
 function renderSubstituicoes(){
-  const empF=document.getElementById('sub-fil-empresa').value;
-  const tipoF=document.getElementById('sub-fil-tipo').value;
-  const mesF=document.getElementById('sub-fil-mes').value;
-  const busca=(document.getElementById('sub-fil-busca')?.value||'').toLowerCase();
-  let subs=[...S.substituicoes];
-  if(empF)subs=subs.filter(s=>s.empresaId===empF);
+  const empF=document.getElementById('sub-f-emp')?.value||'';
+  const tipoF=document.getElementById('sub-f-tipo')?.value||'';
+  const mesF=document.getElementById('sub-f-mes')?.value||'';
+  const busca=(document.getElementById('sub-f-busca')?.value||'').toLowerCase();
+  // Populate selects
+  const empSel=document.getElementById('sub-f-emp');
+  if(empSel){const cur=empSel.value;empSel.innerHTML='<option value="">Todas</option>'+DB.empresas.map(e=>`<option value="${e.id}">${e.nome}</option>`).join('');if(cur)empSel.value=cur;}
+  const mesSel=document.getElementById('sub-f-mes');
+  if(mesSel&&!mesSel.options.length){const meses=[];for(let a=2025;a<=2027;a++)for(let m=0;m<12;m++)meses.push({val:`${a}-${String(m+1).padStart(2,'0')}`,lbl:MESES[m]+' '+a});mesSel.innerHTML='<option value="">Todos</option>'+meses.map(m=>`<option value="${m.val}">${m.lbl}</option>`).join('');}
+  let subs=[...DB.substituicoes];
+  if(empF)subs=subs.filter(s=>s.empresa_id===empF);
   if(tipoF)subs=subs.filter(s=>s.tipo===tipoF);
-  if(mesF)subs=subs.filter(s=>(s.data||s.data1||'').startsWith(mesF));
-  if(busca)subs=subs.filter(s=>{
-    const orig=getNome(s.originalId||s.colab1||'').toLowerCase();
-    const sub=getNome(s.substitutoId||s.colab2||'').toLowerCase();
-    return orig.includes(busca)||sub.includes(busca);
-  });
-  subs.sort((a,b)=>new Date(b.criadoEm)-new Date(a.criadoEm));
+  if(mesF)subs=subs.filter(s=>(s.data1||'').startsWith(mesF));
+  if(busca)subs=subs.filter(s=>getNome(s.original_id||'').toLowerCase().includes(busca)||getNome(s.substituto_id||'').toLowerCase().includes(busca));
   const tbody=document.getElementById('sub-tbody');
   const empty=document.getElementById('sub-empty');
   if(!subs.length){tbody.innerHTML='';empty.style.display='block';return;}
   empty.style.display='none';
   tbody.innerHTML=subs.map(s=>{
-    const emp=getEmpresa(s.empresaId);
-    const t1=S.turnos.find(t=>t.id===(s.turnoId||s.turno1));
-    const data=s.tipo==='imprevisto'?s.data:`${s.data1} ↔ ${s.data2}`;
-    const orig=s.tipo==='imprevisto'?getNome(s.originalId):`${getNome(s.colab1)} ↔ ${getNome(s.colab2)}`;
-    const subs2=s.tipo==='imprevisto'?getNome(s.substitutoId):'—';
-    const dataFmt=data?data.split('-').reverse().join('/'):'-';
-    return`<tr>
-      <td><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:${emp?.cor||'#ccc'};margin-right:5px"></span>${emp?.nome||'?'}</td>
-      <td>${dataFmt}</td>
-      <td style="font-size:11px">${t1?.nome||'—'}</td>
-      <td>${orig}</td><td>${subs2}</td>
-      <td><span class="${s.tipo==='imprevisto'?'sub-imp':'sub-troca'}">${s.tipo==='imprevisto'?'Imprevisto':'Troca'}</span></td>
-      <td style="font-size:12px;color:var(--text2);max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.motivo||'—'}</td>
-      <td style="font-size:11px;color:var(--text3)">${new Date(s.criadoEm).toLocaleDateString('pt-BR')}</td>
-      <td><button class="btn btn-danger" style="padding:3px 8px;font-size:11px" onclick="delSub('${s.id}')">✕</button></td>
-    </tr>`;
+    const e=getEmp(s.empresa_id);const t=getTurno(s.turno_id1);
+    const orig=s.tipo==='imprevisto'?getNome(s.original_id):`${getNome(s.original_id)} ↔ ${getNome(s.colab2_id)}`;
+    const subst=s.tipo==='imprevisto'?getNome(s.substituto_id):'—';
+    const dataFmt=s.data1?s.data1.split('-').reverse().join('/'):'-';
+    const badge=s.tipo==='imprevisto'?`<span style="background:#FAEEDA;color:#633806;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:700">Imprevisto</span>`:`<span style="background:#EEEDFE;color:#26215C;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:700">Troca</span>`;
+    return`<tr><td><span style="display:inline-flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:50%;background:${e?.cor||'#ccc'}"></span>${e?.nome||'?'}</span></td><td style="white-space:nowrap">${dataFmt}</td><td style="font-size:11px;color:var(--text2)">${t?.nome||'—'}</td><td>${orig}</td><td>${subst}</td><td>${badge}</td><td style="font-size:12px;color:var(--text2);max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.motivo||'—'}</td><td><button class="btn btn-sm btn-danger" onclick="delSub('${s.id}')">✕</button></td></tr>`;
   }).join('');
 }
 
-function exportarExcel(){
-  const subs=S.substituicoes;
-  if(!subs.length){alert('Nenhuma substituição para exportar.');return;}
-  const cab=['Empresa','Data','Turno','Original','Substituto','Tipo','Motivo','Registrado em'];
-  const linhas=subs.map(s=>{
-    const emp=getEmpresa(s.empresaId);const t1=S.turnos.find(t=>t.id===(s.turnoId||s.turno1));
-    return[emp?.nome||'?',s.data||`${s.data1}/${s.data2}`,t1?.nome||'?',getNome(s.originalId||s.colab1||''),getNome(s.substitutoId||s.colab2||''),s.tipo,s.motivo||'',new Date(s.criadoEm).toLocaleDateString('pt-BR')];
-  });
-  const csv=[cab,...linhas].map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(';')).join('\n');
-  const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');a.href=url;a.download=`substituicoes_${new Date().toISOString().slice(0,10)}.csv`;a.click();
+function exportSubCSV(){
+  const csv=[['Empresa','Data','Turno','Original','Substituto','Tipo','Motivo'],...DB.substituicoes.map(s=>[getEmp(s.empresa_id)?.nome||'?',s.data1||'',getTurno(s.turno_id1)?.nome||'',getNome(s.original_id||''),getNome(s.substituto_id||''),s.tipo,s.motivo||''])].map(r=>r.join(';')).join('\n');
+  const blob=new Blob(['\uFEFF'+csv],{type:'text/csv'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`substituicoes.csv`;a.click();
 }
 
-/* ══ MONITORAMENTO VIGILANTE ══ */
-let monSortCol='inicio', monSortAsc=true, monDiaAtual=false;
-
-function showPage(name,btn){
-  if(!S)return;
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('page-'+name).classList.add('active');
-  btn.classList.add('active');
-  ({
-    calendario:()=>{populateEmpresaSelect();renderCal();},
-    empresas:renderEmpresas,
-    turnos:renderTurnos,
-    colaboradores:renderColabs,
-    relatorio:()=>{populateRelSelects();renderRelatorio();},
-    substituicoes:()=>{renderSubstituicoes();populateSubFilters();},
-    monitoramento:()=>{populateMonFiltros();renderMonitoramento();}
-  })[name]?.();
+// ── MONITORAMENTO ──
+function getStatus(data,turnoId){
+  const agora=new Date();const t=getTurno(turnoId);if(!t)return'futuro';
+  const[ano,mes,dia]=data.split('-').map(Number);
+  const[hi,mi]=(t.inicio||'00:00').slice(0,5).split(':').map(Number);
+  const[hf,mf]=(t.fim||'00:00').slice(0,5).split(':').map(Number);
+  const ini=new Date(ano,mes-1,dia,hi,mi);let fim=new Date(ano,mes-1,dia,hf,mf);
+  if(fim<=ini)fim.setDate(fim.getDate()+1);
+  if(agora<ini)return'futuro';if(agora<=fim)return'andamento';return'finalizado';
 }
 
-function populateMonFiltros(){
-  const sel=document.getElementById('mon-f-empresa');
-  const cur=sel.value;
-  sel.innerHTML='<option value="">Todas</option>'+S.empresas.map(e=>`<option value="${e.id}">${e.nome}</option>`).join('');
-  if(cur)sel.value=cur;
+function getInicioFimDt(data,turnoId){
+  const t=getTurno(turnoId);if(!t)return{ini:null,fim:null};
+  const[ano,mes,dia]=data.split('-').map(Number);
+  const[hi,mi]=(t.inicio||'00:00').slice(0,5).split(':').map(Number);
+  const[hf,mf]=(t.fim||'00:00').slice(0,5).split(':').map(Number);
+  const ini=new Date(ano,mes-1,dia,hi,mi);let fim=new Date(ano,mes-1,dia,hf,mf);
+  if(fim<=ini)fim.setDate(fim.getDate()+1);
+  return{ini,fim};
 }
 
-function getStatusPlantao(data,turnoId){
-  const agora=new Date();
-  const t=S.turnos.find(t=>t.id===turnoId);
-  if(!t)return 'futuro';
-  const [ano,mes,dia]=data.split('-').map(Number);
-  const [hi,mi]=(t.inicio||'00:00').split(':').map(Number);
-  const [hf,mf]=(t.fim||'00:00').split(':').map(Number);
-  const inicio=new Date(ano,mes-1,dia,hi,mi,0);
-  let fim=new Date(ano,mes-1,dia,hf,mf,0);
-  if(fim<=inicio)fim.setDate(fim.getDate()+1);
-  if(agora<inicio)return 'futuro';
-  if(agora>=inicio&&agora<=fim)return 'andamento';
-  return 'finalizado';
-}
-
-function getInicioFim(data,turnoId){
-  const t=S.turnos.find(t=>t.id===turnoId);
-  if(!t)return{inicio:null,fim:null};
-  const [ano,mes,dia]=data.split('-').map(Number);
-  const [hi,mi]=(t.inicio||'00:00').split(':').map(Number);
-  const [hf,mf]=(t.fim||'00:00').split(':').map(Number);
-  const inicio=new Date(ano,mes-1,dia,hi,mi,0);
-  let fim=new Date(ano,mes-1,dia,hf,mf,0);
-  if(fim<=inicio)fim.setDate(fim.getDate()+1);
-  return{inicio,fim};
-}
-
-function calcSequencia(colabId,dataRef){
-  // Conta dias consecutivos até dataRef (inclusive)
-  const datasColab=[...new Set(
-    S.plantoes.filter(p=>p.colaboradorIds.includes(colabId)).map(p=>p.data)
-  )].sort();
-  if(!datasColab.includes(dataRef))return 1;
-  const idx=datasColab.indexOf(dataRef);
-  let seq=1;
-  for(let i=idx-1;i>=0;i--){
-    const d1=new Date(datasColab[i+1]);
-    const d2=new Date(datasColab[i]);
-    const diff=(d1-d2)/(1000*3600*24);
-    if(diff===1)seq++;
-    else break;
-  }
+function calcSeq(colabId,dataRef){
+  const datas=[...new Set(DB.plantaoColabs.filter(pc=>pc.colaborador_id===colabId).map(pc=>DB.plantoes.find(p=>p.id===pc.plantao_id)?.data).filter(Boolean))].sort();
+  if(!datas.includes(dataRef))return 1;
+  const idx=datas.indexOf(dataRef);let seq=1;
+  for(let i=idx-1;i>=0;i--){const d=(new Date(datas[i+1])-new Date(datas[i]))/(864e5);if(d===1)seq++;else break;}
   return seq;
 }
 
 function toggleDiaAtual(){
   monDiaAtual=!monDiaAtual;
-  const btn=document.getElementById('btn-dia-atual');
-  btn.classList.toggle('dia-atual-ativo',monDiaAtual);
+  document.getElementById('btn-dia-atual').classList.toggle('dia-atual-ativo',monDiaAtual);
   if(monDiaAtual){
-    // Aplica filtro do dia atual
-    const hoje=new Date();
-    const dd=String(hoje.getDate()).padStart(2,'0');
-    const mm=String(hoje.getMonth()+1).padStart(2,'0');
-    const yyyy=hoje.getFullYear();
-    const ontem=new Date(hoje);ontem.setDate(hoje.getDate()-1);
-    const ddo=String(ontem.getDate()).padStart(2,'0');
-    const mmo=String(ontem.getMonth()+1).padStart(2,'0');
-    const yyyyo=ontem.getFullYear();
-    document.getElementById('mon-f-di').value=`${yyyyo}-${mmo}-${ddo}`;
-    document.getElementById('mon-f-df').value=`${yyyy}-${mm}-${dd}`;
+    const h=new Date(),ontem=new Date(h);ontem.setDate(h.getDate()-1);
+    const fmt=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    document.getElementById('mon-f-di').value=fmt(ontem);
+    document.getElementById('mon-f-df').value=fmt(h);
   } else {
-    document.getElementById('mon-f-di').value='';
-    document.getElementById('mon-f-df').value='';
+    document.getElementById('mon-f-di').value='';document.getElementById('mon-f-df').value='';
   }
-  renderMonitoramento();
+  renderMon();
 }
 
-function limparFiltrosMon(){
-  document.getElementById('mon-f-colab').value='';
-  document.getElementById('mon-f-empresa').value='';
-  document.getElementById('mon-f-di').value='';
-  document.getElementById('mon-f-df').value='';
-  document.getElementById('mon-f-status').value='';
-  monDiaAtual=false;
-  document.getElementById('btn-dia-atual').classList.remove('dia-atual-ativo');
-  renderMonitoramento();
+function limparMonFiltros(){
+  ['mon-f-colab','mon-f-di','mon-f-df'].forEach(id=>document.getElementById(id).value='');
+  ['mon-f-emp','mon-f-status'].forEach(id=>document.getElementById(id).value='');
+  monDiaAtual=false;document.getElementById('btn-dia-atual').classList.remove('dia-atual-ativo');
+  renderMon();
 }
 
-function sortMon(col){
-  if(monSortCol===col)monSortAsc=!monSortAsc;
-  else{monSortCol=col;monSortAsc=true;}
-  renderMonitoramento();
-}
+function sortMon(col){if(monSortCol===col)monSortAsc=!monSortAsc;else{monSortCol=col;monSortAsc=true;}renderMon();}
 
-function renderMonitoramento(){
-  if(!S)return;
-  populateMonFiltros();
+function renderMon(){
+  // Popular filtros
+  const monEmp=document.getElementById('mon-f-emp');
+  if(monEmp){const cur=monEmp.value;monEmp.innerHTML='<option value="">Todas</option>'+DB.empresas.map(e=>`<option value="${e.id}">${e.nome}</option>`).join('');if(cur)monEmp.value=cur;}
 
-  const fColab=(document.getElementById('mon-f-colab')?.value||'').toLowerCase().trim();
-  const fEmpresa=document.getElementById('mon-f-empresa')?.value||'';
+  const fColab=(document.getElementById('mon-f-colab')?.value||'').toLowerCase();
+  const fEmp=document.getElementById('mon-f-emp')?.value||'';
   const fDi=document.getElementById('mon-f-di')?.value||'';
   const fDf=document.getElementById('mon-f-df')?.value||'';
   const fStatus=document.getElementById('mon-f-status')?.value||'';
 
-  // Expande plantões por colaborador (cada colaborador = uma linha)
   let linhas=[];
-  S.plantoes.forEach(p=>{
-    p.colaboradorIds.forEach(cId=>{
-      const colab=S.colaboradores.find(c=>c.id===cId);
-      const empresa=S.empresas.find(e=>e.id===p.empresaId);
-      const turno=S.turnos.find(t=>t.id===p.turnoId);
-      const status=getStatusPlantao(p.data,p.turnoId);
-      const {inicio,fim}=getInicioFim(p.data,p.turnoId);
-      const seq=calcSequencia(cId,p.data);
-      const dur=turno?calcDuracao(turno.inicio,turno.fim):12;
-      linhas.push({
-        plantaoId:p.id, colabId:cId,
-        colabNome:colab?.nome||cId,
-        empresaNome:empresa?.nome||'?',
-        empresaCor:empresa?.cor||'#ccc',
-        empresaId:p.empresaId,
-        turnoNome:turno?.nome||'?',
-        turnoInicio:turno?.inicio||'',
-        turnoFim:turno?.fim||'',
-        data:p.data, inicio, fim, status, seq, dur,
-      });
+  DB.plantoes.forEach(p=>{
+    getColabsPlantao(p.id).forEach(cId=>{
+      const c=getColab(cId);const e=getEmp(p.empresa_id);const t=getTurno(p.turno_id);
+      const status=getStatus(p.data,p.turno_id);
+      const{ini,fim}=getInicioFimDt(p.data,p.turno_id);
+      const seq=calcSeq(cId,p.data);
+      const dur=t?calcDur(t.inicio,t.fim):12;
+      linhas.push({plantaoId:p.id,colabId:cId,colabNome:c?.nome||cId,empNome:e?.nome||'?',empCor:e?.cor||'#ccc',empId:p.empresa_id,turnoNome:t?.nome||'?',turnoIni:t?.inicio?.slice(0,5)||'',turnoFim:t?.fim?.slice(0,5)||'',data:p.data,ini,fim,status,seq,dur});
     });
   });
 
-  // Filtros
   if(fColab)linhas=linhas.filter(l=>l.colabNome.toLowerCase().includes(fColab));
-  if(fEmpresa)linhas=linhas.filter(l=>l.empresaId===fEmpresa);
+  if(fEmp)linhas=linhas.filter(l=>l.empId===fEmp);
   if(fDi)linhas=linhas.filter(l=>l.data>=fDi);
   if(fDf)linhas=linhas.filter(l=>l.data<=fDf);
   if(fStatus)linhas=linhas.filter(l=>l.status===fStatus);
 
-  // Ordenação
   linhas.sort((a,b)=>{
     let va,vb;
-    if(monSortCol==='inicio'){va=a.inicio?.getTime()||0;vb=b.inicio?.getTime()||0;}
+    if(monSortCol==='inicio'){va=a.ini?.getTime()||0;vb=b.ini?.getTime()||0;}
     else if(monSortCol==='fim'){va=a.fim?.getTime()||0;vb=b.fim?.getTime()||0;}
     else if(monSortCol==='colab'){va=a.colabNome;vb=b.colabNome;}
-    else if(monSortCol==='empresa'){va=a.empresaNome;vb=b.empresaNome;}
+    else if(monSortCol==='empresa'){va=a.empNome;vb=b.empNome;}
     else if(monSortCol==='turno'){va=a.turnoNome;vb=b.turnoNome;}
-    else if(monSortCol==='sequencia'){va=a.seq;vb=b.seq;}
+    else if(monSortCol==='seq'){va=a.seq;vb=b.seq;}
     else if(monSortCol==='status'){va=a.status;vb=b.status;}
     else{va=a.data;vb=b.data;}
-    if(va<vb)return monSortAsc?-1:1;
-    if(va>vb)return monSortAsc?1:-1;
-    return 0;
+    if(va<vb)return monSortAsc?-1:1;if(va>vb)return monSortAsc?1:-1;return 0;
   });
 
-  // KPIs
-  const agora=new Date();
-  const hoje=agora.toISOString().slice(0,10);
-  const emAndamento=linhas.filter(l=>l.status==='andamento').length;
-  const totalHoje=linhas.filter(l=>l.data===hoje).length;
-  const empresasAtivas=new Set(linhas.filter(l=>l.status==='andamento').map(l=>l.empresaId)).size;
+  const agora=new Date();const hoje=agora.toISOString().slice(0,10);
+  const emAnd=linhas.filter(l=>l.status==='andamento').length;
+  const totHoje=linhas.filter(l=>l.data===hoje).length;
+  const empsAtivas=new Set(linhas.filter(l=>l.status==='andamento').map(l=>l.empId)).size;
   const maxSeq=linhas.reduce((m,l)=>Math.max(m,l.seq),0);
-  const finalizados=linhas.filter(l=>l.status==='finalizado').length;
+  const fin=linhas.filter(l=>l.status==='finalizado').length;
 
   document.getElementById('mon-kpis').innerHTML=`
-    <div class="kpi-card"><div class="kpi-val" style="color:#155724">${emAndamento}</div><div class="kpi-lbl">🟢 Em Serviço Agora</div></div>
-    <div class="kpi-card"><div class="kpi-val" style="color:var(--blue)">${totalHoje}</div><div class="kpi-lbl">📅 Plantões Hoje</div></div>
-    <div class="kpi-card"><div class="kpi-val" style="color:var(--green)">${empresasAtivas}</div><div class="kpi-lbl">🏢 Empresas Ativas</div></div>
-    <div class="kpi-card"><div class="kpi-val" style="color:${maxSeq>10?'#721c24':maxSeq>6?'#856404':'var(--text)'}">${maxSeq}</div><div class="kpi-lbl">🔥 Maior Sequência</div></div>
-    <div class="kpi-card"><div class="kpi-val" style="color:var(--text2)">${finalizados}</div><div class="kpi-lbl">✅ Finalizados</div></div>
-  `;
+    <div class="kpi"><div class="kpi-val" style="color:#155724">${emAnd}</div><div class="kpi-lbl">🟢 Em Serviço Agora</div></div>
+    <div class="kpi"><div class="kpi-val" style="color:var(--blue)">${totHoje}</div><div class="kpi-lbl">📅 Plantões Hoje</div></div>
+    <div class="kpi"><div class="kpi-val" style="color:var(--green)">${empsAtivas}</div><div class="kpi-lbl">🏢 Empresas Ativas</div></div>
+    <div class="kpi"><div class="kpi-val" style="color:${maxSeq>10?'#721c24':maxSeq>6?'#856404':'var(--text)'}">${maxSeq}</div><div class="kpi-lbl">🔥 Maior Sequência</div></div>
+    <div class="kpi"><div class="kpi-val" style="color:var(--text2)">${fin}</div><div class="kpi-lbl">✅ Finalizados</div></div>`;
 
-  // Tabela
+  const fmtDt=d=>d?d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'2-digit'})+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}):'—';
   const tbody=document.getElementById('mon-tbody');
   const empty=document.getElementById('mon-empty');
   const rodape=document.getElementById('mon-rodape');
-
-  if(!linhas.length){
-    tbody.innerHTML='';
-    empty.style.display='block';
-    rodape.textContent='';
-    return;
-  }
+  if(!linhas.length){tbody.innerHTML='';empty.style.display='block';rodape.textContent='';return;}
   empty.style.display='none';
   rodape.textContent=`${linhas.length} registro${linhas.length!==1?'s':''}`;
-
-  const fmtDt=d=>d?d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'2-digit'})+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}):'—';
+  const agr=new Date();
+  document.getElementById('mon-att').textContent='Atualizado: '+agr.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
 
   tbody.innerHTML=linhas.map(l=>{
-    const seqClass=l.seq>10?'seq-alert':l.seq>6?'seq-warn':'seq-ok';
+    const seqCls=l.seq>10?'seq-alert':l.seq>6?'seq-warn':'seq-ok';
     const seqTxt=l.seq>10?`🔴 ${l.seq} dias`:l.seq>6?`⚠️ ${l.seq} dias`:`${l.seq} dia${l.seq!==1?'s':''}`;
-    const stClass=l.status==='andamento'?'status-andamento':l.status==='finalizado'?'status-finalizado':'status-futuro';
+    const stCls=l.status==='andamento'?'s-andamento':l.status==='finalizado'?'s-finalizado':'s-futuro';
     const stIcn=l.status==='andamento'?'🟢':l.status==='finalizado'?'⬜':'🔵';
     const stTxt=l.status==='andamento'?'Em Andamento':l.status==='finalizado'?'Finalizado':'Futuro';
-    const durTag=l.dur<=6?` <span style="font-size:10px;background:#FAEEDA;color:#633806;border-radius:3px;padding:1px 4px">${l.dur}h</span>`:'';
-    return`<tr class="mon-tr">
-      <td class="mon-td" style="white-space:nowrap">${fmtDt(l.inicio)}</td>
-      <td class="mon-td" style="white-space:nowrap">${fmtDt(l.fim)}</td>
-      <td class="mon-td" style="font-weight:600">${l.colabNome}</td>
-      <td class="mon-td"><span style="display:inline-flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:50%;background:${l.empresaCor};flex-shrink:0"></span>${l.empresaNome}</span></td>
-      <td class="mon-td" style="font-size:12px;color:var(--text2)">${l.turnoNome} ${l.turnoInicio}–${l.turnoFim}${durTag}</td>
-      <td class="mon-td"><span class="${seqClass}">${seqTxt}</span></td>
-      <td class="mon-td"><span class="status-pill ${stClass}">${stIcn} ${stTxt}</span></td>
-    </tr>`;
+    const durTag=l.dur<=6?` <span style="font-size:9px;background:#FAEEDA;color:#633806;border-radius:3px;padding:1px 3px">${l.dur}h</span>`:'';
+    return`<tr><td style="white-space:nowrap">${fmtDt(l.ini)}</td><td style="white-space:nowrap">${fmtDt(l.fim)}</td><td style="font-weight:600">${l.colabNome}</td><td><span style="display:inline-flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:50%;background:${l.empCor}"></span>${l.empNome}</span></td><td style="font-size:12px;color:var(--text2)">${l.turnoNome} ${l.turnoIni}–${l.turnoFim}${durTag}</td><td><span class="${seqCls}">${seqTxt}</span></td><td><span class="status-pill ${stCls}">${stIcn} ${stTxt}</span></td></tr>`;
   }).join('');
-
-  document.getElementById('mon-ultima-att').textContent='Atualizado: '+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
 }
 
-function exportarMonitoramento(){
-  // Coleta linhas filtradas
-  const fColab=(document.getElementById('mon-f-colab')?.value||'').toLowerCase().trim();
-  const fEmpresa=document.getElementById('mon-f-empresa')?.value||'';
-  const fDi=document.getElementById('mon-f-di')?.value||'';
-  const fDf=document.getElementById('mon-f-df')?.value||'';
-  const fStatus=document.getElementById('mon-f-status')?.value||'';
-
-  let linhas=[];
-  S.plantoes.forEach(p=>{
-    p.colaboradorIds.forEach(cId=>{
-      const colab=S.colaboradores.find(c=>c.id===cId);
-      const empresa=S.empresas.find(e=>e.id===p.empresaId);
-      const turno=S.turnos.find(t=>t.id===p.turnoId);
-      const status=getStatusPlantao(p.data,p.turnoId);
-      const {inicio,fim}=getInicioFim(p.data,p.turnoId);
-      const seq=calcSequencia(cId,p.data);
-      linhas.push({colabNome:colab?.nome||cId,empresaNome:empresa?.nome||'?',turnoNome:turno?.nome||'?',data:p.data,inicio,fim,status,seq});
-    });
-  });
-
-  if(fColab)linhas=linhas.filter(l=>l.colabNome.toLowerCase().includes(fColab));
-  if(fEmpresa)linhas=linhas.filter(l=>S.plantoes.find(p=>p.colaboradorIds.includes(Object.keys(S.colaboradores.find(c=>c.nome===l.colabNome)||{})[0])&&p.empresaId===fEmpresa));
-  if(fDi)linhas=linhas.filter(l=>l.data>=fDi);
-  if(fDf)linhas=linhas.filter(l=>l.data<=fDf);
-  if(fStatus)linhas=linhas.filter(l=>l.status===fStatus);
-
-  if(!linhas.length){alert('Nenhum dado para exportar.');return;}
-
+function exportMonCSV(){
   const fmtDt=d=>d?d.toLocaleDateString('pt-BR')+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}):'';
   const stTxt=s=>s==='andamento'?'Em Andamento':s==='finalizado'?'Finalizado':'Futuro';
-
-  const cab=['Data/Hora Início','Data/Hora Fim','Colaborador','Empresa','Turno','Dias Consecutivos','Status'];
-  const rows=linhas.map(l=>[fmtDt(l.inicio),fmtDt(l.fim),l.colabNome,l.empresaNome,l.turnoNome,l.seq,stTxt(l.status)]);
-
-  const csv=[cab,...rows].map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(';')).join('\n');
-  const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
-  const url=URL.createObjectURL(blob);
-  const agora=new Date();
-  const ts=`${agora.getFullYear()}${String(agora.getMonth()+1).padStart(2,'0')}${String(agora.getDate()).padStart(2,'0')}_${String(agora.getHours()).padStart(2,'0')}${String(agora.getMinutes()).padStart(2,'0')}${String(agora.getSeconds()).padStart(2,'0')}`;
+  const linhas=[];
+  DB.plantoes.forEach(p=>{
+    getColabsPlantao(p.id).forEach(cId=>{
+      const c=getColab(cId);const e=getEmp(p.empresa_id);const t=getTurno(p.turno_id);
+      const status=getStatus(p.data,p.turno_id);
+      const{ini,fim}=getInicioFimDt(p.data,p.turno_id);
+      const seq=calcSeq(cId,p.data);
+      linhas.push([fmtDt(ini),fmtDt(fim),c?.nome||cId,e?.nome||'?',t?.nome||'?',seq,stTxt(status)]);
+    });
+  });
+  const csv=[['Início','Fim','Colaborador','Empresa','Turno','Dias Consecutivos','Status'],...linhas].map(r=>r.join(';')).join('\n');
+  const blob=new Blob(['\uFEFF'+csv],{type:'text/csv'});
+  const url=URL.createObjectURL(blob);const agora=new Date();
+  const ts=`${agora.getFullYear()}${String(agora.getMonth()+1).padStart(2,'0')}${String(agora.getDate()).padStart(2,'0')}_${String(agora.getHours()).padStart(2,'0')}${String(agora.getMinutes()).padStart(2,'0')}`;
   const a=document.createElement('a');a.href=url;a.download=`Monitoramento_Vigilante_${ts}.csv`;a.click();
 }
 
-/* ══ RELÓGIO ══ */
+// ── RELÓGIO ──
 function atualizarRelogio(){
-  const now=new Date();
-  document.getElementById('relogio').textContent=now.toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'short'})+' · '+now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  const n=new Date();
+  document.getElementById('relogio').textContent=n.toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'short'})+' · '+n.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
 }
 setInterval(atualizarRelogio,1000);
 </script>
