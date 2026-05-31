@@ -703,12 +703,25 @@ function initS(){
 
 // ── SUPABASE: salvar dados ──
 async function saveS(){
-  if(_saving)return;
-  _saving=true;
+  // Mostra indicador de salvando
+  const el=document.getElementById('sync-indicator');
+  if(el){el.style.opacity='1';el.style.background='#f59e0b';}
   try{
-    await supa.from('dm_config').upsert({id:SUPA_DOC, dados:S, atualizado_em:new Date().toISOString()},{onConflict:'id'});
-  }catch(e){console.error('Erro saveS:',e);}
-  _saving=false;
+    const {error}=await supa.from('dm_config').upsert(
+      {id:SUPA_DOC, dados:S, atualizado_em:new Date().toISOString()},
+      {onConflict:'id'}
+    );
+    if(error){
+      console.error('Erro saveS:',error);
+      if(el){el.style.background='#ef4444';}
+    } else {
+      if(el){el.style.background='#22c55e';}
+    }
+  }catch(e){
+    console.error('Erro saveS:',e);
+    if(el){el.style.background='#ef4444';}
+  }
+  setTimeout(()=>{if(el)el.style.opacity='0';},2000);
   atualizarTelas();
 }
 
