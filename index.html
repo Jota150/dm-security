@@ -822,16 +822,12 @@ async function garantirTabela(){
   }
 }
 
-// Verifica sessão ao carregar
+// Verifica sessão ao carregar — sempre exige login
 async function iniciar(){
-  const {data:{session}}=await supa.auth.getSession();
+  // Encerra qualquer sessão anterior para garantir tela de login
+  await supa.auth.signOut();
   document.getElementById('loading-screen').style.display='none';
-  if(session){
-    currentUser=session.user;
-    mostrarApp();
-  } else {
-    document.getElementById('login-screen').style.display='block';
-  }
+  document.getElementById('login-screen').style.display='block';
 }
 iniciar();
 
