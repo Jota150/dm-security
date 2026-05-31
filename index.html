@@ -248,6 +248,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
       <button class="nav-btn" onclick="showPage('monitoramento',this)" style="background:linear-gradient(135deg,#0f2c52,#185FA5);color:#fff;font-weight:700">👁 Monitoramento</button>
     </div>
     <div class="user-info">
+      <div id="sync-indicator" title="Sincronizado" style="width:10px;height:10px;border-radius:50%;background:#22c55e;opacity:0;transition:opacity .5s;flex-shrink:0"></div>
       <span id="user-email-label"></span>
       <button class="logout-btn" onclick="fazerLogout()">Sair</button>
     </div>
@@ -670,7 +671,7 @@ const supa = supabase.createClient(SUPA_URL, SUPA_KEY);
 const MESES=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 const TC=['tc0','tc1','tc2','tc3','tc4','tc5','tc6','tc7'];
 const CORES=['#185FA5','#1D9E75','#D85A30','#7F77DD','#3B6D11','#D4537E','#854F0B','#A32D2D','#0F6E56','#5F5E5A'];
-const KEY='dm_security_v7';
+const SUPA_DOC = 'dados_v1';
 
 let S = null;
 let calMes=new Date().getMonth(), calAno=new Date().getFullYear();
@@ -678,29 +679,87 @@ let miniMes=new Date().getMonth(), miniAno=new Date().getFullYear();
 let diasSelecionados=new Set();
 let modalDia=null, pendingP=null, editTurnoId=null, editColabId=null, editEmpresaId=null, selectedColor=CORES[0];
 let currentUser=null;
+let _saving=false;
+let _channel=null;
 
-// ── Banco local (localStorage) ──
-function loadS(){
-  try{const s=localStorage.getItem(KEY);if(s){const d=JSON.parse(s);if(d.empresas)d.empresas.forEach(e=>{if(e.valorPlantao===undefined)e.valorPlantao=160;});if(!d.substituicoes)d.substituicoes=[];return d;}}catch(e){}return initS();
-}
-function saveS(){
-  try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}
-  // Atualiza monitoramento em tempo real se estiver ativo
-  const monPg=document.getElementById('page-monitoramento');
-  if(monPg&&monPg.classList.contains('active'))renderMonitoramento();
-}
 function initS(){
-  const turnos=[{id:'t0',nome:'Diurno',inicio:'07:00',fim:'19:00'},{id:'t1',nome:'Noturno',inicio:'19:00',fim:'07:00'}];
-  const empresas=[{id:'picinin',nome:'PICININ',endereco:'',responsavel:'',telefone:'',obs:'',cor:CORES[0],ativo:true,valorPlantao:160}];
-  const colaboradores=[
-    {id:'jose-f',nome:'JOSE F.',telefone:'',documento:'',ativo:true},
-    {id:'renato-c',nome:'RENATO C.',telefone:'',documento:'',ativo:true},
-    {id:'diogo',nome:'DIOGO',telefone:'',documento:'',ativo:true},
-    {id:'michael',nome:'MICHAEL',telefone:'',documento:'',ativo:true},
-    {id:'roberton',nome:'ROBERTON',telefone:'',documento:'',ativo:true},
-    {id:'willian',nome:'WILLIAN',telefone:'',documento:'',ativo:true},
-  ];
-  return{empresas,colaboradores,turnos,plantoes:[],substituicoes:[],valorPlantao:160};
+  return{
+    empresas:[{id:'picinin',nome:'PICININ',endereco:'',responsavel:'',telefone:'',obs:'',cor:CORES[0],ativo:true,valorPlantao:160}],
+    colaboradores:[
+      {id:'jose-f',nome:'JOSE F.',telefone:'',documento:'',ativo:true},
+      {id:'renato-c',nome:'RENATO C.',telefone:'',documento:'',ativo:true},
+      {id:'diogo',nome:'DIOGO',telefone:'',documento:'',ativo:true},
+      {id:'michael',nome:'MICHAEL',telefone:'',documento:'',ativo:true},
+      {id:'roberton',nome:'ROBERTON',telefone:'',documento:'',ativo:true},
+      {id:'willian',nome:'WILLIAN',telefone:'',documento:'',ativo:true},
+    ],
+    turnos:[
+      {id:'t0',nome:'Diurno',inicio:'07:00',fim:'19:00'},
+      {id:'t1',nome:'Noturno',inicio:'19:00',fim:'07:00'}
+    ],
+    plantoes:[],substituicoes:[],valorPlantao:160
+  };
+}
+
+// ── SUPABASE: salvar dados ──
+async function saveS(){
+  if(_saving)return;
+  _saving=true;
+  try{
+    await supa.from('dm_config').upsert({id:SUPA_DOC, dados:S, atualizado_em:new Date().toISOString()},{onConflict:'id'});
+  }catch(e){console.error('Erro saveS:',e);}
+  _saving=false;
+  atualizarTelas();
+}
+
+// ── SUPABASE: carregar dados ──
+async function loadS(){
+  try{
+    const {data,error}=await supa.from('dm_config').select('dados').eq('id',SUPA_DOC).single();
+    if(error||!data)return initS();
+    const d=data.dados;
+    if(d.empresas)d.empresas.forEach(e=>{if(e.valorPlantao===undefined)e.valorPlantao=160;});
+    if(!d.substituicoes)d.substituicoes=[];
+    return d;
+  }catch(e){return initS();}
+}
+
+// ── SUPABASE: escuta mudanças em tempo real ──
+function iniciarRealtimeSync(){
+  if(_channel)supa.removeChannel(_channel);
+  _channel=supa.channel('dm_realtime')
+    .on('postgres_changes',{event:'*',schema:'public',table:'dm_config',filter:`id=eq.${SUPA_DOC}`},async (payload)=>{
+      if(!payload.new?.dados)return;
+      S=payload.new.dados;
+      if(S.empresas)S.empresas.forEach(e=>{if(e.valorPlantao===undefined)e.valorPlantao=160;});
+      if(!S.substituicoes)S.substituicoes=[];
+      atualizarTelas();
+      mostrarIndicadorSync();
+    })
+    .subscribe();
+}
+
+function mostrarIndicadorSync(){
+  const el=document.getElementById('sync-indicator');
+  if(!el)return;
+  el.style.opacity='1';el.style.background='#22c55e';
+  setTimeout(()=>{el.style.opacity='0';},1500);
+}
+
+function atualizarTelas(){
+  try{
+    populateEmpresaSelect();
+    const paginaAtiva=document.querySelector('.page.active');
+    if(!paginaAtiva)return;
+    const id=paginaAtiva.id;
+    if(id==='page-calendario')renderCal();
+    if(id==='page-empresas')renderEmpresas();
+    if(id==='page-turnos')renderTurnos();
+    if(id==='page-colaboradores')renderColabs();
+    if(id==='page-relatorio'){populateRelSelects();renderRelatorio();}
+    if(id==='page-substituicoes')renderSubstituicoes();
+    if(id==='page-monitoramento')renderMonitoramento();
+  }catch(e){console.error(e);}
 }
 
 // ── AUTH SUPABASE ──
@@ -723,15 +782,31 @@ async function fazerLogout(){
   document.getElementById('login-screen').style.display='block';
 }
 
-function mostrarApp(){
+async function mostrarApp(){
   document.getElementById('login-screen').style.display='none';
   document.getElementById('app-screen').style.display='block';
   document.getElementById('user-email-label').textContent=currentUser?.email||'';
-  S=loadS();
+
+  // Primeiro cria tabela se não existir
+  await garantirTabela();
+
+  // Carrega dados do Supabase
+  S=await loadS();
   populateEmpresaSelect();
   renderCal();
   atualizarRelogio();
   setInterval(atualizarRelogio,1000);
+
+  // Inicia sincronização em tempo real
+  iniciarRealtimeSync();
+}
+
+async function garantirTabela(){
+  // Cria o registro inicial se não existir
+  const {data}=await supa.from('dm_config').select('id').eq('id',SUPA_DOC);
+  if(!data||data.length===0){
+    await supa.from('dm_config').insert({id:SUPA_DOC,dados:initS(),atualizado_em:new Date().toISOString()});
+  }
 }
 
 // Verifica sessão ao carregar
