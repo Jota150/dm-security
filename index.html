@@ -174,6 +174,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
 .section-title{font-size:18px;font-weight:700}.section-sub{font-size:12px;color:var(--text2);margin-top:2px}
 @media(max-width:640px){.cal-day{min-height:80px}.rel-details{grid-template-columns:repeat(2,1fr)}.content{padding:10px}.nav-btn{padding:5px 7px;font-size:11px}.empresas-grid{grid-template-columns:1fr}}
+/* MONITORAMENTO */
+.mon-th{padding:10px 12px;text-align:left;font-weight:600;font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.04em;cursor:pointer;white-space:nowrap;border-bottom:2px solid var(--border);user-select:none}
+.mon-th:hover{background:var(--bg3);color:var(--blue)}
+.mon-td{padding:11px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+.mon-tr:hover td{background:var(--bg2)}
+.status-pill{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap}
+.status-andamento{background:#d4edda;color:#155724}
+.status-finalizado{background:#e2e3e5;color:#383d41}
+.status-futuro{background:#d1ecf1;color:#0c5460}
+.seq-ok{color:var(--text);font-weight:600}
+.seq-warn{color:#856404;font-weight:700;background:#fff3cd;padding:2px 8px;border-radius:12px}
+.seq-alert{color:#721c24;font-weight:700;background:#f8d7da;padding:2px 8px;border-radius:12px}
+.kpi-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px}
+.kpi-val{font-size:26px;font-weight:800;line-height:1}
+.kpi-lbl{font-size:11px;color:var(--text2);margin-top:4px}
+.dia-atual-ativo{background:var(--blue)!important;color:#fff!important;border-color:var(--blue)!important}
 /* LOADING */
 #loading-screen{position:fixed;inset:0;background:#f4f5f7;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
 .spin{width:40px;height:40px;border:3px solid #ddd;border-top-color:#185FA5;border-radius:50%;animation:spin .8s linear infinite}
@@ -229,6 +245,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
       <button class="nav-btn" onclick="showPage('colaboradores',this)">👥 Colaboradores</button>
       <button class="nav-btn" onclick="showPage('relatorio',this)">💰 Pagamentos</button>
       <button class="nav-btn" onclick="showPage('substituicoes',this)">🔄 Substituições</button>
+      <button class="nav-btn" onclick="showPage('monitoramento',this)" style="background:linear-gradient(135deg,#0f2c52,#185FA5);color:#fff;font-weight:700">👁 Monitoramento</button>
     </div>
     <div class="user-info">
       <span id="user-email-label"></span>
@@ -367,9 +384,87 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
         <div id="sub-empty" class="sub-empty" style="display:none">Nenhuma substituição registrada.</div>
       </div>
     </div>
-  </div>
+    <!-- MONITORAMENTO VIGILANTE -->
+    <div id="page-monitoramento" class="page">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+        <div>
+          <div class="section-title" style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:22px">👁</span> Monitoramento Vigilante
+          </div>
+          <div class="section-sub">Tempo real — sincronizado com o Calendário</div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <div id="mon-ultima-att" style="font-size:11px;color:var(--text3)"></div>
+          <button id="btn-dia-atual" class="btn" onclick="toggleDiaAtual()" style="border-color:var(--blue);color:var(--blue);font-weight:600">📍 Dia Atual</button>
+          <button class="btn" onclick="exportarMonitoramento()" style="border-color:var(--green);color:var(--green);font-weight:600">⬇ Excel (.xlsx)</button>
+        </div>
+      </div>
 
-  <footer style="background:var(--bg);border-top:1px solid var(--border);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+      <!-- KPIs -->
+      <div id="mon-kpis" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:16px"></div>
+
+      <!-- FILTROS -->
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:14px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;align-items:end">
+          <div>
+            <div class="config-lbl">🔍 Colaborador</div>
+            <input type="text" id="mon-f-colab" class="form-input" placeholder="Nome..." oninput="renderMonitoramento()">
+          </div>
+          <div>
+            <div class="config-lbl">🏢 Empresa</div>
+            <select id="mon-f-empresa" class="form-select" onchange="renderMonitoramento()">
+              <option value="">Todas</option>
+            </select>
+          </div>
+          <div>
+            <div class="config-lbl">📅 Data Inicial</div>
+            <input type="date" id="mon-f-di" class="form-input" onchange="renderMonitoramento()">
+          </div>
+          <div>
+            <div class="config-lbl">📅 Data Final</div>
+            <input type="date" id="mon-f-df" class="form-input" onchange="renderMonitoramento()">
+          </div>
+          <div>
+            <div class="config-lbl">📊 Status</div>
+            <select id="mon-f-status" class="form-select" onchange="renderMonitoramento()">
+              <option value="">Todos</option>
+              <option value="andamento">Em Andamento</option>
+              <option value="finalizado">Finalizado</option>
+              <option value="futuro">Futuro</option>
+            </select>
+          </div>
+          <div style="display:flex;align-items:flex-end">
+            <button class="btn" onclick="limparFiltrosMon()" style="width:100%">✕ Limpar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABELA -->
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden">
+        <div style="overflow-x:auto">
+          <table style="width:100%;border-collapse:collapse;font-size:13px" id="mon-table">
+            <thead>
+              <tr style="background:var(--bg2)">
+                <th onclick="sortMon('inicio')" class="mon-th">Início ↕</th>
+                <th onclick="sortMon('fim')" class="mon-th">Fim ↕</th>
+                <th onclick="sortMon('colab')" class="mon-th">Colaborador ↕</th>
+                <th onclick="sortMon('empresa')" class="mon-th">Empresa ↕</th>
+                <th onclick="sortMon('turno')" class="mon-th">Turno</th>
+                <th onclick="sortMon('sequencia')" class="mon-th">Dias Consecutivos ↕</th>
+                <th onclick="sortMon('status')" class="mon-th">Status ↕</th>
+              </tr>
+            </thead>
+            <tbody id="mon-tbody"></tbody>
+          </table>
+        </div>
+        <div id="mon-empty" style="text-align:center;padding:48px;color:var(--text2);font-size:13px;display:none">
+          Nenhum plantão encontrado com os filtros aplicados.
+        </div>
+        <div id="mon-rodape" style="padding:10px 14px;font-size:12px;color:var(--text2);border-top:1px solid var(--border)"></div>
+      </div>
+    </div>
+
+
     <div style="font-size:12px;color:var(--text2)">D&M Security Operation — Gestão de Plantões</div>
     <div id="relogio" style="font-size:13px;color:var(--text2)"></div>
   </footer>
@@ -588,7 +683,12 @@ let currentUser=null;
 function loadS(){
   try{const s=localStorage.getItem(KEY);if(s){const d=JSON.parse(s);if(d.empresas)d.empresas.forEach(e=>{if(e.valorPlantao===undefined)e.valorPlantao=160;});if(!d.substituicoes)d.substituicoes=[];return d;}}catch(e){}return initS();
 }
-function saveS(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function saveS(){
+  try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}
+  // Atualiza monitoramento em tempo real se estiver ativo
+  const monPg=document.getElementById('page-monitoramento');
+  if(monPg&&monPg.classList.contains('active'))renderMonitoramento();
+}
 function initS(){
   const turnos=[{id:'t0',nome:'Diurno',inicio:'07:00',fim:'19:00'},{id:'t1',nome:'Noturno',inicio:'19:00',fim:'07:00'}];
   const empresas=[{id:'picinin',nome:'PICININ',endereco:'',responsavel:'',telefone:'',obs:'',cor:CORES[0],ativo:true,valorPlantao:160}];
@@ -679,16 +779,7 @@ function descFatorTurno(turnoId){
   return 'plantão completo (12h)';
 }
 
-function showPage(name,btn){
-  if(!S)return;
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('page-'+name).classList.add('active');
-  btn.classList.add('active');
-  ({calendario:()=>{populateEmpresaSelect();renderCal();},empresas:renderEmpresas,turnos:renderTurnos,colaboradores:renderColabs,relatorio:()=>{populateRelSelects();renderRelatorio();},substituicoes:()=>{renderSubstituicoes();populateSubFilters();}})[name]?.();
-}
-
-/* ══ CALENDÁRIO ══ */
+// showPage está definida no bloco Monitoramento
 function populateEmpresaSelect(){
   if(!S)return;
   const sel=document.getElementById('empresa-select'),cur=sel.value;
@@ -1207,6 +1298,273 @@ function exportarExcel(){
   const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a');a.href=url;a.download=`substituicoes_${new Date().toISOString().slice(0,10)}.csv`;a.click();
+}
+
+/* ══ MONITORAMENTO VIGILANTE ══ */
+let monSortCol='inicio', monSortAsc=true, monDiaAtual=false;
+
+function showPage(name,btn){
+  if(!S)return;
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  btn.classList.add('active');
+  ({
+    calendario:()=>{populateEmpresaSelect();renderCal();},
+    empresas:renderEmpresas,
+    turnos:renderTurnos,
+    colaboradores:renderColabs,
+    relatorio:()=>{populateRelSelects();renderRelatorio();},
+    substituicoes:()=>{renderSubstituicoes();populateSubFilters();},
+    monitoramento:()=>{populateMonFiltros();renderMonitoramento();}
+  })[name]?.();
+}
+
+function populateMonFiltros(){
+  const sel=document.getElementById('mon-f-empresa');
+  const cur=sel.value;
+  sel.innerHTML='<option value="">Todas</option>'+S.empresas.map(e=>`<option value="${e.id}">${e.nome}</option>`).join('');
+  if(cur)sel.value=cur;
+}
+
+function getStatusPlantao(data,turnoId){
+  const agora=new Date();
+  const t=S.turnos.find(t=>t.id===turnoId);
+  if(!t)return 'futuro';
+  const [ano,mes,dia]=data.split('-').map(Number);
+  const [hi,mi]=(t.inicio||'00:00').split(':').map(Number);
+  const [hf,mf]=(t.fim||'00:00').split(':').map(Number);
+  const inicio=new Date(ano,mes-1,dia,hi,mi,0);
+  let fim=new Date(ano,mes-1,dia,hf,mf,0);
+  if(fim<=inicio)fim.setDate(fim.getDate()+1);
+  if(agora<inicio)return 'futuro';
+  if(agora>=inicio&&agora<=fim)return 'andamento';
+  return 'finalizado';
+}
+
+function getInicioFim(data,turnoId){
+  const t=S.turnos.find(t=>t.id===turnoId);
+  if(!t)return{inicio:null,fim:null};
+  const [ano,mes,dia]=data.split('-').map(Number);
+  const [hi,mi]=(t.inicio||'00:00').split(':').map(Number);
+  const [hf,mf]=(t.fim||'00:00').split(':').map(Number);
+  const inicio=new Date(ano,mes-1,dia,hi,mi,0);
+  let fim=new Date(ano,mes-1,dia,hf,mf,0);
+  if(fim<=inicio)fim.setDate(fim.getDate()+1);
+  return{inicio,fim};
+}
+
+function calcSequencia(colabId,dataRef){
+  // Conta dias consecutivos até dataRef (inclusive)
+  const datasColab=[...new Set(
+    S.plantoes.filter(p=>p.colaboradorIds.includes(colabId)).map(p=>p.data)
+  )].sort();
+  if(!datasColab.includes(dataRef))return 1;
+  const idx=datasColab.indexOf(dataRef);
+  let seq=1;
+  for(let i=idx-1;i>=0;i--){
+    const d1=new Date(datasColab[i+1]);
+    const d2=new Date(datasColab[i]);
+    const diff=(d1-d2)/(1000*3600*24);
+    if(diff===1)seq++;
+    else break;
+  }
+  return seq;
+}
+
+function toggleDiaAtual(){
+  monDiaAtual=!monDiaAtual;
+  const btn=document.getElementById('btn-dia-atual');
+  btn.classList.toggle('dia-atual-ativo',monDiaAtual);
+  if(monDiaAtual){
+    // Aplica filtro do dia atual
+    const hoje=new Date();
+    const dd=String(hoje.getDate()).padStart(2,'0');
+    const mm=String(hoje.getMonth()+1).padStart(2,'0');
+    const yyyy=hoje.getFullYear();
+    const ontem=new Date(hoje);ontem.setDate(hoje.getDate()-1);
+    const ddo=String(ontem.getDate()).padStart(2,'0');
+    const mmo=String(ontem.getMonth()+1).padStart(2,'0');
+    const yyyyo=ontem.getFullYear();
+    document.getElementById('mon-f-di').value=`${yyyyo}-${mmo}-${ddo}`;
+    document.getElementById('mon-f-df').value=`${yyyy}-${mm}-${dd}`;
+  } else {
+    document.getElementById('mon-f-di').value='';
+    document.getElementById('mon-f-df').value='';
+  }
+  renderMonitoramento();
+}
+
+function limparFiltrosMon(){
+  document.getElementById('mon-f-colab').value='';
+  document.getElementById('mon-f-empresa').value='';
+  document.getElementById('mon-f-di').value='';
+  document.getElementById('mon-f-df').value='';
+  document.getElementById('mon-f-status').value='';
+  monDiaAtual=false;
+  document.getElementById('btn-dia-atual').classList.remove('dia-atual-ativo');
+  renderMonitoramento();
+}
+
+function sortMon(col){
+  if(monSortCol===col)monSortAsc=!monSortAsc;
+  else{monSortCol=col;monSortAsc=true;}
+  renderMonitoramento();
+}
+
+function renderMonitoramento(){
+  if(!S)return;
+  populateMonFiltros();
+
+  const fColab=(document.getElementById('mon-f-colab')?.value||'').toLowerCase().trim();
+  const fEmpresa=document.getElementById('mon-f-empresa')?.value||'';
+  const fDi=document.getElementById('mon-f-di')?.value||'';
+  const fDf=document.getElementById('mon-f-df')?.value||'';
+  const fStatus=document.getElementById('mon-f-status')?.value||'';
+
+  // Expande plantões por colaborador (cada colaborador = uma linha)
+  let linhas=[];
+  S.plantoes.forEach(p=>{
+    p.colaboradorIds.forEach(cId=>{
+      const colab=S.colaboradores.find(c=>c.id===cId);
+      const empresa=S.empresas.find(e=>e.id===p.empresaId);
+      const turno=S.turnos.find(t=>t.id===p.turnoId);
+      const status=getStatusPlantao(p.data,p.turnoId);
+      const {inicio,fim}=getInicioFim(p.data,p.turnoId);
+      const seq=calcSequencia(cId,p.data);
+      const dur=turno?calcDuracao(turno.inicio,turno.fim):12;
+      linhas.push({
+        plantaoId:p.id, colabId:cId,
+        colabNome:colab?.nome||cId,
+        empresaNome:empresa?.nome||'?',
+        empresaCor:empresa?.cor||'#ccc',
+        empresaId:p.empresaId,
+        turnoNome:turno?.nome||'?',
+        turnoInicio:turno?.inicio||'',
+        turnoFim:turno?.fim||'',
+        data:p.data, inicio, fim, status, seq, dur,
+      });
+    });
+  });
+
+  // Filtros
+  if(fColab)linhas=linhas.filter(l=>l.colabNome.toLowerCase().includes(fColab));
+  if(fEmpresa)linhas=linhas.filter(l=>l.empresaId===fEmpresa);
+  if(fDi)linhas=linhas.filter(l=>l.data>=fDi);
+  if(fDf)linhas=linhas.filter(l=>l.data<=fDf);
+  if(fStatus)linhas=linhas.filter(l=>l.status===fStatus);
+
+  // Ordenação
+  linhas.sort((a,b)=>{
+    let va,vb;
+    if(monSortCol==='inicio'){va=a.inicio?.getTime()||0;vb=b.inicio?.getTime()||0;}
+    else if(monSortCol==='fim'){va=a.fim?.getTime()||0;vb=b.fim?.getTime()||0;}
+    else if(monSortCol==='colab'){va=a.colabNome;vb=b.colabNome;}
+    else if(monSortCol==='empresa'){va=a.empresaNome;vb=b.empresaNome;}
+    else if(monSortCol==='turno'){va=a.turnoNome;vb=b.turnoNome;}
+    else if(monSortCol==='sequencia'){va=a.seq;vb=b.seq;}
+    else if(monSortCol==='status'){va=a.status;vb=b.status;}
+    else{va=a.data;vb=b.data;}
+    if(va<vb)return monSortAsc?-1:1;
+    if(va>vb)return monSortAsc?1:-1;
+    return 0;
+  });
+
+  // KPIs
+  const agora=new Date();
+  const hoje=agora.toISOString().slice(0,10);
+  const emAndamento=linhas.filter(l=>l.status==='andamento').length;
+  const totalHoje=linhas.filter(l=>l.data===hoje).length;
+  const empresasAtivas=new Set(linhas.filter(l=>l.status==='andamento').map(l=>l.empresaId)).size;
+  const maxSeq=linhas.reduce((m,l)=>Math.max(m,l.seq),0);
+  const finalizados=linhas.filter(l=>l.status==='finalizado').length;
+
+  document.getElementById('mon-kpis').innerHTML=`
+    <div class="kpi-card"><div class="kpi-val" style="color:#155724">${emAndamento}</div><div class="kpi-lbl">🟢 Em Serviço Agora</div></div>
+    <div class="kpi-card"><div class="kpi-val" style="color:var(--blue)">${totalHoje}</div><div class="kpi-lbl">📅 Plantões Hoje</div></div>
+    <div class="kpi-card"><div class="kpi-val" style="color:var(--green)">${empresasAtivas}</div><div class="kpi-lbl">🏢 Empresas Ativas</div></div>
+    <div class="kpi-card"><div class="kpi-val" style="color:${maxSeq>10?'#721c24':maxSeq>6?'#856404':'var(--text)'}">${maxSeq}</div><div class="kpi-lbl">🔥 Maior Sequência</div></div>
+    <div class="kpi-card"><div class="kpi-val" style="color:var(--text2)">${finalizados}</div><div class="kpi-lbl">✅ Finalizados</div></div>
+  `;
+
+  // Tabela
+  const tbody=document.getElementById('mon-tbody');
+  const empty=document.getElementById('mon-empty');
+  const rodape=document.getElementById('mon-rodape');
+
+  if(!linhas.length){
+    tbody.innerHTML='';
+    empty.style.display='block';
+    rodape.textContent='';
+    return;
+  }
+  empty.style.display='none';
+  rodape.textContent=`${linhas.length} registro${linhas.length!==1?'s':''}`;
+
+  const fmtDt=d=>d?d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'2-digit'})+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}):'—';
+
+  tbody.innerHTML=linhas.map(l=>{
+    const seqClass=l.seq>10?'seq-alert':l.seq>6?'seq-warn':'seq-ok';
+    const seqTxt=l.seq>10?`🔴 ${l.seq} dias`:l.seq>6?`⚠️ ${l.seq} dias`:`${l.seq} dia${l.seq!==1?'s':''}`;
+    const stClass=l.status==='andamento'?'status-andamento':l.status==='finalizado'?'status-finalizado':'status-futuro';
+    const stIcn=l.status==='andamento'?'🟢':l.status==='finalizado'?'⬜':'🔵';
+    const stTxt=l.status==='andamento'?'Em Andamento':l.status==='finalizado'?'Finalizado':'Futuro';
+    const durTag=l.dur<=6?` <span style="font-size:10px;background:#FAEEDA;color:#633806;border-radius:3px;padding:1px 4px">${l.dur}h</span>`:'';
+    return`<tr class="mon-tr">
+      <td class="mon-td" style="white-space:nowrap">${fmtDt(l.inicio)}</td>
+      <td class="mon-td" style="white-space:nowrap">${fmtDt(l.fim)}</td>
+      <td class="mon-td" style="font-weight:600">${l.colabNome}</td>
+      <td class="mon-td"><span style="display:inline-flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:50%;background:${l.empresaCor};flex-shrink:0"></span>${l.empresaNome}</span></td>
+      <td class="mon-td" style="font-size:12px;color:var(--text2)">${l.turnoNome} ${l.turnoInicio}–${l.turnoFim}${durTag}</td>
+      <td class="mon-td"><span class="${seqClass}">${seqTxt}</span></td>
+      <td class="mon-td"><span class="status-pill ${stClass}">${stIcn} ${stTxt}</span></td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('mon-ultima-att').textContent='Atualizado: '+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+}
+
+function exportarMonitoramento(){
+  // Coleta linhas filtradas
+  const fColab=(document.getElementById('mon-f-colab')?.value||'').toLowerCase().trim();
+  const fEmpresa=document.getElementById('mon-f-empresa')?.value||'';
+  const fDi=document.getElementById('mon-f-di')?.value||'';
+  const fDf=document.getElementById('mon-f-df')?.value||'';
+  const fStatus=document.getElementById('mon-f-status')?.value||'';
+
+  let linhas=[];
+  S.plantoes.forEach(p=>{
+    p.colaboradorIds.forEach(cId=>{
+      const colab=S.colaboradores.find(c=>c.id===cId);
+      const empresa=S.empresas.find(e=>e.id===p.empresaId);
+      const turno=S.turnos.find(t=>t.id===p.turnoId);
+      const status=getStatusPlantao(p.data,p.turnoId);
+      const {inicio,fim}=getInicioFim(p.data,p.turnoId);
+      const seq=calcSequencia(cId,p.data);
+      linhas.push({colabNome:colab?.nome||cId,empresaNome:empresa?.nome||'?',turnoNome:turno?.nome||'?',data:p.data,inicio,fim,status,seq});
+    });
+  });
+
+  if(fColab)linhas=linhas.filter(l=>l.colabNome.toLowerCase().includes(fColab));
+  if(fEmpresa)linhas=linhas.filter(l=>S.plantoes.find(p=>p.colaboradorIds.includes(Object.keys(S.colaboradores.find(c=>c.nome===l.colabNome)||{})[0])&&p.empresaId===fEmpresa));
+  if(fDi)linhas=linhas.filter(l=>l.data>=fDi);
+  if(fDf)linhas=linhas.filter(l=>l.data<=fDf);
+  if(fStatus)linhas=linhas.filter(l=>l.status===fStatus);
+
+  if(!linhas.length){alert('Nenhum dado para exportar.');return;}
+
+  const fmtDt=d=>d?d.toLocaleDateString('pt-BR')+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}):'';
+  const stTxt=s=>s==='andamento'?'Em Andamento':s==='finalizado'?'Finalizado':'Futuro';
+
+  const cab=['Data/Hora Início','Data/Hora Fim','Colaborador','Empresa','Turno','Dias Consecutivos','Status'];
+  const rows=linhas.map(l=>[fmtDt(l.inicio),fmtDt(l.fim),l.colabNome,l.empresaNome,l.turnoNome,l.seq,stTxt(l.status)]);
+
+  const csv=[cab,...rows].map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(';')).join('\n');
+  const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);
+  const agora=new Date();
+  const ts=`${agora.getFullYear()}${String(agora.getMonth()+1).padStart(2,'0')}${String(agora.getDate()).padStart(2,'0')}_${String(agora.getHours()).padStart(2,'0')}${String(agora.getMinutes()).padStart(2,'0')}${String(agora.getSeconds()).padStart(2,'0')}`;
+  const a=document.createElement('a');a.href=url;a.download=`Monitoramento_Vigilante_${ts}.csv`;a.click();
 }
 
 /* ══ RELÓGIO ══ */
